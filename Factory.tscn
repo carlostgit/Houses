@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Factory.gd" type="Script" id=1]
+[ext_resource path="res://factory.png" type="Texture" id=2]
+
+[node name="Factory" type="Node2D"]
+position = Vector2( 270, 50 )
+script = ExtResource( 1 )
+
+[node name="FactoryTexture" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 2 )
+
+[node name="SalaryLabel" type="Label" parent="."]
+margin_left = 10.0
+margin_top = -20.0
+margin_right = 57.0
+text = "0$"
+align = 2
+valign = 1
+
+[node name="TimerUpdateLabel" type="Timer" parent="."]
+autostart = true
+[connection signal="timeout" from="TimerUpdateLabel" to="." method="_on_TimerUpdateLabel_timeout"]

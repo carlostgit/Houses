@@ -64,6 +64,14 @@ func get_workers_without_house() -> Array:
 		if null == worker.get_house():
 			workers_wo_house.append(worker)
 	return workers_wo_house
+	
+func get_available_houses(worker_arg) -> Array:
+	var houses:Array = []
+	for house in get_houses():
+		if false == house.is_worker_banned(worker_arg):
+			houses.push_back(house)
+	return houses	
+			
 
 
 func set_at_default_position(worker_arg:Node2D) -> void:
@@ -99,17 +107,20 @@ static func s_get_commuting_expenses(house:Node2D, factory:Node2D) -> float:
 	
 	if house and factory:
 		var path_vec:Vector2 = house.get_position()-factory.get_position()
-		var distance:float = path_vec.length()
+		var distance:float = path_vec.length() - 50
 		var expenses:float = distance/200
+		if expenses < 0:
+			expenses = 0
+		
 		return expenses
 	else:
 		return 0.0
 
 
-func find_best_house_factory_available(current_factory_arg:Node2D) -> Dictionary:
+func find_best_house_factory_available(current_factory_arg:Node2D, worker_arg:Node2D) -> Dictionary:
 	var vacant_factories:Array = get_factories_with_vacant_jobs()
 	
-	var houses:Array = get_houses()
+	var houses:Array = get_available_houses(worker_arg)
 	var best_disposable_income:float = 0.0
 	var best_house:Node2D = null
 	var best_factory:Node2D = null

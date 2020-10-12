@@ -150,12 +150,12 @@ func find_better_place() -> void:
 	var house:Node2D = null
 	var factory:Node2D = null
 	#_world.set_at_default_position(self)
-	var best_house_factory:Dictionary  = _world.find_best_house_factory_available(_factory)
+	var best_house_factory:Dictionary  = _world.find_best_house_factory_available(_factory, self)
 	assert(best_house_factory.has("house"))
 	house = best_house_factory.get("house")
 	assert(best_house_factory.has("factory"))
 	factory = best_house_factory.get("factory")
-	#_world.find_best_house_factory_available(house,factory)
+	#
 	if house!=_house and house!=null and factory!=null:
 		var new_discr_income = s_calculate_discretional_income(house,factory)
 		var param_rent_increase_to_evict = 0.1
@@ -163,6 +163,9 @@ func find_better_place() -> void:
 			var old_rent:float = house.get_rent()
 			var new_rent:float = old_rent + param_rent_increase_to_evict
 
+			if _house:
+				_house.leaving_house(self)
+				
 			self.set_house(house)
 			house.set_rent(new_rent)
 			self.set_factory(factory)
@@ -197,6 +200,7 @@ func update_labels() -> void:
 		
 		var commuting_line:Line2D  = Line2D.new()
 		commuting_line.set_width(1.0)
+		commuting_line.set_default_color(Color(200.0/255.0,200.0/255.0,255.0/255.0))
 		
 		var house_width:float = _house.get_house_width()
 		var house_width_vect:Vector2 = Vector2(house_width,0)
@@ -217,4 +221,10 @@ func _on_WorkerTexture_pressed():
 
 func _on_TimerAct_timeout():
 	find_better_place()
+#	pass # Replace with function body.
+
+
+func _on_TimerActForHomeless_timeout():
+	if null == _house:
+		find_better_place()
 #	pass # Replace with function body.

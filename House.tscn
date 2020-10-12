@@ -16,6 +16,7 @@ texture_normal = ExtResource( 2 )
 margin_left = 10.0
 margin_top = -20.0
 margin_right = 57.0
+custom_colors/font_color = Color( 1, 0.392157, 0.392157, 1 )
 text = "0$"
 align = 2
 valign = 1

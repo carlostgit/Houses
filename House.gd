@@ -13,6 +13,8 @@ var _world:Node2D = null
 
 var _cycle:int = 0
 
+var _name:String = "H"
+
 
 #TODO
 #Temporarily banned workers
@@ -33,6 +35,12 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func set_name(name_arg:String) -> void:
+	_name = name_arg
+
+func get_name() -> String:
+	return _name
 
 func get_rent() -> float:
 	return _rent
@@ -177,7 +185,7 @@ func negotiate_rent_discount() -> void:
 		while best_house != self and _rent > self._minimum_rent:	
 			for asking_worker in _world.get_workers():
 				var asking_worker_factory:Node2D = asking_worker.get_factory()
-				var best_house_factory:Dictionary  = _world.find_best_house_factory_available(asking_worker_factory, asking_worker_factory)
+				var best_house_factory:Dictionary  = _world.find_best_house_factory_available(asking_worker_factory, asking_worker)
 				best_house = best_house_factory.get("house") as Node2D
 				if best_house and best_house == self:
 					break
@@ -189,6 +197,7 @@ func negotiate_rent_discount() -> void:
 				if new_rent < self._minimum_rent:
 					new_rent = self._minimum_rent
 				set_rent(new_rent)
+
 
 func _on_TimerUpdateLabel_timeout():
 	update_labels()

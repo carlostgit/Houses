@@ -14,6 +14,11 @@ var _move_left:bool = false
 var _move_up:bool = false
 var _move_down:bool = false
 
+var _zoom_level:int = 2
+var _min_zoom_level:int = 1
+var _max_zoom_level:int = 16
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	make_current()
@@ -91,11 +96,6 @@ func _on_ButtonDown_button_up():
 	pass # Replace with function body.
 
 
-func _on_ButtonZoomIn_pressed():
-	self.set_zoom(Vector2(0.5,0.5))
-	pass # Replace with function body.
-
-
 func _on_ButtonRight_button_down():
 	_move_right = true
 	pass # Replace with function body.
@@ -105,7 +105,18 @@ func _on_ButtonRight_button_up():
 	_move_right = false
 	pass # Replace with function body.
 
+func _on_ButtonZoomIn_pressed():
+#	_zoom_level += 1
+	_zoom_level *= 2
+	if (_zoom_level > _max_zoom_level):
+		_zoom_level = _max_zoom_level
+	self.set_zoom(Vector2(2.0/_zoom_level,2.0/_zoom_level))
+	pass # Replace with function body.
 
 func _on_ButtonZoomOut_pressed():
-	self.set_zoom(Vector2(1,1))
+#	_zoom_level -= 1
+	_zoom_level /= 2
+	if (_zoom_level < _min_zoom_level):
+		_zoom_level = _min_zoom_level
+	self.set_zoom(Vector2(2.0/_zoom_level,2.0/_zoom_level))
 	pass # Replace with function body.

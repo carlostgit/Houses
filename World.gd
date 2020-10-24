@@ -143,6 +143,47 @@ func find_best_house_factory_available(current_factory_arg:Node2D, worker_arg:No
 	var ret_value:Dictionary = {"house": best_house,"factory":best_factory}
 	return ret_value
 
+func find_best_house_factory_available_with_prospective_house(current_factory_arg:Node2D, worker_arg:Node2D, yard_arg:Node2D) -> Dictionary:
+
+	var vacant_factories:Array = get_factories_with_vacant_jobs()
+	
+	var houses:Array = get_available_houses(worker_arg)
+	var best_disposable_income:float = 0.0
+	var best_house:Node2D = null
+	var best_factory:Node2D = null
+	
+	if yard_arg and yard_arg.get_house():
+		var prospective_house_in_yard:Node2D = yard_arg.get_house()
+		houses.append(prospective_house_in_yard)
+		
+		
+	if (current_factory_arg):
+		vacant_factories.append(current_factory_arg)
+
+	var available_factories:Array = vacant_factories
+
+	for factory in available_factories:
+		for house in houses:
+			var rent:float = 0.0
+			
+			if yard_arg.get_house() == house:
+				rent = yard_arg.get_estimated_payable_rent()
+			else:
+				rent = house.get_rent()
+				
+			var commuting_cost:float = self.s_get_commuting_expenses(house,factory)
+#			var rent:float = house.get_rent()
+			var salary:float = factory.get_salary()
+			var disposable_income = salary-rent-commuting_cost
+			if (disposable_income > best_disposable_income):
+				best_disposable_income = disposable_income
+				best_house = house
+				best_factory = factory
+
+	var ret_value:Dictionary = {"house": best_house,"factory":best_factory}
+	return ret_value
+		
+
 func _on_TimerShortHomeless_timeout():
 	var default_position_origin:Vector2 = Vector2(20,20)
 	var distance_between_workers:Vector2 = Vector2(0,100)

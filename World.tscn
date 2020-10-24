@@ -35,6 +35,12 @@ _name = "b"
 position = Vector2( 60, 230 )
 _name = "c"
 
+[node name="Worker4" parent="." groups=[
+"workers",
+] instance=ExtResource( 3 )]
+position = Vector2( 60, 320 )
+_name = "d"
+
 [node name="House" parent="." groups=[
 "houses",
 ] instance=ExtResource( 4 )]
@@ -71,7 +77,7 @@ _salary = 4.0
 [node name="Factory10" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
-position = Vector2( 370, 130 )
+position = Vector2( 390, 150 )
 _salary = 6.0
 
 [node name="Factory4" parent="." groups=[
@@ -137,7 +143,7 @@ text = "Zoom out"
 [node name="Yard" parent="." groups=[
 "yards",
 ] instance=ExtResource( 6 )]
-position = Vector2( 370, 240 )
+position = Vector2( 390, 240 )
 [connection signal="timeout" from="TimerShortHomeless" to="." method="_on_TimerShortHomeless_timeout"]
 [connection signal="button_down" from="HUD/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_down"]
 [connection signal="button_up" from="HUD/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_up"]

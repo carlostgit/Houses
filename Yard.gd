@@ -15,7 +15,7 @@ var _house:Node2D = preload("res://House.tscn").instance()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_world = get_node("../../World")
-	_house.set_position(Vector2(0,0))
+	_house.set_position(self.get_position())
 
 #	_house.add_to_group("houses")
 	_house.hide()
@@ -55,12 +55,12 @@ func update_labels() -> void:
 	var land_cost_rounded:float = stepify(land_cost, 0.01)
 	$LandCostLabel.set_text(str(land_cost_rounded)+"$")
 
-	var expected_rent:float = self.estimate_payable_rent()
+	var expected_rent:float = self.get_estimated_payable_rent()
 	var expected_rent_rounded:float = stepify(expected_rent, 0.01)
 	$ExpectedRentLabel.set_text(str(expected_rent_rounded)+"$")
 
 
-func estimate_payable_rent() -> float:
+func calculate_estimated_payable_rent() -> float:
 #	assert(false) #tengo pendiente debugear este metodo
 	#solo cuando todavía se tiene inquilino
 	var estimated_payable_rent:float = 0.0
@@ -91,6 +91,58 @@ func estimate_payable_rent() -> float:
 
 	return estimated_payable_rent
 
+func adjust_estimated_payable_rent() -> float:
+#	assert(false) #tengo pendiente debugear este metodo
+	#solo cuando todavía se tiene inquilino
+	var estimated_payable_rent:float = self.get_estimated_payable_rent()
+	
+	var max_count:int = 10
+	var count:int = 0
+	var best_house:Node2D = self.get_house()
+#	while best_house == self.get_house():
+	var num_increasing_steps:int = 0
+	var num_decreasing_steps:int = 0
+	while count < max_count:
+#		Tengo que cambiar esto:
+#		self.get_house().set_rent(estimated_payable_rent)
+		self.set_estimated_payable_rent(estimated_payable_rent)
+#		En vez de set_rent, debería usar _estimated_payable_rent
+#		Y cambiar _world.find_best_house_factory_available_with_prospective_house
+#		para que lo use 
+		for asking_worker in _world.get_workers():
+			var asking_worker_factory:Node2D = asking_worker.get_factory()
+			var best_house_factory:Dictionary  = _world.find_best_house_factory_available_with_prospective_house(asking_worker_factory, asking_worker, self)
+			best_house = best_house_factory.get("house") as Node2D
+			if best_house and best_house == self.get_house():
+				break
+
+		if best_house == self.get_house():
+			estimated_payable_rent += 0.1
+			num_increasing_steps += 1
+		else:
+			estimated_payable_rent -= 0.1
+			num_decreasing_steps += 1
+
+		count += 1		
+		
+		if (num_increasing_steps>1 and num_decreasing_steps>=1):
+			break
+		if (num_increasing_steps>=1 and num_decreasing_steps>1):
+			break 
+
+
+	return estimated_payable_rent
+
+
+func build_house() -> void:
+	self._house.add_to_group("houses")
+	self._house.show()
+	self.queue_free()
+
 func _on_TimerUpdateLabel_timeout():
+#	self.calculate_estimated_payable_rent()
+	self.adjust_estimated_payable_rent()
 	update_labels()
 
+func _on_YardTexture_pressed():
+	build_house()

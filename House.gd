@@ -96,7 +96,7 @@ func update_labels() -> void:
 func increase_rent() -> void:
 	if (get_worker()):
 		var old_rent:float = get_rent()
-		var step:float = 0.01
+		var step:float = 0.1
 		var new_rent:float = old_rent + step
 		var discretional_income:float = get_worker().calculate_discretional_income()
 		
@@ -191,7 +191,7 @@ func negotiate_rent_discount() -> void:
 					break
 				
 			if best_house != self:
-				var discount_step:float = 0.01
+				var discount_step:float = 0.1
 					
 				var new_rent:float = get_rent() - discount_step
 				if new_rent < self._minimum_rent:

@@ -3,11 +3,13 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var _land_cost:float = 1.1
+var _land_cost:float = 2.0
 
 var _world:Node2D = null
 
 var _estimated_payable_rent:float = 0.0
+
+var _last_estimated_payable_rents:Array
 
 #var _house:Node2D = null
 var _house:Node2D = preload("res://House.tscn").instance()
@@ -21,6 +23,22 @@ func _ready():
 	_house.hide()
 	_house.set_name("Casa tomasa")
 	_world.call_deferred("add_child", _house) #deferred pq _world está ocupado creando sus hijos
+
+func get_recent_average_estimated_payable_rent() -> float:
+#	sum last rents
+	var copy_last_estimated:Array = _last_estimated_payable_rents.duplicate()
+	copy_last_estimated.invert()
+	
+	var max_num_of_rents:int = 5
+	var num_of_rents_to_check:int = min(max_num_of_rents,_last_estimated_payable_rents.size())
+	var sum_of_last_rents:int = 0
+	for i in range(num_of_rents_to_check):
+		var rent:float = copy_last_estimated.pop_front()
+		sum_of_last_rents += copy_last_estimated[i]
+	
+	var average_rent:float = sum_of_last_rents/num_of_rents_to_check
+	
+	return average_rent
 
 func get_estimated_payable_rent() -> float:
 	return _estimated_payable_rent
@@ -38,7 +56,7 @@ func get_house() -> Node2D:
 #func _process(delta):
 #	pass
 
-func calculate_min_rent() -> float:
+func get_min_rent() -> float:
 	var other_costs:float = 0.0
 	var total_cost:float = get_land_cost() + other_costs
 	return total_cost
@@ -47,7 +65,7 @@ func get_land_cost() -> float:
 	return _land_cost
 
 func update_labels() -> void:
-	var min_rent:float = self.calculate_min_rent()
+	var min_rent:float = self.get_min_rent()
 	var min_rent_rounded:float = stepify(min_rent, 0.01)
 	$MinRentLabel.set_text(str(min_rent_rounded)+"$")
 
@@ -130,9 +148,7 @@ func adjust_estimated_payable_rent() -> float:
 		if (num_increasing_steps>=1 and num_decreasing_steps>1):
 			break 
 
-
 	return estimated_payable_rent
-
 
 func build_house() -> void:
 	self._house.add_to_group("houses")
@@ -140,9 +156,21 @@ func build_house() -> void:
 	self.queue_free()
 
 func _on_TimerUpdateLabel_timeout():
-#	self.calculate_estimated_payable_rent()
-	self.adjust_estimated_payable_rent()
 	update_labels()
 
 func _on_YardTexture_pressed():
 	build_house()
+
+func _on_TimerBuildHouse_timeout():
+	#	self.calculate_estimated_payable_rent()
+	self.adjust_estimated_payable_rent()
+	_last_estimated_payable_rents.push_back(self.get_estimated_payable_rent())
+	
+	
+	var min_profit:float = 1.0
+	
+	if (self.get_estimated_payable_rent() > min_profit + self.get_min_rent()):
+		if (self.get_estimated_payable_rent() > min_profit + get_recent_average_estimated_payable_rent()):
+			build_house()
+	
+	

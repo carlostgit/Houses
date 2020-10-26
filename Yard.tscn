@@ -38,5 +38,9 @@ margin_right = 57.0
 text = "0$"
 align = 2
 valign = 1
+
+[node name="TimerBuildHouse" type="Timer" parent="."]
+autostart = true
 [connection signal="pressed" from="YardTexture" to="." method="_on_YardTexture_pressed"]
 [connection signal="timeout" from="TimerUpdateLabel" to="." method="_on_TimerUpdateLabel_timeout"]
+[connection signal="timeout" from="TimerBuildHouse" to="." method="_on_TimerBuildHouse_timeout"]

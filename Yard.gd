@@ -173,4 +173,5 @@ func _on_TimerBuildHouse_timeout():
 		if (self.get_estimated_payable_rent() > min_profit + get_recent_average_estimated_payable_rent()):
 			build_house()
 	
-	
+func set_land_cost(land_cost_arg:float):
+	self._land_cost = land_cost_arg

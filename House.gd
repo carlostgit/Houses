@@ -72,6 +72,8 @@ func set_worker(worker_arg:Node2D) -> void:
 func get_worker() -> Node2D:
 	return _worker
 
+func set_minimum_rent(minimum_rent_arg:float) -> void:
+	_minimum_rent = minimum_rent_arg
 
 func get_position_for_worker() -> Vector2:
 	var house_pos:Vector2 = self.get_position()

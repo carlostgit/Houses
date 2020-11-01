@@ -201,3 +201,18 @@ func _on_TimerShortHomeless_timeout():
 #	worker_arg.set_position(position_for_next_worker)
 
 	pass # Replace with function body.
+
+
+func _on_LandPrice_value_changed(value):
+	var param_value:float = value
+	for node in self.get_children():
+		if node.is_in_group("yards"):
+			node.set_land_cost(value)
+	
+
+func _on_MinimumRent_value_changed(value):
+	var param_value:float = value
+	for node in self.get_children():
+		if node.is_in_group("houses"):
+			node.set_minimum_rent(value)
+	

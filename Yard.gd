@@ -114,7 +114,7 @@ func adjust_estimated_payable_rent() -> float:
 	#solo cuando todavía se tiene inquilino
 	var estimated_payable_rent:float = self.get_estimated_payable_rent()
 	
-	var max_count:int = 10
+	var max_count:int = 3
 	var count:int = 0
 	var best_house:Node2D = self.get_house()
 #	while best_house == self.get_house():

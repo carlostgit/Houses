@@ -181,12 +181,13 @@ margin_bottom = 60.0
 text = "Zoom out"
 
 [node name="Params" type="Control" parent="HUD"]
-margin_left = 610.0
+margin_left = 611.0
 margin_top = 354.0
-margin_right = 1000.0
+margin_right = 1001.0
 margin_bottom = 577.0
 
 [node name="LandPrice" type="SpinBox" parent="HUD/Params"]
+editor/display_folded = true
 margin_left = 96.0
 margin_top = 16.0
 margin_right = 170.0
@@ -201,6 +202,7 @@ text = "Land price:"
 valign = 1
 
 [node name="MinimumRent" type="SpinBox" parent="HUD/Params"]
+editor/display_folded = true
 margin_left = 120.0
 margin_top = 56.0
 margin_right = 194.0
@@ -221,17 +223,11 @@ margin_bottom = 153.0
 texture_normal = ExtResource( 6 )
 script = ExtResource( 7 )
 
-[node name="LabelX" type="Label" parent="HUD/Params/NewHouse"]
+[node name="Label" type="Label" parent="HUD/Params/NewHouse"]
 margin_left = 80.0
 margin_top = 4.0
 margin_right = 124.0
 margin_bottom = 24.0
-
-[node name="LabelY" type="Label" parent="HUD/Params/NewHouse"]
-margin_left = 84.0
-margin_top = 30.0
-margin_right = 124.0
-margin_bottom = 50.0
 
 [node name="Yard" parent="." groups=[
 "yards",

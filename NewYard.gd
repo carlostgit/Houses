@@ -48,11 +48,10 @@ func _ready():
 #		self._new_building_scene.set_modulate(Color(1,1,1,0.25))
 #	todo
 
-func _on_NewHouse_pressed():
+func _on_NewYard_pressed():
 	if false ==_move_image:
 		set_new_building_mode(true)
-
-
+		
 func _input(event):
 	$Label.set_text(event.as_text())
 #	print(event)
@@ -77,17 +76,18 @@ func _input(event):
 			if event.is_pressed():
 				if false==self._new_building_scene.is_building_blocked():
 					
-					var house:Node2D = load("res://House.tscn").instance()
-					house.set_name("Casa nueva")
-					_world_node.call_deferred("add_child", house) #deferred pq _world está ocupado creando sus hijos
-					house.add_to_group("houses")					
+					var yard:Node2D = load("res://Yard.tscn").instance()
+					yard.set_name("Solar nuevo")
+					_world_node.call_deferred("add_child", yard) #deferred pq _world está ocupado creando sus hijos
+					yard.add_to_group("yards")					
 					var world_coord = _world_node.get_viewport_transform().affine_inverse() * event.position
-					house.set_global_position(world_coord)
-					
+					yard.set_global_position(world_coord)
+
 					set_new_building_mode(false)
 
 #func on_NewBuilding_area_entered(area) -> void:
 #	print("area entered")
+
 func set_new_building_mode(enabled_arg:bool):
 	if enabled_arg:
 		_move_image = true
@@ -98,8 +98,8 @@ func set_new_building_mode(enabled_arg:bool):
 		self._new_building_scene.set_modulate(Color(1,1,1,1))
 		self._new_building_scene.hide()
 
-
 func _on_HUD_new_building_option():
 	if _move_image:
 		set_new_building_mode(false)
 		#	todo. mejor, controlar  esto en NewBuilding.gd
+		

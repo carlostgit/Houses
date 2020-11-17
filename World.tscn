@@ -1,13 +1,16 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://Camera2D.gd" type="Script" id=2]
 [ext_resource path="res://Worker.tscn" type="PackedScene" id=3]
 [ext_resource path="res://House.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Factory.tscn" type="PackedScene" id=5]
-[ext_resource path="res://house.png" type="Texture" id=6]
-[ext_resource path="res://NewHouse.gd" type="Script" id=7]
-[ext_resource path="res://Yard.tscn" type="PackedScene" id=8]
+[ext_resource path="res://HUD.gd" type="Script" id=6]
+[ext_resource path="res://house.png" type="Texture" id=7]
+[ext_resource path="res://NewHouse.gd" type="Script" id=8]
+[ext_resource path="res://yard.png" type="Texture" id=9]
+[ext_resource path="res://NewYard.gd" type="Script" id=10]
+[ext_resource path="res://Yard.tscn" type="PackedScene" id=11]
 
 [node name="World" type="Node2D" groups=[
 "world",
@@ -137,6 +140,9 @@ default_color = Color( 0.784314, 0.784314, 1, 1 )
 texture_mode = 3801188
 
 [node name="HUD" type="CanvasLayer" parent="."]
+scale = Vector2( 0.9, 0.9 )
+transform = Transform2D( 0.9, 0, 0, 0.9, 0, 0 )
+script = ExtResource( 6 )
 
 [node name="ButtonDown" type="Button" parent="HUD"]
 margin_left = 770.0
@@ -181,10 +187,10 @@ margin_bottom = 60.0
 text = "Zoom out"
 
 [node name="Params" type="Control" parent="HUD"]
-margin_left = 611.0
-margin_top = 354.0
-margin_right = 1001.0
-margin_bottom = 577.0
+margin_left = 611.111
+margin_top = 377.778
+margin_right = 1001.11
+margin_bottom = 667.778
 
 [node name="LandPrice" type="SpinBox" parent="HUD/Params"]
 editor/display_folded = true
@@ -209,9 +215,10 @@ margin_right = 194.0
 margin_bottom = 80.0
 
 [node name="Label" type="Label" parent="HUD/Params/MinimumRent"]
-margin_left = -106.0
-margin_right = -10.0
-margin_bottom = 24.0
+margin_left = -108.778
+margin_top = 1.11111
+margin_right = -12.7778
+margin_bottom = 25.1111
 text = "Minimum rent:"
 valign = 1
 
@@ -220,8 +227,8 @@ margin_left = 16.0
 margin_top = 96.0
 margin_right = 73.0
 margin_bottom = 153.0
-texture_normal = ExtResource( 6 )
-script = ExtResource( 7 )
+texture_normal = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Label" type="Label" parent="HUD/Params/NewHouse"]
 margin_left = 80.0
@@ -229,26 +236,78 @@ margin_top = 4.0
 margin_right = 124.0
 margin_bottom = 24.0
 
+[node name="Label2" type="Label" parent="HUD/Params/NewHouse"]
+margin_left = 91.2223
+margin_top = 27.7778
+margin_right = 135.222
+margin_bottom = 47.7778
+
+[node name="Label3" type="Label" parent="HUD/Params/NewHouse"]
+margin_left = 91.2222
+margin_top = 50.0
+margin_right = 135.222
+margin_bottom = 70.0
+
+[node name="Label4" type="Label" parent="HUD/Params/NewHouse"]
+margin_left = 91.2222
+margin_top = 70.0
+margin_right = 135.222
+margin_bottom = 90.0
+
+[node name="NewYard" type="TextureButton" parent="HUD/Params"]
+margin_left = 16.0
+margin_top = 166.667
+margin_right = 73.0
+margin_bottom = 223.667
+texture_normal = ExtResource( 9 )
+script = ExtResource( 10 )
+
+[node name="Label" type="Label" parent="HUD/Params/NewYard"]
+margin_left = 80.0
+margin_top = 4.0
+margin_right = 124.0
+margin_bottom = 24.0
+
+[node name="Label2" type="Label" parent="HUD/Params/NewYard"]
+margin_left = 91.2223
+margin_top = 27.7778
+margin_right = 135.222
+margin_bottom = 47.7778
+
+[node name="Label3" type="Label" parent="HUD/Params/NewYard"]
+margin_left = 91.2222
+margin_top = 50.0
+margin_right = 135.222
+margin_bottom = 70.0
+
+[node name="Label4" type="Label" parent="HUD/Params/NewYard"]
+margin_left = 91.2222
+margin_top = 70.0
+margin_right = 135.222
+margin_bottom = 90.0
+
 [node name="Yard" parent="." groups=[
 "yards",
-] instance=ExtResource( 8 )]
+] instance=ExtResource( 11 )]
 position = Vector2( 390, 240 )
 
 [node name="Yard4" parent="." groups=[
 "yards",
-] instance=ExtResource( 8 )]
+] instance=ExtResource( 11 )]
 position = Vector2( 387, 320 )
 
 [node name="Yard2" parent="." groups=[
 "yards",
-] instance=ExtResource( 8 )]
+] instance=ExtResource( 11 )]
 position = Vector2( 390, 70 )
 
 [node name="Yard3" parent="." groups=[
 "yards",
-] instance=ExtResource( 8 )]
+] instance=ExtResource( 11 )]
 position = Vector2( 157, 240 )
 [connection signal="timeout" from="TimerShortHomeless" to="." method="_on_TimerShortHomeless_timeout"]
+[connection signal="new_building_option" from="HUD" to="HUD/Params/NewHouse" method="_on_HUD_new_building_option"]
+[connection signal="new_building_option" from="HUD" to="HUD/Params/NewYard" method="_on_HUD_new_building_option"]
 [connection signal="button_down" from="HUD/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_down"]
 [connection signal="button_up" from="HUD/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_up"]
 [connection signal="button_down" from="HUD/ButtonUp" to="Camera2D" method="_on_ButtonUp_button_down"]
@@ -261,4 +320,7 @@ position = Vector2( 157, 240 )
 [connection signal="pressed" from="HUD/ButtonZoomOut" to="Camera2D" method="_on_ButtonZoomOut_pressed"]
 [connection signal="value_changed" from="HUD/Params/LandPrice" to="." method="_on_LandPrice_value_changed"]
 [connection signal="value_changed" from="HUD/Params/MinimumRent" to="." method="_on_MinimumRent_value_changed"]
+[connection signal="pressed" from="HUD/Params/NewHouse" to="HUD" method="_on_NewHouse_pressed"]
 [connection signal="pressed" from="HUD/Params/NewHouse" to="HUD/Params/NewHouse" method="_on_NewHouse_pressed"]
+[connection signal="pressed" from="HUD/Params/NewYard" to="HUD" method="_on_NewYard_pressed"]
+[connection signal="pressed" from="HUD/Params/NewYard" to="HUD/Params/NewYard" method="_on_NewYard_pressed"]

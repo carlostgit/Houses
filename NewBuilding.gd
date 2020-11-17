@@ -18,14 +18,17 @@ func _process(delta):
 	var overlapping_areas:Array = area_2D.get_overlapping_areas()
 	if overlapping_areas.empty():
 		self._building_blocked = false
-		self.set_modulate(Color(1,0.2,0.2,0.25))
+		self.set_modulate(Color(0.2,1,0.2,0.25))
 	else:
 		self._building_blocked = true
-		self.set_modulate(Color(1,1,1,0.25))
+		self.set_modulate(Color(1,0.2,0.2,0.25))
 
 
 func is_building_blocked() -> bool:
 	return _building_blocked
+	
+func set_texture(texture_arg:Texture):
+	$Sprite.set_texture(texture_arg)
 
 
 func _on_Area2D_area_entered(area):

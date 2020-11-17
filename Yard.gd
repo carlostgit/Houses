@@ -14,6 +14,8 @@ var _last_estimated_payable_rents:Array
 #var _house:Node2D = null
 var _house:Node2D = preload("res://House.tscn").instance()
 
+var _name:String = ""
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_world = get_node("../../World")
@@ -175,3 +177,6 @@ func _on_TimerBuildHouse_timeout():
 	
 func set_land_cost(land_cost_arg:float):
 	self._land_cost = land_cost_arg
+
+func set_name(name_arg:String) -> void:
+	_name = name_arg

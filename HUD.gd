@@ -17,11 +17,10 @@ func _ready():
 
 func _on_NewYard_pressed():
 	emit_signal("new_building_option")
-	#	todo. mejor, controlar  esto en NewBuilding.gd
-#	pass # Replace with function body.
-
-
 func _on_NewHouse_pressed():
 	emit_signal("new_building_option")
-#	todo. mejor, controlar  esto en NewBuilding.gd
-#	pass # Replace with function body.
+func _on_NewFactory_pressed():
+	emit_signal("new_building_option")
+func _on_NewWorker_pressed():
+	emit_signal("new_building_option")
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://Camera2D.gd" type="Script" id=2]
@@ -10,7 +10,11 @@
 [ext_resource path="res://NewHouse.gd" type="Script" id=8]
 [ext_resource path="res://yard.png" type="Texture" id=9]
 [ext_resource path="res://NewYard.gd" type="Script" id=10]
-[ext_resource path="res://Yard.tscn" type="PackedScene" id=11]
+[ext_resource path="res://factory.png" type="Texture" id=11]
+[ext_resource path="res://NewFactory.gd" type="Script" id=12]
+[ext_resource path="res://slacker.png" type="Texture" id=13]
+[ext_resource path="res://NewPerson.gd" type="Script" id=14]
+[ext_resource path="res://Yard.tscn" type="PackedScene" id=15]
 
 [node name="World" type="Node2D" groups=[
 "world",
@@ -39,18 +43,6 @@ _name = "b"
 ] instance=ExtResource( 3 )]
 position = Vector2( 60, 230 )
 _name = "c"
-
-[node name="Worker4" parent="." groups=[
-"workers",
-] instance=ExtResource( 3 )]
-position = Vector2( 60, 320 )
-_name = "d"
-
-[node name="Worker5" parent="." groups=[
-"workers",
-] instance=ExtResource( 3 )]
-position = Vector2( 60, 390 )
-_name = "e"
 
 [node name="House" parent="." groups=[
 "houses",
@@ -223,6 +215,7 @@ text = "Minimum rent:"
 valign = 1
 
 [node name="NewHouse" type="TextureButton" parent="HUD/Params"]
+editor/display_folded = true
 margin_left = 16.0
 margin_top = 96.0
 margin_right = 73.0
@@ -255,6 +248,7 @@ margin_right = 135.222
 margin_bottom = 90.0
 
 [node name="NewYard" type="TextureButton" parent="HUD/Params"]
+editor/display_folded = true
 margin_left = 16.0
 margin_top = 166.667
 margin_right = 73.0
@@ -286,24 +280,65 @@ margin_top = 70.0
 margin_right = 135.222
 margin_bottom = 90.0
 
+[node name="NewFactory" type="TextureButton" parent="HUD/Params"]
+editor/display_folded = true
+margin_left = 96.0
+margin_top = 96.0
+margin_right = 153.0
+margin_bottom = 153.0
+texture_normal = ExtResource( 11 )
+script = ExtResource( 12 )
+
+[node name="Label" type="Label" parent="HUD/Params/NewFactory"]
+margin_left = 80.0
+margin_top = 4.0
+margin_right = 124.0
+margin_bottom = 24.0
+
+[node name="Label2" type="Label" parent="HUD/Params/NewFactory"]
+margin_left = 91.2223
+margin_top = 27.7778
+margin_right = 135.222
+margin_bottom = 47.7778
+
+[node name="Label3" type="Label" parent="HUD/Params/NewFactory"]
+margin_left = 91.2222
+margin_top = 50.0
+margin_right = 135.222
+margin_bottom = 70.0
+
+[node name="Label4" type="Label" parent="HUD/Params/NewFactory"]
+margin_left = 91.2222
+margin_top = 70.0
+margin_right = 135.222
+margin_bottom = 90.0
+
+[node name="NewWorker" type="TextureButton" parent="HUD/Params"]
+margin_left = 107.222
+margin_top = 177.778
+margin_right = 147.222
+margin_bottom = 217.778
+texture_normal = ExtResource( 13 )
+script = ExtResource( 14 )
+
 [node name="Yard" parent="." groups=[
 "yards",
-] instance=ExtResource( 11 )]
+] instance=ExtResource( 15 )]
 position = Vector2( 390, 240 )
 
 [node name="Yard4" parent="." groups=[
 "yards",
-] instance=ExtResource( 11 )]
+] instance=ExtResource( 15 )]
 position = Vector2( 387, 320 )
 
 [node name="Yard2" parent="." groups=[
 "yards",
-] instance=ExtResource( 11 )]
+] instance=ExtResource( 15 )]
 position = Vector2( 390, 70 )
 
 [node name="Yard3" parent="." groups=[
 "yards",
-] instance=ExtResource( 11 )]
+] instance=ExtResource( 15 )]
 position = Vector2( 157, 240 )
 [connection signal="timeout" from="TimerShortHomeless" to="." method="_on_TimerShortHomeless_timeout"]
 [connection signal="new_building_option" from="HUD" to="HUD/Params/NewHouse" method="_on_HUD_new_building_option"]
@@ -320,7 +355,17 @@ position = Vector2( 157, 240 )
 [connection signal="pressed" from="HUD/ButtonZoomOut" to="Camera2D" method="_on_ButtonZoomOut_pressed"]
 [connection signal="value_changed" from="HUD/Params/LandPrice" to="." method="_on_LandPrice_value_changed"]
 [connection signal="value_changed" from="HUD/Params/MinimumRent" to="." method="_on_MinimumRent_value_changed"]
+[connection signal="mouse_entered" from="HUD/Params/NewHouse" to="HUD/Params/NewHouse" method="_on_NewHouse_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/Params/NewHouse" to="HUD/Params/NewHouse" method="_on_NewHouse_mouse_exited"]
 [connection signal="pressed" from="HUD/Params/NewHouse" to="HUD" method="_on_NewHouse_pressed"]
 [connection signal="pressed" from="HUD/Params/NewHouse" to="HUD/Params/NewHouse" method="_on_NewHouse_pressed"]
+[connection signal="mouse_entered" from="HUD/Params/NewYard" to="HUD/Params/NewYard" method="_on_NewYard_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/Params/NewYard" to="HUD/Params/NewYard" method="_on_NewYard_mouse_exited"]
 [connection signal="pressed" from="HUD/Params/NewYard" to="HUD" method="_on_NewYard_pressed"]
 [connection signal="pressed" from="HUD/Params/NewYard" to="HUD/Params/NewYard" method="_on_NewYard_pressed"]
+[connection signal="mouse_entered" from="HUD/Params/NewFactory" to="HUD/Params/NewFactory" method="_on_NewFactory_mouse_entered"]
+[connection signal="mouse_exited" from="HUD/Params/NewFactory" to="HUD/Params/NewFactory" method="_on_NewFactory_mouse_exited"]
+[connection signal="pressed" from="HUD/Params/NewFactory" to="HUD" method="_on_NewFactory_pressed"]
+[connection signal="pressed" from="HUD/Params/NewFactory" to="HUD/Params/NewFactory" method="_on_NewFactory_pressed"]
+[connection signal="pressed" from="HUD/Params/NewWorker" to="HUD" method="_on_NewWorker_pressed"]
+[connection signal="pressed" from="HUD/Params/NewWorker" to="HUD/Params/NewWorker" method="_on_NewWorker_pressed"]

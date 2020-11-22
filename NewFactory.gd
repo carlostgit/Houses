@@ -31,7 +31,7 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func _on_NewHouse_pressed():
+func _on_NewFactory_pressed():
 	if _move_image:
 		set_new_building_mode(false)
 	else: #false ==_move_image:	
@@ -64,12 +64,12 @@ func _input(event):
 					set_new_building_mode(false)
 					if false==self._new_building_scene.is_building_blocked():
 
-						var house:Node2D = load("res://House.tscn").instance()
-						house.set_name("Casa nueva")
-						_world_node.call_deferred("add_child", house) #deferred pq _world está ocupado creando sus hijos
-						house.add_to_group("houses")					
+						var factory:Node2D = load("res://Factory.tscn").instance()
+						factory.set_name("Fabrica nueva")
+						_world_node.call_deferred("add_child", factory) #deferred pq _world está ocupado creando sus hijos
+						factory.add_to_group("factories")					
 						var world_coord = _world_node.get_viewport_transform().affine_inverse() * event.position
-						house.set_global_position(world_coord)
+						factory.set_global_position(world_coord)
 
 func set_new_building_mode(enabled_arg:bool):
 	if enabled_arg:
@@ -86,9 +86,9 @@ func _on_HUD_new_building_option():
 		if false==_mouse_inside:
 			set_new_building_mode(false)
 	
-func _on_NewHouse_mouse_entered():
+func _on_NewFactory_mouse_entered():
 	_mouse_inside = true
 
-func _on_NewHouse_mouse_exited():
+func _on_NewFactory_mouse_exited():
 	_mouse_inside = false
 	

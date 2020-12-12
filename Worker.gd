@@ -235,6 +235,12 @@ func clear_before_removing():
 		
 	if _factory:
 		_factory.set_worker(null)
+		
+	if _world:		
+		for commuting_line in _commuting_lines:
+			_world.remove_child(commuting_line)
+		_commuting_lines.clear()
+
 	
 func can_be_removed():
 	return true

@@ -217,7 +217,9 @@ func _on_TimerAct_timeout():
 
 func clear_before_removing():
 	if _worker:
-		_worker.set_house(null)
+		var worker_inst:Node2D = _worker
+		worker_inst.set_house(null)
+		worker_inst.set_factory(null)
 	_worker = null
 
 func can_be_demolished():

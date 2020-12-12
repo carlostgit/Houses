@@ -180,3 +180,9 @@ func set_land_cost(land_cost_arg:float):
 
 func set_name(name_arg:String) -> void:
 	_name = name_arg
+	
+func clear_before_removing():
+	pass
+	
+func can_be_demolished():
+	return true

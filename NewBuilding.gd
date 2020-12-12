@@ -33,7 +33,10 @@ func is_building_blocked() -> bool:
 func set_texture(texture_arg:Texture):
 	$Sprite.set_texture(texture_arg)
 
-
+func get_overlapping_areas():
+	var area_2D:Area2D = self.get_node("Area2D")
+	return area_2D.get_overlapping_areas()
+	
 func _on_Area2D_area_entered(area):
 #	print("area entered in new b")
 	emit_signal("area_entered",area)

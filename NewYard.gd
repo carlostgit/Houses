@@ -24,7 +24,7 @@ func _ready():
 	_world_node.call_deferred("add_child",_new_building_scene)
 	_new_building_scene.set_position(Vector2(40,40))
 	_new_building_scene.hide()
-	_new_building_scene.connect("area_entered",self,"on_NewBuilding_area_entered")
+	#_new_building_scene.connect("area_entered",self,"on_NewBuilding_area_entered")
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

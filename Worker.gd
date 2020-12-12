@@ -228,3 +228,14 @@ func _on_TimerActForHomeless_timeout():
 	if null == _house:
 		find_better_place()
 #	pass # Replace with function body.
+
+func clear_before_removing():
+	if _house:
+		_house.set_worker(null)
+		
+	if _factory:
+		_factory.set_worker(null)
+	
+func can_be_removed():
+	return true
+	

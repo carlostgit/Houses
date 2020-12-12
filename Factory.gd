@@ -45,3 +45,11 @@ func update_labels() -> void:
 
 func _on_TimerUpdateLabel_timeout():
 	update_labels()
+
+func clear_before_removing():
+	if _worker:
+		_worker.set_factory(null)
+	_worker = null
+
+func can_be_demolished():
+	return true

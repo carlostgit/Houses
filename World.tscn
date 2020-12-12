@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://Camera2D.gd" type="Script" id=2]
@@ -14,7 +14,11 @@
 [ext_resource path="res://NewFactory.gd" type="Script" id=12]
 [ext_resource path="res://slacker.png" type="Texture" id=13]
 [ext_resource path="res://NewPerson.gd" type="Script" id=14]
-[ext_resource path="res://Yard.tscn" type="PackedScene" id=15]
+[ext_resource path="res://bulldozer.png" type="Texture" id=15]
+[ext_resource path="res://RemoveBuilding.gd" type="Script" id=16]
+[ext_resource path="res://gunsight.png" type="Texture" id=17]
+[ext_resource path="res://RemovePerson.gd" type="Script" id=18]
+[ext_resource path="res://Yard.tscn" type="PackedScene" id=19]
 
 [node name="World" type="Node2D" groups=[
 "world",
@@ -321,28 +325,44 @@ margin_bottom = 217.778
 texture_normal = ExtResource( 13 )
 script = ExtResource( 14 )
 
+[node name="RemoveBuilding" type="TextureButton" parent="HUD/Params"]
+margin_left = 194.0
+margin_top = 96.0
+margin_right = 258.0
+margin_bottom = 160.0
+texture_normal = ExtResource( 15 )
+script = ExtResource( 16 )
+
+[node name="RemovePerson" type="TextureButton" parent="HUD/Params"]
+margin_left = 194.0
+margin_top = 170.667
+margin_right = 258.0
+margin_bottom = 234.667
+texture_normal = ExtResource( 17 )
+script = ExtResource( 18 )
+
 [node name="Yard" parent="." groups=[
 "yards",
-] instance=ExtResource( 15 )]
+] instance=ExtResource( 19 )]
 position = Vector2( 390, 240 )
 
 [node name="Yard4" parent="." groups=[
 "yards",
-] instance=ExtResource( 15 )]
+] instance=ExtResource( 19 )]
 position = Vector2( 387, 320 )
 
 [node name="Yard2" parent="." groups=[
 "yards",
-] instance=ExtResource( 15 )]
+] instance=ExtResource( 19 )]
 position = Vector2( 390, 70 )
 
 [node name="Yard3" parent="." groups=[
 "yards",
-] instance=ExtResource( 15 )]
+] instance=ExtResource( 19 )]
 position = Vector2( 157, 240 )
 [connection signal="timeout" from="TimerShortHomeless" to="." method="_on_TimerShortHomeless_timeout"]
-[connection signal="new_building_option" from="HUD" to="HUD/Params/NewHouse" method="_on_HUD_new_building_option"]
 [connection signal="new_building_option" from="HUD" to="HUD/Params/NewYard" method="_on_HUD_new_building_option"]
+[connection signal="new_building_option" from="HUD" to="HUD/Params/NewHouse" method="_on_HUD_new_building_option"]
 [connection signal="button_down" from="HUD/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_down"]
 [connection signal="button_up" from="HUD/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_up"]
 [connection signal="button_down" from="HUD/ButtonUp" to="Camera2D" method="_on_ButtonUp_button_down"]
@@ -369,3 +389,5 @@ position = Vector2( 157, 240 )
 [connection signal="pressed" from="HUD/Params/NewFactory" to="HUD/Params/NewFactory" method="_on_NewFactory_pressed"]
 [connection signal="pressed" from="HUD/Params/NewWorker" to="HUD" method="_on_NewWorker_pressed"]
 [connection signal="pressed" from="HUD/Params/NewWorker" to="HUD/Params/NewWorker" method="_on_NewWorker_pressed"]
+[connection signal="pressed" from="HUD/Params/RemoveBuilding" to="HUD/Params/RemoveBuilding" method="_on_RemoveBuilding_pressed"]
+[connection signal="pressed" from="HUD/Params/RemovePerson" to="HUD/Params/RemovePerson" method="_on_RemovePerson_pressed"]

@@ -31,14 +31,8 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func _on_NewHouse_pressed():
-	if _move_image:
-		set_new_building_mode(false)
-	else: #false ==_move_image:	
-		set_new_building_mode(true)
-
 func _input(event):
-	$Label.set_text(event.as_text())
+#	$Label.set_text(event.as_text())
 #	print(event)
 	if(_move_image):
 		if event is InputEventMouseMotion:
@@ -48,9 +42,13 @@ func _input(event):
 			var world_coord = _world_node.get_viewport_transform().affine_inverse()*event.position
 
 			var local_coord = _world_node.get_global_transform().affine_inverse()*world_coord
+			
+			#pruba
+			#local_coord = local_coord+Vector2(-20,-20)
+			#fin prueba
 			self._new_building_scene.set_position(local_coord)
 #			Se puede hacer lo siguiente en vez de lo anterior:
-			self._new_building_scene.set_global_position(world_coord)
+			#self._new_building_scene.set_global_position(world_coord)
 
 #			$Label.set_text(String(event.position))
 #			$Label2.set_text(String(self.get_viewport_transform().affine_inverse() * event.position))
@@ -62,14 +60,24 @@ func _input(event):
 				
 				if false == _mouse_inside:					
 					set_new_building_mode(false)
-					if false==self._new_building_scene.is_building_blocked():
-
-						var house:Node2D = load("res://House.tscn").instance()
-						house.set_name("Casa nueva")
-						_world_node.call_deferred("add_child", house) #deferred pq _world está ocupado creando sus hijos
-						house.add_to_group("houses")					
-						var world_coord = _world_node.get_viewport_transform().affine_inverse() * event.position
-						house.set_global_position(world_coord)
+					if (self._new_building_scene.is_building_blocked()):
+						var areas_to_delete = self._new_building_scene.get_overlapping_areas()
+						for area in areas_to_delete:
+							var children_of_world = self._world_node.get_children()
+							for child_of_world in children_of_world:
+								if (child_of_world.is_a_parent_of(area) ):
+									#eliminar toda referencia a este edificio
+									
+									if child_of_world.has_method("can_be_demolished"):
+										if (child_of_world.can_be_demolished()):											
+											if child_of_world.has_method("clear_before_removing"):
+												child_of_world.clear_before_removing()
+											else:
+												assert(false)	
+											
+											
+											#echar inqulinos, despedir trabajadores etc
+											child_of_world.queue_free()
 
 func set_new_building_mode(enabled_arg:bool):
 	if enabled_arg:
@@ -86,9 +94,15 @@ func _on_HUD_new_building_option():
 		if false==_mouse_inside:
 			set_new_building_mode(false)
 	
-func _on_NewHouse_mouse_entered():
+func _on_Remove_mouse_entered():
 	_mouse_inside = true
 
-func _on_NewHouse_mouse_exited():
+func _on_Remove_mouse_exited():
 	_mouse_inside = false
 	
+
+func _on_RemoveBuilding_pressed():
+	if _move_image:
+		set_new_building_mode(false)
+	else: #false ==_move_image:	
+		set_new_building_mode(true)

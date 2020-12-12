@@ -4,7 +4,7 @@
 [ext_resource path="res://factory.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 60, 60 )
+extents = Vector2( 30, 30 )
 
 [node name="Factory" type="Node2D"]
 position = Vector2( 270, 50 )

@@ -189,7 +189,6 @@ margin_right = 1001.11
 margin_bottom = 667.778
 
 [node name="LandPrice" type="SpinBox" parent="HUD/Params"]
-editor/display_folded = true
 margin_left = 96.0
 margin_top = 16.0
 margin_right = 170.0
@@ -204,7 +203,6 @@ text = "Land price:"
 valign = 1
 
 [node name="MinimumRent" type="SpinBox" parent="HUD/Params"]
-editor/display_folded = true
 margin_left = 120.0
 margin_top = 56.0
 margin_right = 194.0
@@ -219,7 +217,6 @@ text = "Minimum rent:"
 valign = 1
 
 [node name="NewHouse" type="TextureButton" parent="HUD/Params"]
-editor/display_folded = true
 margin_left = 16.0
 margin_top = 96.0
 margin_right = 73.0
@@ -227,32 +224,7 @@ margin_bottom = 153.0
 texture_normal = ExtResource( 7 )
 script = ExtResource( 8 )
 
-[node name="Label" type="Label" parent="HUD/Params/NewHouse"]
-margin_left = 80.0
-margin_top = 4.0
-margin_right = 124.0
-margin_bottom = 24.0
-
-[node name="Label2" type="Label" parent="HUD/Params/NewHouse"]
-margin_left = 91.2223
-margin_top = 27.7778
-margin_right = 135.222
-margin_bottom = 47.7778
-
-[node name="Label3" type="Label" parent="HUD/Params/NewHouse"]
-margin_left = 91.2222
-margin_top = 50.0
-margin_right = 135.222
-margin_bottom = 70.0
-
-[node name="Label4" type="Label" parent="HUD/Params/NewHouse"]
-margin_left = 91.2222
-margin_top = 70.0
-margin_right = 135.222
-margin_bottom = 90.0
-
 [node name="NewYard" type="TextureButton" parent="HUD/Params"]
-editor/display_folded = true
 margin_left = 16.0
 margin_top = 166.667
 margin_right = 73.0
@@ -260,32 +232,7 @@ margin_bottom = 223.667
 texture_normal = ExtResource( 9 )
 script = ExtResource( 10 )
 
-[node name="Label" type="Label" parent="HUD/Params/NewYard"]
-margin_left = 80.0
-margin_top = 4.0
-margin_right = 124.0
-margin_bottom = 24.0
-
-[node name="Label2" type="Label" parent="HUD/Params/NewYard"]
-margin_left = 91.2223
-margin_top = 27.7778
-margin_right = 135.222
-margin_bottom = 47.7778
-
-[node name="Label3" type="Label" parent="HUD/Params/NewYard"]
-margin_left = 91.2222
-margin_top = 50.0
-margin_right = 135.222
-margin_bottom = 70.0
-
-[node name="Label4" type="Label" parent="HUD/Params/NewYard"]
-margin_left = 91.2222
-margin_top = 70.0
-margin_right = 135.222
-margin_bottom = 90.0
-
 [node name="NewFactory" type="TextureButton" parent="HUD/Params"]
-editor/display_folded = true
 margin_left = 96.0
 margin_top = 96.0
 margin_right = 153.0
@@ -293,29 +240,19 @@ margin_bottom = 153.0
 texture_normal = ExtResource( 11 )
 script = ExtResource( 12 )
 
-[node name="Label" type="Label" parent="HUD/Params/NewFactory"]
-margin_left = 80.0
-margin_top = 4.0
-margin_right = 124.0
-margin_bottom = 24.0
+[node name="NewFactoryWage" type="SpinBox" parent="HUD/Params/NewFactory"]
+margin_left = 192.889
+margin_top = -7.11134
+margin_right = 266.889
+margin_bottom = 16.8887
+value = 5.0
 
-[node name="Label2" type="Label" parent="HUD/Params/NewFactory"]
-margin_left = 91.2223
-margin_top = 27.7778
-margin_right = 135.222
-margin_bottom = 47.7778
-
-[node name="Label3" type="Label" parent="HUD/Params/NewFactory"]
-margin_left = 91.2222
-margin_top = 50.0
-margin_right = 135.222
-margin_bottom = 70.0
-
-[node name="Label4" type="Label" parent="HUD/Params/NewFactory"]
-margin_left = 91.2222
-margin_top = 70.0
-margin_right = 135.222
-margin_bottom = 90.0
+[node name="Label" type="Label" parent="HUD/Params/NewFactory/NewFactoryWage"]
+margin_left = -126.556
+margin_top = 6.22199
+margin_right = -6.55586
+margin_bottom = 20.222
+text = "New factory salary:"
 
 [node name="NewWorker" type="TextureButton" parent="HUD/Params"]
 margin_left = 107.222
@@ -326,17 +263,17 @@ texture_normal = ExtResource( 13 )
 script = ExtResource( 14 )
 
 [node name="RemoveBuilding" type="TextureButton" parent="HUD/Params"]
-margin_left = 194.0
+margin_left = 388.889
 margin_top = 96.0
-margin_right = 258.0
+margin_right = 452.889
 margin_bottom = 160.0
 texture_normal = ExtResource( 15 )
 script = ExtResource( 16 )
 
 [node name="RemovePerson" type="TextureButton" parent="HUD/Params"]
-margin_left = 194.0
+margin_left = 389.999
 margin_top = 170.667
-margin_right = 258.0
+margin_right = 453.999
 margin_bottom = 234.667
 texture_normal = ExtResource( 17 )
 script = ExtResource( 18 )
@@ -361,8 +298,8 @@ position = Vector2( 390, 70 )
 ] instance=ExtResource( 19 )]
 position = Vector2( 157, 240 )
 [connection signal="timeout" from="TimerShortHomeless" to="." method="_on_TimerShortHomeless_timeout"]
-[connection signal="new_building_option" from="HUD" to="HUD/Params/NewHouse" method="_on_HUD_new_building_option"]
 [connection signal="new_building_option" from="HUD" to="HUD/Params/NewYard" method="_on_HUD_new_building_option"]
+[connection signal="new_building_option" from="HUD" to="HUD/Params/NewHouse" method="_on_HUD_new_building_option"]
 [connection signal="button_down" from="HUD/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_down"]
 [connection signal="button_up" from="HUD/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_up"]
 [connection signal="button_down" from="HUD/ButtonUp" to="Camera2D" method="_on_ButtonUp_button_down"]

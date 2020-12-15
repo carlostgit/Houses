@@ -38,7 +38,7 @@ func _on_NewHouse_pressed():
 		set_new_building_mode(true)
 
 func _input(event):
-	$Label.set_text(event.as_text())
+	#$Label.set_text(event.as_text())
 #	print(event)
 	if(_move_image):
 		if event is InputEventMouseMotion:

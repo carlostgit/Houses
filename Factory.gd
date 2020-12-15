@@ -18,6 +18,9 @@ func _ready():
 func get_salary() -> float:
 	return _salary
 	
+func set_salary(salary_arg:float) -> void:
+	_salary = salary_arg
+	
 	
 func set_worker(worker_arg:Node2D) -> void:
 	if worker_arg:

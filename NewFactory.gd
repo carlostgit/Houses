@@ -38,7 +38,7 @@ func _on_NewFactory_pressed():
 		set_new_building_mode(true)
 
 func _input(event):
-	$Label.set_text(event.as_text())
+	#.set_text(event.as_text())
 #	print(event)
 	if(_move_image):
 		if event is InputEventMouseMotion:
@@ -70,6 +70,8 @@ func _input(event):
 						factory.add_to_group("factories")					
 						var world_coord = _world_node.get_viewport_transform().affine_inverse() * event.position
 						factory.set_global_position(world_coord)
+						var salary:float = $NewFactoryWage.get_value()
+						factory.set_salary(salary)
 
 func set_new_building_mode(enabled_arg:bool):
 	if enabled_arg:

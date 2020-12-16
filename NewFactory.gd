@@ -7,24 +7,24 @@ extends TextureButton
 var _move_image = false
 var _mouse_inside =false
 
-var _new_building_pack = load("res://NewBuilding.tscn")
+var _collision_detector_pack = load("res://CollisionDetector.tscn")
 
-var _new_building_scene:Node2D = null
+var _collision_detector:Node2D = null
 
 var _world_node:Node = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	_new_building_scene = _new_building_pack.instance()
-	_new_building_scene.set_texture(self.get_normal_texture())
+	_collision_detector = _collision_detector_pack.instance()
+	_collision_detector.set_texture(self.get_normal_texture())
 	print(self.get_parent().get_parent().get_parent().get_path())
 	_world_node = get_node("/root/World")
 #	var world_node = self.get_parent().get_parent().get_parent()
-	_world_node.call_deferred("add_child",_new_building_scene)
-	_new_building_scene.set_position(Vector2(40,40))
-	_new_building_scene.hide()
-	#_new_building_scene.connect("area_entered",self,"on_NewBuilding_area_entered")
+	_world_node.call_deferred("add_child",_collision_detector)
+	_collision_detector.set_position(Vector2(40,40))
+	_collision_detector.hide()
+	#_collision_detector.connect("area_entered",self,"on_NewBuilding_area_entered")
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -42,15 +42,15 @@ func _input(event):
 #	print(event)
 	if(_move_image):
 		if event is InputEventMouseMotion:
-#			El nodo _new_building_scene pertenece al nodo World, que está en otro CanvasLayer
+#			El nodo _collision_detector pertenece al nodo World, que está en otro CanvasLayer
 #			Por estar en otro CanvasLayer, las coordenadas globales de este input no valen
 #			Hay que convertir las coordenadas a las coordenadas del otro CanvasLayer
 			var world_coord = _world_node.get_viewport_transform().affine_inverse()*event.position
 
 			var local_coord = _world_node.get_global_transform().affine_inverse()*world_coord
-			self._new_building_scene.set_position(local_coord)
+			self._collision_detector.set_position(local_coord)
 #			Se puede hacer lo siguiente en vez de lo anterior:
-			self._new_building_scene.set_global_position(world_coord)
+			self._collision_detector.set_global_position(world_coord)
 
 #			$Label.set_text(String(event.position))
 #			$Label2.set_text(String(self.get_viewport_transform().affine_inverse() * event.position))
@@ -62,7 +62,7 @@ func _input(event):
 				
 				if false == _mouse_inside:					
 					set_new_building_mode(false)
-					if false==self._new_building_scene.is_building_blocked():
+					if false==self._collision_detector.is_building_blocked():
 
 						var factory:Node2D = load("res://Factory.tscn").instance()
 						factory.set_name("Fabrica nueva")
@@ -76,12 +76,12 @@ func _input(event):
 func set_new_building_mode(enabled_arg:bool):
 	if enabled_arg:
 		_move_image = true
-		self._new_building_scene.set_modulate(Color(1,1,1,0.25))
-		self._new_building_scene.show()
+		self._collision_detector.set_modulate(Color(1,1,1,0.25))
+		self._collision_detector.show()
 	else:
 		_move_image = false
-		self._new_building_scene.set_modulate(Color(1,1,1,1))
-		self._new_building_scene.hide()
+		self._collision_detector.set_modulate(Color(1,1,1,1))
+		self._collision_detector.hide()
 
 func _on_HUD_new_building_option():
 	if _move_image:

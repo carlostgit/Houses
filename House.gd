@@ -119,8 +119,17 @@ func increase_rent() -> void:
 func update_rent() -> void:
 #	subo renta mientras haya inquilino, y bajo cuando no lo haya
 	if self.get_worker():
+		var start = OS.get_ticks_usec()
 		increase_rent()
+		var end = OS.get_ticks_usec()
+		var increase_rent_time = (end-start)/1000000.0
+		print("increase_rent_time: "+str(increase_rent_time))
+		
+		start = OS.get_ticks_usec()
 		negotiate_rent_discount()
+		end = OS.get_ticks_usec()
+		var negotiate_rent_discount_time = (end-start)/1000000.0
+		print("negotiate_rent_discount_time: "+str(negotiate_rent_discount_time))
 	else:
 		var new_rent = get_rent() - 0.1
 		if new_rent >= _minimum_rent:
@@ -184,14 +193,18 @@ func negotiate_rent_discount() -> void:
 		var old_rent:float = _rent
 		
 		var best_house:Node2D = null
+		var count:int = 0
 		while best_house != self and _rent > self._minimum_rent:	
+			count += 1
 			for asking_worker in _world.get_workers():
 				var asking_worker_factory:Node2D = asking_worker.get_factory()
 				var best_house_factory:Dictionary  = _world.find_best_house_factory_available(asking_worker_factory, asking_worker)
 				best_house = best_house_factory.get("house") as Node2D
 				if best_house and best_house == self:
 					break
-				
+			
+			#Si no se encuentra ningún trabajador para el que esta sea la mejor opción
+			#Entonces se acepta un descuento, hasta que esta casa sea la mejor opción para alguien
 			if best_house != self:
 				var discount_step:float = 0.1
 					
@@ -199,7 +212,10 @@ func negotiate_rent_discount() -> void:
 				if new_rent < self._minimum_rent:
 					new_rent = self._minimum_rent
 				set_rent(new_rent)
-
+		
+#		if (count>1):
+#			print ("count: "+str(count))
+		
 
 func _on_TimerUpdateLabel_timeout():
 	update_labels()
@@ -210,10 +226,10 @@ func _on_HouseTexture_pressed():
 #	pass # Replace with function body.
 
 func _on_TimerAct_timeout():
-	update_rent()
-	ban_workers()
-	_cycle += 1
-#	pass # Replace with function body.
+#	update_rent()
+#	ban_workers()
+#	_cycle += 1
+	pass # Replace with function body.
 
 func clear_before_removing():
 	if _worker:
@@ -224,3 +240,10 @@ func clear_before_removing():
 
 func can_be_demolished():
 	return true
+	
+func next_state(cycle_arg:int) -> void:
+	_cycle += cycle_arg
+	update_rent()
+	ban_workers()
+	update_labels()
+	

@@ -26,8 +26,8 @@ func _process(delta):
 		self._building_blocked = true
 		self.set_modulate(Color(1,0.2,0.2,0.25))
 		
-	for overlapping_area in overlapping_areas:
-		print (overlapping_area.name)
+#	for overlapping_area in overlapping_areas:
+#		print (overlapping_area.name)
 
 
 func is_building_blocked() -> bool:

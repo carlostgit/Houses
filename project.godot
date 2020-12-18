@@ -30,6 +30,11 @@ config/name="Houses"
 run/main_scene="res://World.tscn"
 config/icon="res://icon.png"
 
+[debug]
+
+settings/stdout/print_fps=true
+settings/stdout/verbose_stdout=true
+
 [rendering]
 
 quality/driver/driver_name="GLES2"

@@ -109,6 +109,8 @@ func calculate_estimated_payable_rent() -> float:
 		if count > max_count:
 			break
 
+	#print ("Yard count: " + str(count))
+	
 	return estimated_payable_rent
 
 func adjust_estimated_payable_rent() -> float:
@@ -149,7 +151,8 @@ func adjust_estimated_payable_rent() -> float:
 			break
 		if (num_increasing_steps>=1 and num_decreasing_steps>1):
 			break 
-
+	
+	#print ("Yard count: " + str(count))
 	return estimated_payable_rent
 
 func build_house() -> void:
@@ -158,22 +161,31 @@ func build_house() -> void:
 	self.queue_free()
 
 func _on_TimerUpdateLabel_timeout():
-	update_labels()
-
+#	update_labels()
+	pass
+	
 func _on_YardTexture_pressed():
-	build_house()
-
+#	build_house()
+	pass
+	
 func _on_TimerBuildHouse_timeout():
 	#	self.calculate_estimated_payable_rent()
-	self.adjust_estimated_payable_rent()
-	_last_estimated_payable_rents.push_back(self.get_estimated_payable_rent())
-	
-	
-	var min_profit:float = 1.0
-	
-	if (self.get_estimated_payable_rent() > min_profit + self.get_min_rent()):
-		if (self.get_estimated_payable_rent() > min_profit + get_recent_average_estimated_payable_rent()):
-			build_house()
+#
+#	var start = OS.get_ticks_usec()
+#	self.adjust_estimated_payable_rent()
+#	var end = OS.get_ticks_usec()
+#	var adjust_estimated_payable_rent_time = (end-start)/1000000.0
+#	print("adjust_estimated_payable_rent_time: "+str(adjust_estimated_payable_rent_time))
+#
+#	_last_estimated_payable_rents.push_back(self.get_estimated_payable_rent())
+#
+#
+#	var min_profit:float = 1.0
+#
+#	if (self.get_estimated_payable_rent() > min_profit + self.get_min_rent()):
+#		if (self.get_estimated_payable_rent() > min_profit + get_recent_average_estimated_payable_rent()):
+#			build_house()
+	pass
 	
 func set_land_cost(land_cost_arg:float):
 	self._land_cost = land_cost_arg
@@ -186,3 +198,14 @@ func clear_before_removing():
 	
 func can_be_demolished():
 	return true
+	
+func next_state(cycle_arg:int) -> void:
+	
+	self.adjust_estimated_payable_rent()
+	_last_estimated_payable_rents.push_back(self.get_estimated_payable_rent())
+	var min_profit:float = 1.0
+	if (self.get_estimated_payable_rent() > min_profit + self.get_min_rent()):
+		if (self.get_estimated_payable_rent() > min_profit + get_recent_average_estimated_payable_rent()):
+			build_house()
+	
+	update_labels()

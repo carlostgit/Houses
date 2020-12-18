@@ -29,6 +29,9 @@ func _ready():
 	assert(_world.is_in_group("world"))
 	assert(_world)
 	
+	_name = get_new_name()
+	
+		
 	$NameLabel.set_text(_name)
 	
 	pass # Replace with function body.
@@ -38,6 +41,39 @@ func _ready():
 #func _process(delta):
 #	pass
 
+func get_new_name():
+	
+	var new_name = "no name"
+	
+	var string_name_source:Array = []
+	var string_alphabet = "abcdefghijklmnñopqrstuwxyz"
+	
+	for i in (string_alphabet.length()-1):
+		string_name_source.append(string_alphabet.substr(i,1))
+	
+	if (_world):
+		for name_of_list in string_name_source:
+			var used_name:bool = false
+			for child in _world.get_children():
+				if (child.is_in_group("workers")):
+					if name_of_list==child.get_name():
+						used_name = true
+				else:
+					continue
+				if used_name:
+					break
+				else:
+					continue
+			if used_name:
+				continue
+				
+			new_name = name_of_list
+			break
+			
+	return new_name	
+
+func get_name():
+	return _name
 
 func get_income() -> float:
 	return s_get_income(_factory)
@@ -212,22 +248,33 @@ func update_labels() -> void:
 
 
 func _on_TimerUpdateLabels_timeout():
-	update_labels()
-
+#	update_labels()
+	pass
+	
 func _on_WorkerTexture_pressed():
 	print("pressed")
 	find_better_place()
 
 
 func _on_TimerAct_timeout():
-	find_better_place()
+#	var start = OS.get_ticks_usec()
+#	find_better_place()
+#	var end = OS.get_ticks_usec()
+#	var find_better_place_time = (end-start)/1000000.0
+#	print("find_better_place_time: "+str(find_better_place_time))
+	pass
+	
 #	pass # Replace with function body.
 
 
 func _on_TimerActForHomeless_timeout():
-	if null == _house:
-		find_better_place()
-#	pass # Replace with function body.
+#	if null == _house:
+#		var start = OS.get_ticks_usec()
+#		find_better_place()
+#		var end = OS.get_ticks_usec()
+#		var find_better_place_time = (end-start)/1000000.0
+#		print("find_better_place_time: "+str(find_better_place_time))
+	pass # Replace with function body.
 
 func clear_before_removing():
 	if _house:
@@ -245,3 +292,9 @@ func clear_before_removing():
 func can_be_removed():
 	return true
 	
+func next_state(cycle_arg:int) -> void:
+	update_labels()
+	find_better_place()	
+	if (_house):
+		move_to_house_position()
+		#Los que no tienen casa se ordenan en una cola en World.gd

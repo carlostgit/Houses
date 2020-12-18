@@ -27,7 +27,6 @@ func set_worker(worker_arg:Node2D) -> void:
 		worker_arg.set_factory(null) #se abandona la anterior fabrica
 	_worker = worker_arg
 	
-	
 
 func has_worker() -> bool:
 	if (null == _worker):
@@ -47,7 +46,8 @@ func update_labels() -> void:
 	
 
 func _on_TimerUpdateLabel_timeout():
-	update_labels()
+	#update_labels()
+	pass
 
 func clear_before_removing():
 	if _worker:
@@ -56,3 +56,8 @@ func clear_before_removing():
 
 func can_be_demolished():
 	return true
+	
+func next_state(cycle_arg:int) -> void:
+	update_labels()
+	
+	

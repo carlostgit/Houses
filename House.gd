@@ -15,6 +15,7 @@ var _cycle:int = 0
 
 export var _name:String = ""
 
+export var _param_max_discount_negotiation_steps:int = 3
 
 #TODO
 #Temporarily banned workers
@@ -234,7 +235,9 @@ func negotiate_rent_discount() -> void:
 		
 		var best_house:Node2D = null
 		var count:int = 0
-		while best_house != self and _rent > self._minimum_rent:	
+		while best_house != self and _rent > self._minimum_rent:
+			if count>_param_max_discount_negotiation_steps:
+				break
 			count += 1
 			for asking_worker in _world.get_workers():
 				var asking_worker_factory:Node2D = asking_worker.get_factory()

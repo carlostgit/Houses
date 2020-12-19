@@ -37,6 +37,12 @@ autostart = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 30, 30 )
 shape = SubResource( 1 )
+
+[node name="NameLabel" type="Label" parent="."]
+margin_top = 60.0
+margin_right = 30.0
+margin_bottom = 74.0
+text = "A"
 [connection signal="pressed" from="HouseTexture" to="." method="_on_HouseTexture_pressed"]
 [connection signal="timeout" from="TimerUpdateLabel" to="." method="_on_TimerUpdateLabel_timeout"]
 [connection signal="timeout" from="TimerAct" to="." method="_on_TimerAct_timeout"]

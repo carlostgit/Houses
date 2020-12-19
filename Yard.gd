@@ -22,9 +22,50 @@ func _ready():
 	_house.set_position(self.get_position())
 
 #	_house.add_to_group("houses")
+
+	_name = get_new_name()
+
 	_house.hide()
-	_house.set_name("Casa tomasa")
+	_house.set_name(_name)	
 	_world.call_deferred("add_child", _house) #deferred pq _world está ocupado creando sus hijos
+
+func get_new_name():
+	
+	var new_name = "no name"
+	
+	var string_name_source:Array = []
+	var string_alphabet = "ABCDEFGHIJKLMNÑOPQRSTUWXYZ"
+	
+	for i in (string_alphabet.length()-1):
+		string_name_source.append(string_alphabet.substr(i,1))
+	
+	if (_world):
+		for name_of_list in string_name_source:
+			var used_name:bool = false
+			for child in _world.get_children():
+				if (child.is_in_group("houses")):
+					if name_of_list==child.get_name():
+						used_name = true
+				elif(child.is_in_group("yards")):
+					if name_of_list==child.get_name():
+						used_name = true
+				else:
+					continue
+				if used_name:
+					break
+				else:
+					continue
+			if used_name:
+				continue
+				
+			new_name = name_of_list
+			break
+			
+	return new_name	
+
+
+func get_name():
+	return _name
 
 func get_recent_average_estimated_payable_rent() -> float:
 #	sum last rents

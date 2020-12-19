@@ -58,55 +58,11 @@ position = Vector2( 157, 70 )
 ] instance=ExtResource( 4 )]
 position = Vector2( 157, 150 )
 
-[node name="House9" parent="." groups=[
-"houses",
-] instance=ExtResource( 4 )]
-position = Vector2( 160, 320 )
-
-[node name="House10" parent="." groups=[
-"houses",
-] instance=ExtResource( 4 )]
-position = Vector2( 1760, 340 )
-
-[node name="House11" parent="." groups=[
-"houses",
-] instance=ExtResource( 4 )]
-position = Vector2( 1760, 430 )
-
-[node name="House12" parent="." groups=[
-"houses",
-] instance=ExtResource( 4 )]
-position = Vector2( 1760, 520 )
-
 [node name="Factory" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 270, 70 )
 _salary = 8.0
-
-[node name="Factory8" parent="." groups=[
-"factories",
-] instance=ExtResource( 5 )]
-position = Vector2( 270, 320 )
-_salary = 4.0
-
-[node name="Factory9" parent="." groups=[
-"factories",
-] instance=ExtResource( 5 )]
-position = Vector2( 1860, 340 )
-_salary = 1.0
-
-[node name="Factory11" parent="." groups=[
-"factories",
-] instance=ExtResource( 5 )]
-position = Vector2( 1860, 430 )
-_salary = 1.0
-
-[node name="Factory12" parent="." groups=[
-"factories",
-] instance=ExtResource( 5 )]
-position = Vector2( 1860, 520 )
-_salary = 1.0
 
 [node name="Factory3" parent="." groups=[
 "factories",
@@ -283,11 +239,6 @@ script = ExtResource( 18 )
 ] instance=ExtResource( 19 )]
 position = Vector2( 390, 240 )
 
-[node name="Yard4" parent="." groups=[
-"yards",
-] instance=ExtResource( 19 )]
-position = Vector2( 387, 320 )
-
 [node name="Yard2" parent="." groups=[
 "yards",
 ] instance=ExtResource( 19 )]
@@ -298,8 +249,8 @@ position = Vector2( 390, 70 )
 ] instance=ExtResource( 19 )]
 position = Vector2( 157, 240 )
 [connection signal="timeout" from="TimerShortHomeless" to="." method="_on_TimerShortHomeless_timeout"]
-[connection signal="new_building_option" from="HUD" to="HUD/Params/NewYard" method="_on_HUD_new_building_option"]
 [connection signal="new_building_option" from="HUD" to="HUD/Params/NewHouse" method="_on_HUD_new_building_option"]
+[connection signal="new_building_option" from="HUD" to="HUD/Params/NewYard" method="_on_HUD_new_building_option"]
 [connection signal="button_down" from="HUD/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_down"]
 [connection signal="button_up" from="HUD/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_up"]
 [connection signal="button_down" from="HUD/ButtonUp" to="Camera2D" method="_on_ButtonUp_button_down"]

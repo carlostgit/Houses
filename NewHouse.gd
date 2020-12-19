@@ -65,7 +65,7 @@ func _input(event):
 					if false==self._collision_detector.is_building_blocked():
 
 						var house:Node2D = load("res://House.tscn").instance()
-						house.set_name("Casa nueva")
+						#house.set_name("Casa nueva")
 						_world_node.call_deferred("add_child", house) #deferred pq _world está ocupado creando sus hijos
 						house.add_to_group("houses")					
 						var world_coord = _world_node.get_viewport_transform().affine_inverse() * event.position

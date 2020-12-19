@@ -12,6 +12,7 @@ var _workers_without_house:Array = Array()
 var _workers_with_house:Array = Array()
 
 var _houses_array:Array = Array()
+var _houses_without_worker:Array = Array()
 
 var _factories_array:Array = Array()
 var _yards_array:Array = Array()
@@ -55,6 +56,10 @@ func _process(delta):
 		else:
 			_workers_with_house.append(worker)
 
+	_houses_without_worker.clear()
+	for house in _houses_array:
+		if house.get_worker() == null:
+			_houses_without_worker.append(house)
 
 	for factory in _factories_array:
 		factory.next_state(_cycle)
@@ -143,9 +148,12 @@ func get_workers_without_house() -> Array:
 
 func get_available_houses(worker_arg) -> Array:
 	var houses:Array = []
-	for house in _houses_array:
+	for house in _houses_without_worker:
 		if false == house.is_worker_banned(worker_arg):
 			houses.push_back(house)
+	if worker_arg:
+		if worker_arg.get_house():
+			houses.append(worker_arg.get_house())
 	return houses	
 
 

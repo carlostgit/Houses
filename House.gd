@@ -153,7 +153,7 @@ func increase_rent() -> void:
 #			assert(best_house_factory.has("factory"))
 #			var factory:Node2D = best_house_factory.get("factory")
 			if self != house:
-				if get_worker().s_calculate_discretional_income(house,factory) - 0.1 > get_worker().s_calculate_discretional_income(self,factory):	
+				if get_worker().calculate_discretional_income_for_house_and_factory(house,factory) - 0.1 > get_worker().calculate_discretional_income_for_house_and_factory(self,factory):	
 					set_rent(old_rent) #No le subo la renta para que no se largue
 
 

@@ -70,7 +70,10 @@ func _input(event):
 						yard.add_to_group("yards")					
 						var world_coord = _world_node.get_viewport_transform().affine_inverse() * event.position
 						yard.set_global_position(world_coord)
-
+						
+						var land_cost:float = $NewYardLandCost.get_value()
+						yard.set_land_cost(land_cost)
+						
 func set_new_building_mode(enabled_arg:bool):
 	if enabled_arg:
 		_move_image = true

@@ -19,6 +19,9 @@ var _yards_array:Array = Array()
 
 var _cycle:int = 0
 
+var _commuting_cost_per_100m:float = 0.005#per 100m
+#const COMMUTING_COST_PER_DISTANCE:float = 0.005
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#pruebas:
@@ -180,13 +183,30 @@ func get_factories_with_vacant_jobs() -> Array:
 			factories.append(factory)
 	return factories
 
+#
+#static func s_get_commuting_expenses(house:Node2D, factory:Node2D) -> float:
+#	todo: pasar de esta versión del método, a la que no es estática
+#	if house and factory:
+#		var path_vec:Vector2 = house.get_position()-factory.get_position()
+#		var distance:float = path_vec.length() - 50
+#
+#		#var expenses:float = distance/200
+#		var expenses:float = COMMUTING_COST_PER_DISTANCE*distance
+#		if expenses < 0:
+#			expenses = 0
+#
+#		return expenses
+#	else:
+#		return 0.0
 
-static func s_get_commuting_expenses(house:Node2D, factory:Node2D) -> float:
+func get_commuting_expenses(house:Node2D, factory:Node2D) -> float:
 	
 	if house and factory:
 		var path_vec:Vector2 = house.get_position()-factory.get_position()
 		var distance:float = path_vec.length() - 50
-		var expenses:float = distance/200
+		
+		#var expenses:float = distance/200
+		var expenses:float = _commuting_cost_per_100m*distance
 		if expenses < 0:
 			expenses = 0
 		
@@ -217,7 +237,7 @@ func find_best_house_factory_available(current_factory_arg:Node2D, worker_arg:No
 	for factory in available_factories:
 		for house in houses:
 			count_num_options += 1
-			var commuting_cost:float = self.s_get_commuting_expenses(house,factory)
+			var commuting_cost:float = self.get_commuting_expenses(house,factory)
 			var rent:float = house.get_rent()
 			var salary:float = factory.get_salary()
 			var disposable_income = salary-rent-commuting_cost
@@ -263,7 +283,7 @@ func find_best_house_factory_available_with_prospective_house(current_factory_ar
 			else:
 				rent = house.get_rent()
 
-			var commuting_cost:float = self.s_get_commuting_expenses(house,factory)
+			var commuting_cost:float = self.get_commuting_expenses(house,factory)
 #			var rent:float = house.get_rent()
 			var salary:float = factory.get_salary()
 			var disposable_income = salary-rent-commuting_cost
@@ -301,3 +321,7 @@ func _on_MinimumRent_value_changed(value):
 		if node.is_in_group("houses"):
 			node.set_minimum_rent(value)
 	
+
+func _on_CommutingCost_value_changed(value):
+	var param_value:float = value
+	self._commuting_cost_per_100m = value/100

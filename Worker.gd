@@ -99,21 +99,36 @@ static func s_get_rent_expenses(house:Node2D) -> float:
 
 func get_commuting_expenses() -> float:
 	#return CWorld2.s_get_commuting_expenses(_house,_factory)
-	return _world.s_get_commuting_expenses(_house,_factory)
+	return _world.get_commuting_expenses(_house,_factory)
 	
 
 
 func calculate_discretional_income() -> float:
-	return s_calculate_discretional_income(_house, _factory)
-
-
-static func s_calculate_discretional_income(house:Node2D, factory:Node2D) -> float:
-	var income:float = s_get_income(factory)
-	var rent_expenses:float = s_get_rent_expenses(house)
+	#return s_calculate_discretional_income(_house, _factory)
+	return calculate_discretional_income_for_house_and_factory(_house, _factory)
+	
+func calculate_discretional_income_for_house_and_factory(house:Node2D, factory:Node2D) -> float:
+	var income:float = 0.0
+	if factory:
+		income = factory.get_salary()
+	var rent_expenses:float = 0.0
+	if house:
+		rent_expenses = house.get_rent()
+	
 	#var commuting_expenses:float = CWorld2.s_get_commuting_expenses(house, factory)
-	var commuting_expenses:float = CWorld.s_get_commuting_expenses(house, factory)
+	var commuting_expenses:float = 0.0
+	if _world:
+		commuting_expenses = _world.get_commuting_expenses(house, factory)
 	var discretional_income = income - rent_expenses - commuting_expenses
 	return discretional_income
+
+#static func s_calculate_discretional_income(house:Node2D, factory:Node2D) -> float:
+#	var income:float = s_get_income(factory)
+#	var rent_expenses:float = s_get_rent_expenses(house)
+#	#var commuting_expenses:float = CWorld2.s_get_commuting_expenses(house, factory)
+#	var commuting_expenses:float = CWorld.s_get_commuting_expenses(house, factory)
+#	var discretional_income = income - rent_expenses - commuting_expenses
+#	return discretional_income
 
 
 func set_house(house_arg:Node2D) -> void:
@@ -193,7 +208,7 @@ func find_better_place() -> void:
 	factory = best_house_factory.get("factory")
 	#
 	if house!=_house and house!=null and factory!=null:
-		var new_discr_income = s_calculate_discretional_income(house,factory)
+		var new_discr_income = calculate_discretional_income_for_house_and_factory(house,factory)
 		var param_rent_increase_to_evict = 0.1
 		if (new_discr_income - param_rent_increase_to_evict > current_discret_income):
 			var old_rent:float = house.get_rent()

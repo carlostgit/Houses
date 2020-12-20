@@ -15,6 +15,7 @@ margin_bottom = 40.0
 texture_normal = ExtResource( 2 )
 
 [node name="MinRentLabel" type="Label" parent="."]
+visible = false
 margin_left = -50.0
 margin_top = 30.0
 margin_right = -3.0

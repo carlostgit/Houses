@@ -160,6 +160,7 @@ text = "Land price:"
 valign = 1
 
 [node name="MinimumRent" type="SpinBox" parent="HUD/Params"]
+editor/display_folded = true
 margin_left = 359.333
 margin_top = 56.0
 margin_right = 433.333
@@ -174,6 +175,7 @@ text = "Minimum rent:"
 valign = 1
 
 [node name="CommutingCost" type="SpinBox" parent="HUD/Params"]
+editor/display_folded = true
 margin_left = 602.222
 margin_top = 16.0
 margin_right = 676.222

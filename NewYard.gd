@@ -18,7 +18,7 @@ func _ready():
 	
 	_collision_detector = _collision_detector_pack.instance()
 	_collision_detector.set_texture(self.get_normal_texture())
-	print(self.get_parent().get_parent().get_parent().get_path())
+	#print(self.get_parent().get_parent().get_parent().get_path())
 	_world_node = get_node("/root/World")
 #	var world_node = self.get_parent().get_parent().get_parent()
 	_world_node.call_deferred("add_child",_collision_detector)

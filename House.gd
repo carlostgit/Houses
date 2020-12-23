@@ -164,13 +164,13 @@ func update_rent() -> void:
 		increase_rent()
 		var end = OS.get_ticks_usec()
 		var increase_rent_time = (end-start)/1000000.0
-		print("increase_rent_time: "+str(increase_rent_time))
+		#print("increase_rent_time: "+str(increase_rent_time))
 		
 		start = OS.get_ticks_usec()
 		negotiate_rent_discount()
 		end = OS.get_ticks_usec()
 		var negotiate_rent_discount_time = (end-start)/1000000.0
-		print("negotiate_rent_discount_time: "+str(negotiate_rent_discount_time))
+		#print("negotiate_rent_discount_time: "+str(negotiate_rent_discount_time))
 	else:
 		var new_rent = get_rent() - 0.1
 		if new_rent >= _minimum_rent:

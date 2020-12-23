@@ -13,6 +13,8 @@ var _collision_detector:Node2D = null
 
 var _world_node:Node = null
 
+signal option_selected(option_node)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -37,43 +39,57 @@ func _on_NewYard_pressed():
 	else: #false ==_move_image:	
 		set_new_building_mode(true)
 
-func _input(event):
-	#$Label.set_text(event.as_text())
-#	print(event)
-	if(_move_image):
-		if event is InputEventMouseMotion:
-#			El nodo _collision_detector pertenece al nodo World, que está en otro CanvasLayer
-#			Por estar en otro CanvasLayer, las coordenadas globales de este input no valen
-#			Hay que convertir las coordenadas a las coordenadas del otro CanvasLayer
-			var world_coord = _world_node.get_viewport_transform().affine_inverse()*event.position
+	emit_signal("option_selected",self)
+	
+#func _input(event):
+#	#$Label.set_text(event.as_text())
+##	print(event)
+#	if(_move_image):
+#		if event is InputEventMouseMotion:
+##			El nodo _collision_detector pertenece al nodo World, que está en otro CanvasLayer
+##			Por estar en otro CanvasLayer, las coordenadas globales de este input no valen
+##			Hay que convertir las coordenadas a las coordenadas del otro CanvasLayer
+#			var world_coord = _world_node.get_viewport_transform().affine_inverse()*event.position
+#
+#			var local_coord = _world_node.get_global_transform().affine_inverse()*world_coord
+#			self._collision_detector.set_position(local_coord)
+##			Se puede hacer lo siguiente en vez de lo anterior:
+#			self._collision_detector.set_global_position(world_coord)
+#
+##			$Label.set_text(String(event.position))
+##			$Label2.set_text(String(self.get_viewport_transform().affine_inverse() * event.position))
+##			$Label3.set_text(String(self.get_global_transform().affine_inverse()*(self.get_viewport_transform().affine_inverse() * event.position)))
+##			$Label4.set_text(String(_world_node.get_viewport_transform().affine_inverse() * event.position))
+#
+#		elif event is InputEventMouseButton:
+#			if event.is_pressed():
+#
+#				if false == _mouse_inside:					
+#					set_new_building_mode(false)
+#					if false==self._collision_detector.is_building_blocked():
+#
+#						var yard:Node2D = load("res://Yard.tscn").instance()
+#						yard.set_name("Solar nuevo")
+#						_world_node.call_deferred("add_child", yard) #deferred pq _world está ocupado creando sus hijos
+#						yard.add_to_group("yards")					
+#						var world_coord = _world_node.get_viewport_transform().affine_inverse() * event.position
+#						yard.set_global_position(world_coord)
+#
+#						var land_cost:float = $NewYardLandCost.get_value()
+#						yard.set_land_cost(land_cost)
 
-			var local_coord = _world_node.get_global_transform().affine_inverse()*world_coord
-			self._collision_detector.set_position(local_coord)
-#			Se puede hacer lo siguiente en vez de lo anterior:
-			self._collision_detector.set_global_position(world_coord)
+func add_object_to_world(world_coord:Vector2) -> void:
+	var yard:Node2D = load("res://Yard.tscn").instance()
+	yard.set_name("Solar nuevo")
+	_world_node.call_deferred("add_child", yard) #deferred pq _world está ocupado creando sus hijos
+	yard.add_to_group("yards")					
+	yard.set_global_position(world_coord)
 
-#			$Label.set_text(String(event.position))
-#			$Label2.set_text(String(self.get_viewport_transform().affine_inverse() * event.position))
-#			$Label3.set_text(String(self.get_global_transform().affine_inverse()*(self.get_viewport_transform().affine_inverse() * event.position)))
-#			$Label4.set_text(String(_world_node.get_viewport_transform().affine_inverse() * event.position))
+	var land_cost:float = $NewYardLandCost.get_value()
+	yard.set_land_cost(land_cost)
 
-		elif event is InputEventMouseButton:
-			if event.is_pressed():
-				
-				if false == _mouse_inside:					
-					set_new_building_mode(false)
-					if false==self._collision_detector.is_building_blocked():
 
-						var yard:Node2D = load("res://Yard.tscn").instance()
-						yard.set_name("Solar nuevo")
-						_world_node.call_deferred("add_child", yard) #deferred pq _world está ocupado creando sus hijos
-						yard.add_to_group("yards")					
-						var world_coord = _world_node.get_viewport_transform().affine_inverse() * event.position
-						yard.set_global_position(world_coord)
-						
-						var land_cost:float = $NewYardLandCost.get_value()
-						yard.set_land_cost(land_cost)
-						
+
 func set_new_building_mode(enabled_arg:bool):
 	if enabled_arg:
 		_move_image = true

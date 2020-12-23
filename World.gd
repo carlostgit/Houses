@@ -129,7 +129,7 @@ func get_workers() -> Array:
 #	print ("get_children().size(): " + str(self.get_children().size()))
 #	return return_array
 
-	print ("_workers_array.size(): " + str(_workers_array.size()))
+	#print ("_workers_array.size(): " + str(_workers_array.size()))
 	return _workers_array
 
 func get_num_workers_without_house() -> int:

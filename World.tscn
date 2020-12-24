@@ -107,10 +107,10 @@ script = ExtResource( 7 )
 
 [node name="LandPrice" type="SpinBox" parent="HUD/Construction"]
 editor/display_folded = true
-margin_left = 436.322
-margin_top = 104.055
-margin_right = 510.322
-margin_bottom = 128.055
+margin_left = 417.662
+margin_top = 130.179
+margin_right = 491.662
+margin_bottom = 154.179
 value = 2.0
 
 [node name="Label" type="Label" parent="HUD/Construction/LandPrice"]
@@ -122,10 +122,10 @@ valign = 1
 
 [node name="MinimumRent" type="SpinBox" parent="HUD/Construction"]
 editor/display_folded = true
-margin_left = 436.001
-margin_top = 134.554
-margin_right = 510.001
-margin_bottom = 158.554
+margin_left = 416.595
+margin_top = 153.214
+margin_right = 490.595
+margin_bottom = 177.214
 
 [node name="Label" type="Label" parent="HUD/Construction/MinimumRent"]
 margin_left = -108.778
@@ -137,10 +137,10 @@ valign = 1
 
 [node name="CommutingCost" type="SpinBox" parent="HUD/Construction"]
 editor/display_folded = true
-margin_left = 436.439
-margin_top = 167.158
-margin_right = 510.439
-margin_bottom = 191.158
+margin_left = 438.678
+margin_top = 179.1
+margin_right = 512.678
+margin_bottom = 203.1
 step = 0.1
 value = 0.5
 
@@ -177,7 +177,6 @@ texture_normal = ExtResource( 12 )
 script = ExtResource( 13 )
 
 [node name="NewYard" type="TextureButton" parent="HUD/Construction"]
-editor/display_folded = true
 margin_left = 8.51038
 margin_top = 79.7824
 margin_right = 65.5104
@@ -186,10 +185,10 @@ texture_normal = ExtResource( 14 )
 script = ExtResource( 15 )
 
 [node name="NewYardLandCost" type="SpinBox" parent="HUD/Construction/NewYard"]
-margin_left = 392.619
-margin_top = -7.46392
-margin_right = 466.619
-margin_bottom = 16.5361
+margin_left = 396.351
+margin_top = -26.8701
+margin_right = 470.351
+margin_bottom = -2.87006
 value = 5.0
 
 [node name="Label" type="Label" parent="HUD/Construction/NewYard/NewYardLandCost"]
@@ -216,10 +215,10 @@ texture_normal = ExtResource( 18 )
 script = ExtResource( 19 )
 
 [node name="NewFactoryWage" type="SpinBox" parent="HUD/Construction/NewFactory"]
-margin_left = 395.908
-margin_top = 21.2515
-margin_right = 469.908
-margin_bottom = 45.2516
+margin_left = 397.401
+margin_top = -4.12583
+margin_right = 471.401
+margin_bottom = 19.8743
 value = 5.0
 
 [node name="Label" type="Label" parent="HUD/Construction/NewFactory/NewFactoryWage"]
@@ -228,6 +227,22 @@ margin_top = 6.22199
 margin_right = -6.55586
 margin_bottom = 20.222
 text = "New factory salary:"
+
+[node name="FactorySalaries" type="HSlider" parent="HUD/Construction"]
+margin_left = 399.0
+margin_top = 99.0
+margin_right = 510.0
+margin_bottom = 115.0
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+
+[node name="Label2" type="Label" parent="HUD/Construction/FactorySalaries"]
+margin_left = -117.297
+margin_top = 1.98557
+margin_right = 2.70309
+margin_bottom = 15.9856
+text = "Factory salaries:"
 
 [node name="NavigationPanel" type="Panel" parent="HUD"]
 editor/display_folded = true
@@ -330,6 +345,7 @@ text = "100m"
 [connection signal="pressed" from="HUD/Construction/NewHouse" to="HUD/Construction/NewHouse" method="_on_NewHouse_pressed"]
 [connection signal="option_selected" from="HUD/Construction/NewFactory" to="HUD/Construction" method="_on_NewFactory_option_selected"]
 [connection signal="pressed" from="HUD/Construction/NewFactory" to="HUD/Construction/NewFactory" method="_on_NewFactory_pressed"]
+[connection signal="value_changed" from="HUD/Construction/FactorySalaries" to="." method="_on_FactorySalaries_value_changed"]
 [connection signal="button_down" from="HUD/NavigationPanel/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_down"]
 [connection signal="button_up" from="HUD/NavigationPanel/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_up"]
 [connection signal="button_down" from="HUD/NavigationPanel/ButtonUp" to="Camera2D" method="_on_ButtonUp_button_down"]

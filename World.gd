@@ -325,3 +325,15 @@ func _on_MinimumRent_value_changed(value):
 func _on_CommutingCost_value_changed(value):
 	var param_value:float = value
 	self._commuting_cost_per_100m = value/100
+
+#func _on_LandPrice2_value_changed(value):
+#	var param_value:float = value
+#	for node in self.get_children():
+#		if node.is_in_group("yards"):
+#			node.set_land_cost(value)
+
+func _on_FactorySalaries_value_changed(value):
+	var param_value:float = value
+	for node in self.get_children():
+		if node.is_in_group("factories"):
+			node.set_salary(value)

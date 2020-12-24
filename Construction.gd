@@ -102,16 +102,15 @@ func _input(event):
 				else:
 					_collision_detector.show()
 					
-				if false==mouse_in_construction_options_area:
-					
-					#build_in_world_coord(_construction_option, self._collision_detector, world_coord)
-					#call_deferred("build_in_world_coord", _construction_option, _collision_detector, world_coord)
+				#build_in_world_coord(_construction_option, self._collision_detector, world_coord)
+				#call_deferred("build_in_world_coord", _construction_option, _collision_detector, world_coord)
 #					call_deferred("prueba",world_coord)
-					#Añado un retraso en la acción de construccion, porque métodos como set_position no son inmediatos
-					yield(get_tree().create_timer(0.01), "timeout") 
+				#Añado un retraso en la acción de construccion, porque métodos como set_position no son inmediatos
+				yield(get_tree().create_timer(0.05), "timeout")
 #					call_deferred("build_in_world_coord", _construction_option, _collision_detector, world_coord)
-					build_in_world_coord(_construction_option, self._collision_detector, event.position)
+				build_in_world_coord(_construction_option, self._collision_detector, event.position)
 #
+
 #func prueba(world_coord):
 #	print ("prueba")
 

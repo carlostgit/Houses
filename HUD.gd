@@ -4,23 +4,15 @@ extends CanvasLayer
 # var a = 2
 # var b = "text"
 
-signal new_building_option
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	
+	var global_rect:Rect2 = $NavigationPanel.get_global_rect()
+	$Construction.add_no_construction_rect(global_rect)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
-
-func _on_NewYard_pressed():
-	emit_signal("new_building_option")
-func _on_NewHouse_pressed():
-	emit_signal("new_building_option")
-func _on_NewFactory_pressed():
-	emit_signal("new_building_option")
-func _on_NewWorker_pressed():
-	emit_signal("new_building_option")
 

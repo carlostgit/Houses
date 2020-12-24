@@ -14,6 +14,8 @@ var _collision_detector:Node2D = null
 var _world_node:Node = null
 var _move_image = false
 
+var _no_construction_rects:Array = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_collision_detector = _collision_detector_pack.instance()
@@ -28,6 +30,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func add_no_construction_rect(no_construction_rect_arg:Rect2):
+	_no_construction_rects.append(no_construction_rect_arg)
 
 func convert_screen_coordinates_to_world_local_coord(screen_coordinates:Vector2)->Vector2:
 	var world_global_coord = _world_node.get_viewport_transform().affine_inverse()*screen_coordinates
@@ -47,13 +52,17 @@ func convert_screen_coordinates_to_world_global_coord(screen_coordinates:Vector2
 	var world_global_coord = _world_node.get_viewport_transform().affine_inverse()*screen_coordinates
 	return world_global_coord
 
-func is_screen_pos_in_construction_options_area(screen_position:Vector2)->bool:
+func is_screen_pos_in_no_construction_area(screen_position:Vector2)->bool:
 	var HUD_global_coord = convert_screen_coordinates_to_HUD_global_coord(screen_position)
 	var global_rect = get_global_rect()
 	if self.get_global_rect().has_point(HUD_global_coord):
 		return true
-	else:
-		return false
+		
+	for rect in _no_construction_rects:
+		if rect.has_point(HUD_global_coord):
+			return true
+	
+	return false
 	
 func _input(event):
 
@@ -66,7 +75,7 @@ func _input(event):
 
 			#var HUD_global_coord = convert_screen_coordinates_to_HUD_global_coord(event.position)
 #			var HUD_local_coord = convert_screen_coordinates_to_HUD_local_coord(event.position)
-			var mouse_in_construction_options_area:bool = is_screen_pos_in_construction_options_area(event.position)
+			var mouse_in_construction_options_area:bool = is_screen_pos_in_no_construction_area(event.position)
 			var old_modulate = _collision_detector.get_modulate()
 			if mouse_in_construction_options_area:
 				_collision_detector.hide()
@@ -86,7 +95,7 @@ func _input(event):
 				var world_global_coord = convert_screen_coordinates_to_world_global_coord(event.position)
 				self._collision_detector.set_global_position(world_global_coord)
 
-				var mouse_in_construction_options_area:bool = is_screen_pos_in_construction_options_area(event.position)
+				var mouse_in_construction_options_area:bool = is_screen_pos_in_no_construction_area(event.position)
 				var old_modulate = _collision_detector.get_modulate()
 				if mouse_in_construction_options_area:
 					_collision_detector.hide()
@@ -107,7 +116,7 @@ func _input(event):
 #	print ("prueba")
 
 func build_in_world_coord(_construction_option:Node, collision_detector:Node2D, screen_position:Vector2)->void:
-	var mouse_in_construction_options_area:bool = is_screen_pos_in_construction_options_area(screen_position)
+	var mouse_in_construction_options_area:bool = is_screen_pos_in_no_construction_area(screen_position)
 	var world_coord:Vector2 = _world_node.get_viewport_transform().affine_inverse() * screen_position
 	if false==mouse_in_construction_options_area:
 
@@ -154,15 +163,4 @@ func _on_RemoveBuilding_option_selected(option_node):
 func _on_RemovePerson_option_selected(option_node):
 	new_selected_option(option_node)
 
-func _on_NewHouse_mouse_entered():
-	_mouse_inside_option = true
-	
-func _on_NewHouse_mouse_exited():
-	_mouse_inside_option = false
-
-func _on_NewFactory_mouse_entered():
-	_mouse_inside_option = true
-
-func _on_NewFactory_mouse_exited():
-	_mouse_inside_option = false
 

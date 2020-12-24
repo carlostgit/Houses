@@ -4,12 +4,12 @@ extends TextureButton
 # var a = 2
 # var b = "text"
 
-var _move_image = false
-var _mouse_inside =false
+#var _move_image = false
+#var _mouse_inside =false
 
-var _collision_detector_pack = load("res://CollisionDetector.tscn")
+#var _collision_detector_pack = load("res://CollisionDetector.tscn")
 
-var _collision_detector:Node2D = null
+#var _collision_detector:Node2D = null
 
 var _world_node:Node = null
 
@@ -18,16 +18,17 @@ signal option_selected(option_node)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	_collision_detector = _collision_detector_pack.instance()
-	_collision_detector.set_texture(self.get_normal_texture())
-	#print(self.get_parent().get_parent().get_parent().get_path())
+#	_collision_detector = _collision_detector_pack.instance()
+#	_collision_detector.set_texture(self.get_normal_texture())
+#	#print(self.get_parent().get_parent().get_parent().get_path())
 	_world_node = get_node("/root/World")
-#	var world_node = self.get_parent().get_parent().get_parent()
-	_world_node.call_deferred("add_child",_collision_detector)
-	_collision_detector.set_position(Vector2(40,40))
-	_collision_detector.hide()
+	assert(_world_node)
+##	var world_node = self.get_parent().get_parent().get_parent()
+#	_world_node.call_deferred("add_child",_collision_detector)
+#	_collision_detector.set_position(Vector2(40,40))
+#	_collision_detector.hide()
 	#_collision_detector.connect("area_entered",self,"on_NewBuilding_area_entered")
-	
+	pass	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -102,32 +103,32 @@ func remove_object_from_world(areas_to_delete:Array) -> void:
 						child_of_world.queue_free()
 
 
-func set_new_building_mode(enabled_arg:bool):
-	if enabled_arg:
-		_move_image = true
-		self._collision_detector.set_modulate(Color(1,1,1,0.25))
-		self._collision_detector.show()
-	else:
-		_move_image = false
-		self._collision_detector.set_modulate(Color(1,1,1,1))
-		self._collision_detector.hide()
+#func set_new_building_mode(enabled_arg:bool):
+#	if enabled_arg:
+#		#_move_image = true
+#		self._collision_detector.set_modulate(Color(1,1,1,0.25))
+#		self._collision_detector.show()
+#	else:
+#		_move_image = false
+#		self._collision_detector.set_modulate(Color(1,1,1,1))
+#		self._collision_detector.hide()
 
-func _on_HUD_new_building_option():
-	if _move_image:
-		if false==_mouse_inside:
-			set_new_building_mode(false)
-	
-func _on_Remove_mouse_entered():
-	_mouse_inside = true
-
-func _on_Remove_mouse_exited():
-	_mouse_inside = false
+#func _on_HUD_new_building_option():
+#	if _move_image:
+#		if false==_mouse_inside:
+#			set_new_building_mode(false)
+#
+#func _on_Remove_mouse_entered():
+#	_mouse_inside = true
+#
+#func _on_Remove_mouse_exited():
+#	_mouse_inside = false
 	
 
 func _on_RemovePerson_pressed():
-	if _move_image:
-		set_new_building_mode(false)
-	else: #false ==_move_image:	
-		set_new_building_mode(true)
+#	if _move_image:
+#		set_new_building_mode(false)
+#	else: #false ==_move_image:	
+#		set_new_building_mode(true)
 		
 	emit_signal("option_selected",self)

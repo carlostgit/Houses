@@ -97,77 +97,37 @@ scale = Vector2( 0.9, 0.9 )
 transform = Transform2D( 0.9, 0, 0, 0.9, 0, 0 )
 script = ExtResource( 6 )
 
-[node name="ButtonDown" type="Button" parent="HUD"]
-margin_left = 770.0
-margin_top = 140.0
-margin_right = 820.0
-margin_bottom = 170.0
-text = "Down"
+[node name="Construction" type="Panel" parent="HUD"]
+margin_left = 585.334
+margin_top = 432.389
+margin_right = 1115.33
+margin_bottom = 640.389
+mouse_filter = 1
+script = ExtResource( 7 )
 
-[node name="ButtonUp" type="Button" parent="HUD"]
-margin_left = 770.0
-margin_top = 60.0
-margin_right = 820.0
-margin_bottom = 90.0
-text = "Up"
-
-[node name="ButtonLeft" type="Button" parent="HUD"]
-margin_left = 720.0
-margin_top = 100.0
-margin_right = 770.0
-margin_bottom = 130.0
-text = "Left"
-
-[node name="ButtonRight" type="Button" parent="HUD"]
-margin_left = 820.0
-margin_top = 100.0
-margin_right = 870.0
-margin_bottom = 130.0
-text = "Right"
-
-[node name="ButtonZoomIn" type="Button" parent="HUD"]
-margin_left = 640.0
-margin_top = 30.0
-margin_right = 720.0
-margin_bottom = 60.0
-text = "Zoom in"
-
-[node name="ButtonZoomOut" type="Button" parent="HUD"]
-margin_left = 870.0
-margin_top = 30.0
-margin_right = 950.0
-margin_bottom = 60.0
-text = "Zoom out"
-
-[node name="GUI" type="Control" parent="HUD"]
-margin_left = 364.0
-margin_top = 349.5
-margin_right = 1108.0
-margin_bottom = 639.5
-
-[node name="LandPrice" type="SpinBox" parent="HUD/GUI"]
+[node name="LandPrice" type="SpinBox" parent="HUD/Construction"]
 editor/display_folded = true
-margin_left = 335.333
-margin_top = 16.0
-margin_right = 409.333
-margin_bottom = 40.0
+margin_left = 436.322
+margin_top = 104.055
+margin_right = 510.322
+margin_bottom = 128.055
 value = 2.0
 
-[node name="Label" type="Label" parent="HUD/GUI/LandPrice"]
+[node name="Label" type="Label" parent="HUD/Construction/LandPrice"]
 margin_left = -80.0
 margin_right = -10.0
 margin_bottom = 24.0
 text = "Land price:"
 valign = 1
 
-[node name="MinimumRent" type="SpinBox" parent="HUD/GUI"]
+[node name="MinimumRent" type="SpinBox" parent="HUD/Construction"]
 editor/display_folded = true
-margin_left = 359.333
-margin_top = 56.0
-margin_right = 433.333
-margin_bottom = 80.0
+margin_left = 436.001
+margin_top = 134.554
+margin_right = 510.001
+margin_bottom = 158.554
 
-[node name="Label" type="Label" parent="HUD/GUI/MinimumRent"]
+[node name="Label" type="Label" parent="HUD/Construction/MinimumRent"]
 margin_left = -108.778
 margin_top = 1.11111
 margin_right = -12.7778
@@ -175,16 +135,16 @@ margin_bottom = 25.1111
 text = "Minimum rent:"
 valign = 1
 
-[node name="CommutingCost" type="SpinBox" parent="HUD/GUI"]
+[node name="CommutingCost" type="SpinBox" parent="HUD/Construction"]
 editor/display_folded = true
-margin_left = 602.222
-margin_top = 16.0
-margin_right = 676.222
-margin_bottom = 40.0
+margin_left = 436.439
+margin_top = 167.158
+margin_right = 510.439
+margin_bottom = 191.158
 step = 0.1
 value = 0.5
 
-[node name="Label" type="Label" parent="HUD/GUI/CommutingCost"]
+[node name="Label" type="Label" parent="HUD/Construction/CommutingCost"]
 margin_left = -168.889
 margin_top = 1.11111
 margin_right = -10.889
@@ -192,14 +152,7 @@ margin_bottom = 25.1111
 text = "Commuting cost (100m):"
 valign = 1
 
-[node name="Construction" type="Panel" parent="HUD/GUI"]
-margin_left = 247.0
-margin_top = 87.0
-margin_right = 507.0
-margin_bottom = 240.0
-script = ExtResource( 7 )
-
-[node name="RemovePerson" type="TextureButton" parent="HUD/GUI/Construction"]
+[node name="RemovePerson" type="TextureButton" parent="HUD/Construction"]
 margin_left = 184.065
 margin_top = 80.6157
 margin_right = 248.065
@@ -207,7 +160,7 @@ margin_bottom = 144.616
 texture_normal = ExtResource( 8 )
 script = ExtResource( 9 )
 
-[node name="RemoveBuilding" type="TextureButton" parent="HUD/GUI/Construction"]
+[node name="RemoveBuilding" type="TextureButton" parent="HUD/Construction"]
 margin_left = 185.066
 margin_top = 9.11545
 margin_right = 249.066
@@ -215,7 +168,7 @@ margin_bottom = 73.1154
 texture_normal = ExtResource( 10 )
 script = ExtResource( 11 )
 
-[node name="NewWorker" type="TextureButton" parent="HUD/GUI/Construction"]
+[node name="NewWorker" type="TextureButton" parent="HUD/Construction"]
 margin_left = 99.7324
 margin_top = 90.8935
 margin_right = 139.732
@@ -223,7 +176,7 @@ margin_bottom = 130.893
 texture_normal = ExtResource( 12 )
 script = ExtResource( 13 )
 
-[node name="NewYard" type="TextureButton" parent="HUD/GUI/Construction"]
+[node name="NewYard" type="TextureButton" parent="HUD/Construction"]
 editor/display_folded = true
 margin_left = 8.51038
 margin_top = 79.7824
@@ -232,21 +185,21 @@ margin_bottom = 136.782
 texture_normal = ExtResource( 14 )
 script = ExtResource( 15 )
 
-[node name="NewYardLandCost" type="SpinBox" parent="HUD/GUI/Construction/NewYard"]
-margin_left = -100.0
-margin_top = 3.8147e-006
-margin_right = -26.0001
-margin_bottom = 24.0
+[node name="NewYardLandCost" type="SpinBox" parent="HUD/Construction/NewYard"]
+margin_left = 392.619
+margin_top = -7.46392
+margin_right = 466.619
+margin_bottom = 16.5361
 value = 5.0
 
-[node name="Label" type="Label" parent="HUD/GUI/Construction/NewYard/NewYardLandCost"]
+[node name="Label" type="Label" parent="HUD/Construction/NewYard/NewYardLandCost"]
 margin_left = -126.556
 margin_top = 6.22199
 margin_right = -6.55586
 margin_bottom = 20.222
 text = "New yard land cost:"
 
-[node name="NewHouse" type="TextureButton" parent="HUD/GUI/Construction"]
+[node name="NewHouse" type="TextureButton" parent="HUD/Construction"]
 margin_left = 100.117
 margin_top = 9.49278
 margin_right = 157.117
@@ -254,8 +207,7 @@ margin_bottom = 66.4928
 texture_normal = ExtResource( 16 )
 script = ExtResource( 17 )
 
-[node name="NewFactory" type="TextureButton" parent="HUD/GUI/Construction"]
-editor/display_folded = true
+[node name="NewFactory" type="TextureButton" parent="HUD/Construction"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 64.0
@@ -263,19 +215,68 @@ margin_bottom = 64.0
 texture_normal = ExtResource( 18 )
 script = ExtResource( 19 )
 
-[node name="NewFactoryWage" type="SpinBox" parent="HUD/GUI/Construction/NewFactory"]
-margin_left = -101.189
-margin_top = -2.63299
-margin_right = -27.1893
-margin_bottom = 21.3671
+[node name="NewFactoryWage" type="SpinBox" parent="HUD/Construction/NewFactory"]
+margin_left = 395.908
+margin_top = 21.2515
+margin_right = 469.908
+margin_bottom = 45.2516
 value = 5.0
 
-[node name="Label" type="Label" parent="HUD/GUI/Construction/NewFactory/NewFactoryWage"]
+[node name="Label" type="Label" parent="HUD/Construction/NewFactory/NewFactoryWage"]
 margin_left = -126.556
 margin_top = 6.22199
 margin_right = -6.55586
 margin_bottom = 20.222
 text = "New factory salary:"
+
+[node name="NavigationPanel" type="Panel" parent="HUD"]
+editor/display_folded = true
+margin_left = 680.0
+margin_top = 66.0
+margin_right = 1018.0
+margin_bottom = 233.0
+
+[node name="ButtonDown" type="Button" parent="HUD/NavigationPanel"]
+margin_left = 142.999
+margin_top = 121.0
+margin_right = 192.999
+margin_bottom = 151.0
+text = "Down"
+
+[node name="ButtonUp" type="Button" parent="HUD/NavigationPanel"]
+margin_left = 142.999
+margin_top = 41.0
+margin_right = 192.999
+margin_bottom = 71.0
+text = "Up"
+
+[node name="ButtonLeft" type="Button" parent="HUD/NavigationPanel"]
+margin_left = 92.999
+margin_top = 81.0
+margin_right = 142.999
+margin_bottom = 111.0
+text = "Left"
+
+[node name="ButtonRight" type="Button" parent="HUD/NavigationPanel"]
+margin_left = 192.999
+margin_top = 81.0
+margin_right = 242.999
+margin_bottom = 111.0
+text = "Right"
+
+[node name="ButtonZoomIn" type="Button" parent="HUD/NavigationPanel"]
+margin_left = 12.999
+margin_top = 11.0
+margin_right = 92.999
+margin_bottom = 41.0
+text = "Zoom in"
+
+[node name="ButtonZoomOut" type="Button" parent="HUD/NavigationPanel"]
+margin_left = 242.999
+margin_top = 11.0
+margin_right = 322.999
+margin_bottom = 41.0
+text = "Zoom out"
 
 [node name="Yard" parent="." groups=[
 "yards",
@@ -315,43 +316,27 @@ margin_right = 70.0
 margin_bottom = -6.0
 text = "100m"
 [connection signal="timeout" from="TimerShortHomeless" to="." method="_on_TimerShortHomeless_timeout"]
-[connection signal="new_building_option" from="HUD" to="HUD/GUI/Construction/NewYard" method="_on_HUD_new_building_option"]
-[connection signal="new_building_option" from="HUD" to="HUD/GUI/Construction/NewHouse" method="_on_HUD_new_building_option"]
-[connection signal="button_down" from="HUD/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_down"]
-[connection signal="button_up" from="HUD/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_up"]
-[connection signal="button_down" from="HUD/ButtonUp" to="Camera2D" method="_on_ButtonUp_button_down"]
-[connection signal="button_up" from="HUD/ButtonUp" to="Camera2D" method="_on_ButtonUp_button_up"]
-[connection signal="button_down" from="HUD/ButtonLeft" to="Camera2D" method="_on_ButtonLeft_button_down"]
-[connection signal="button_up" from="HUD/ButtonLeft" to="Camera2D" method="_on_ButtonLeft_button_up"]
-[connection signal="button_down" from="HUD/ButtonRight" to="Camera2D" method="_on_ButtonRight_button_down"]
-[connection signal="button_up" from="HUD/ButtonRight" to="Camera2D" method="_on_ButtonRight_button_up"]
-[connection signal="pressed" from="HUD/ButtonZoomIn" to="Camera2D" method="_on_ButtonZoomIn_pressed"]
-[connection signal="pressed" from="HUD/ButtonZoomOut" to="Camera2D" method="_on_ButtonZoomOut_pressed"]
-[connection signal="value_changed" from="HUD/GUI/LandPrice" to="." method="_on_LandPrice_value_changed"]
-[connection signal="value_changed" from="HUD/GUI/MinimumRent" to="." method="_on_MinimumRent_value_changed"]
-[connection signal="value_changed" from="HUD/GUI/CommutingCost" to="." method="_on_CommutingCost_value_changed"]
-[connection signal="option_selected" from="HUD/GUI/Construction/RemovePerson" to="HUD/GUI/Construction" method="_on_RemovePerson_option_selected"]
-[connection signal="pressed" from="HUD/GUI/Construction/RemovePerson" to="HUD/GUI/Construction/RemovePerson" method="_on_RemovePerson_pressed"]
-[connection signal="option_selected" from="HUD/GUI/Construction/RemoveBuilding" to="HUD/GUI/Construction" method="_on_RemoveBuilding_option_selected"]
-[connection signal="pressed" from="HUD/GUI/Construction/RemoveBuilding" to="HUD/GUI/Construction/RemoveBuilding" method="_on_RemoveBuilding_pressed"]
-[connection signal="pressed" from="HUD/GUI/Construction/NewWorker" to="HUD" method="_on_NewWorker_pressed"]
-[connection signal="pressed" from="HUD/GUI/Construction/NewWorker" to="HUD/GUI/Construction/NewWorker" method="_on_NewWorker_pressed"]
-[connection signal="mouse_entered" from="HUD/GUI/Construction/NewYard" to="HUD/GUI/Construction/NewYard" method="_on_NewYard_mouse_entered"]
-[connection signal="mouse_exited" from="HUD/GUI/Construction/NewYard" to="HUD/GUI/Construction/NewYard" method="_on_NewYard_mouse_exited"]
-[connection signal="option_selected" from="HUD/GUI/Construction/NewYard" to="HUD/GUI/Construction" method="_on_NewYard_option_selected"]
-[connection signal="pressed" from="HUD/GUI/Construction/NewYard" to="HUD" method="_on_NewYard_pressed"]
-[connection signal="pressed" from="HUD/GUI/Construction/NewYard" to="HUD/GUI/Construction/NewYard" method="_on_NewYard_pressed"]
-[connection signal="mouse_entered" from="HUD/GUI/Construction/NewHouse" to="HUD/GUI/Construction/NewHouse" method="_on_NewHouse_mouse_entered"]
-[connection signal="mouse_entered" from="HUD/GUI/Construction/NewHouse" to="HUD/GUI/Construction" method="_on_NewHouse_mouse_entered"]
-[connection signal="mouse_exited" from="HUD/GUI/Construction/NewHouse" to="HUD/GUI/Construction/NewHouse" method="_on_NewHouse_mouse_exited"]
-[connection signal="mouse_exited" from="HUD/GUI/Construction/NewHouse" to="HUD/GUI/Construction" method="_on_NewHouse_mouse_exited"]
-[connection signal="option_selected" from="HUD/GUI/Construction/NewHouse" to="HUD/GUI/Construction" method="_on_NewHouse_option_selected"]
-[connection signal="pressed" from="HUD/GUI/Construction/NewHouse" to="HUD" method="_on_NewHouse_pressed"]
-[connection signal="pressed" from="HUD/GUI/Construction/NewHouse" to="HUD/GUI/Construction/NewHouse" method="_on_NewHouse_pressed"]
-[connection signal="mouse_entered" from="HUD/GUI/Construction/NewFactory" to="HUD/GUI/Construction/NewFactory" method="_on_NewFactory_mouse_entered"]
-[connection signal="mouse_entered" from="HUD/GUI/Construction/NewFactory" to="HUD/GUI/Construction" method="_on_NewFactory_mouse_entered"]
-[connection signal="mouse_exited" from="HUD/GUI/Construction/NewFactory" to="HUD/GUI/Construction/NewFactory" method="_on_NewFactory_mouse_exited"]
-[connection signal="mouse_exited" from="HUD/GUI/Construction/NewFactory" to="HUD/GUI/Construction" method="_on_NewFactory_mouse_exited"]
-[connection signal="option_selected" from="HUD/GUI/Construction/NewFactory" to="HUD/GUI/Construction" method="_on_NewFactory_option_selected"]
-[connection signal="pressed" from="HUD/GUI/Construction/NewFactory" to="HUD" method="_on_NewFactory_pressed"]
-[connection signal="pressed" from="HUD/GUI/Construction/NewFactory" to="HUD/GUI/Construction/NewFactory" method="_on_NewFactory_pressed"]
+[connection signal="value_changed" from="HUD/Construction/LandPrice" to="." method="_on_LandPrice_value_changed"]
+[connection signal="value_changed" from="HUD/Construction/MinimumRent" to="." method="_on_MinimumRent_value_changed"]
+[connection signal="value_changed" from="HUD/Construction/CommutingCost" to="." method="_on_CommutingCost_value_changed"]
+[connection signal="option_selected" from="HUD/Construction/RemovePerson" to="HUD/Construction" method="_on_RemovePerson_option_selected"]
+[connection signal="pressed" from="HUD/Construction/RemovePerson" to="HUD/Construction/RemovePerson" method="_on_RemovePerson_pressed"]
+[connection signal="option_selected" from="HUD/Construction/RemoveBuilding" to="HUD/Construction" method="_on_RemoveBuilding_option_selected"]
+[connection signal="pressed" from="HUD/Construction/RemoveBuilding" to="HUD/Construction/RemoveBuilding" method="_on_RemoveBuilding_pressed"]
+[connection signal="pressed" from="HUD/Construction/NewWorker" to="HUD/Construction/NewWorker" method="_on_NewWorker_pressed"]
+[connection signal="option_selected" from="HUD/Construction/NewYard" to="HUD/Construction" method="_on_NewYard_option_selected"]
+[connection signal="pressed" from="HUD/Construction/NewYard" to="HUD/Construction/NewYard" method="_on_NewYard_pressed"]
+[connection signal="option_selected" from="HUD/Construction/NewHouse" to="HUD/Construction" method="_on_NewHouse_option_selected"]
+[connection signal="pressed" from="HUD/Construction/NewHouse" to="HUD/Construction/NewHouse" method="_on_NewHouse_pressed"]
+[connection signal="option_selected" from="HUD/Construction/NewFactory" to="HUD/Construction" method="_on_NewFactory_option_selected"]
+[connection signal="pressed" from="HUD/Construction/NewFactory" to="HUD/Construction/NewFactory" method="_on_NewFactory_pressed"]
+[connection signal="button_down" from="HUD/NavigationPanel/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_down"]
+[connection signal="button_up" from="HUD/NavigationPanel/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_up"]
+[connection signal="button_down" from="HUD/NavigationPanel/ButtonUp" to="Camera2D" method="_on_ButtonUp_button_down"]
+[connection signal="button_up" from="HUD/NavigationPanel/ButtonUp" to="Camera2D" method="_on_ButtonUp_button_up"]
+[connection signal="button_down" from="HUD/NavigationPanel/ButtonLeft" to="Camera2D" method="_on_ButtonLeft_button_down"]
+[connection signal="button_up" from="HUD/NavigationPanel/ButtonLeft" to="Camera2D" method="_on_ButtonLeft_button_up"]
+[connection signal="button_down" from="HUD/NavigationPanel/ButtonRight" to="Camera2D" method="_on_ButtonRight_button_down"]
+[connection signal="button_up" from="HUD/NavigationPanel/ButtonRight" to="Camera2D" method="_on_ButtonRight_button_up"]
+[connection signal="pressed" from="HUD/NavigationPanel/ButtonZoomIn" to="Camera2D" method="_on_ButtonZoomIn_pressed"]
+[connection signal="pressed" from="HUD/NavigationPanel/ButtonZoomOut" to="Camera2D" method="_on_ButtonZoomOut_pressed"]

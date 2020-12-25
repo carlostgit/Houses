@@ -220,7 +220,11 @@ func find_better_place() -> void:
 			self.set_house(house)
 			house.set_rent(new_rent)
 			self.set_factory(factory)
-
+	
+	elif house==_house and house!=null and factory!=null and factory!=_factory:
+		#cambio a una mejor empresa, pero en la misma casa
+		self.set_factory(factory)
+	
 
 func update_labels() -> void:
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://Camera2D.gd" type="Script" id=2]
@@ -13,13 +13,16 @@
 [ext_resource path="res://RemoveBuilding.gd" type="Script" id=11]
 [ext_resource path="res://slacker.png" type="Texture" id=12]
 [ext_resource path="res://NewPerson.gd" type="Script" id=13]
-[ext_resource path="res://yard.png" type="Texture" id=14]
-[ext_resource path="res://NewYard.gd" type="Script" id=15]
-[ext_resource path="res://house.png" type="Texture" id=16]
-[ext_resource path="res://NewHouse.gd" type="Script" id=17]
-[ext_resource path="res://factory.png" type="Texture" id=18]
-[ext_resource path="res://NewFactory.gd" type="Script" id=19]
-[ext_resource path="res://Yard.tscn" type="PackedScene" id=20]
+[ext_resource path="res://cancel.png" type="Texture" id=14]
+[ext_resource path="res://Cancel.gd" type="Script" id=15]
+[ext_resource path="res://yard.png" type="Texture" id=16]
+[ext_resource path="res://NewYard.gd" type="Script" id=17]
+[ext_resource path="res://house.png" type="Texture" id=18]
+[ext_resource path="res://NewHouse.gd" type="Script" id=19]
+[ext_resource path="res://factory.png" type="Texture" id=20]
+[ext_resource path="res://NewFactory.gd" type="Script" id=21]
+[ext_resource path="res://BuildingEdition.gd" type="Script" id=22]
+[ext_resource path="res://Yard.tscn" type="PackedScene" id=23]
 
 [node name="World" type="Node2D" groups=[
 "world",
@@ -176,13 +179,22 @@ margin_bottom = 130.893
 texture_normal = ExtResource( 12 )
 script = ExtResource( 13 )
 
+[node name="Cancel" type="TextureButton" parent="HUD/Construction"]
+margin_left = 99.7324
+margin_top = 141.648
+margin_right = 139.732
+margin_bottom = 181.648
+texture_normal = ExtResource( 14 )
+script = ExtResource( 15 )
+
 [node name="NewYard" type="TextureButton" parent="HUD/Construction"]
+editor/display_folded = true
 margin_left = 8.51038
 margin_top = 79.7824
 margin_right = 65.5104
 margin_bottom = 136.782
-texture_normal = ExtResource( 14 )
-script = ExtResource( 15 )
+texture_normal = ExtResource( 16 )
+script = ExtResource( 17 )
 
 [node name="NewYardLandCost" type="SpinBox" parent="HUD/Construction/NewYard"]
 margin_left = 396.351
@@ -203,16 +215,16 @@ margin_left = 100.117
 margin_top = 9.49278
 margin_right = 157.117
 margin_bottom = 66.4928
-texture_normal = ExtResource( 16 )
-script = ExtResource( 17 )
+texture_normal = ExtResource( 18 )
+script = ExtResource( 19 )
 
 [node name="NewFactory" type="TextureButton" parent="HUD/Construction"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 64.0
 margin_bottom = 64.0
-texture_normal = ExtResource( 18 )
-script = ExtResource( 19 )
+texture_normal = ExtResource( 20 )
+script = ExtResource( 21 )
 
 [node name="NewFactoryWage" type="SpinBox" parent="HUD/Construction/NewFactory"]
 margin_left = 397.401
@@ -236,6 +248,7 @@ margin_bottom = 115.0
 min_value = 1.0
 max_value = 10.0
 value = 1.0
+ticks_on_borders = false
 
 [node name="Label2" type="Label" parent="HUD/Construction/FactorySalaries"]
 margin_left = -117.297
@@ -293,19 +306,62 @@ margin_right = 322.999
 margin_bottom = 41.0
 text = "Zoom out"
 
+[node name="BuildingEdition" type="Control" parent="HUD"]
+margin_left = 686.971
+margin_top = 240.507
+margin_right = 1019.97
+margin_bottom = 419.507
+script = ExtResource( 22 )
+
+[node name="FactoryEdition" type="Panel" parent="HUD/BuildingEdition"]
+margin_left = -5.0
+margin_top = 4.0
+margin_right = 329.0
+margin_bottom = 169.0
+
+[node name="Salary" type="HSlider" parent="HUD/BuildingEdition/FactoryEdition"]
+margin_left = 39.0
+margin_top = 45.0
+margin_right = 296.0
+margin_bottom = 77.0
+max_value = 10.0
+value = 1.0
+ticks_on_borders = false
+
+[node name="Label" type="Label" parent="HUD/BuildingEdition/FactoryEdition"]
+margin_left = 43.2907
+margin_top = 2.98557
+margin_right = 162.291
+margin_bottom = 31.9856
+text = "Factory salary. Factory name:"
+
+[node name="Name" type="Label" parent="HUD/BuildingEdition/FactoryEdition"]
+margin_left = 231.381
+margin_top = 7.46392
+margin_right = 271.381
+margin_bottom = 21.4639
+text = "No name"
+
+[node name="Button" type="Button" parent="HUD/BuildingEdition/FactoryEdition"]
+margin_left = 87.4062
+margin_top = 112.971
+margin_right = 259.406
+margin_bottom = 151.971
+text = "Cancel"
+
 [node name="Yard" parent="." groups=[
 "yards",
-] instance=ExtResource( 20 )]
+] instance=ExtResource( 23 )]
 position = Vector2( 390, 240 )
 
 [node name="Yard2" parent="." groups=[
 "yards",
-] instance=ExtResource( 20 )]
+] instance=ExtResource( 23 )]
 position = Vector2( 390, 70 )
 
 [node name="Yard3" parent="." groups=[
 "yards",
-] instance=ExtResource( 20 )]
+] instance=ExtResource( 23 )]
 position = Vector2( 157, 240 )
 
 [node name="Scale" type="Node2D" parent="."]
@@ -339,6 +395,8 @@ text = "100m"
 [connection signal="option_selected" from="HUD/Construction/RemoveBuilding" to="HUD/Construction" method="_on_RemoveBuilding_option_selected"]
 [connection signal="pressed" from="HUD/Construction/RemoveBuilding" to="HUD/Construction/RemoveBuilding" method="_on_RemoveBuilding_pressed"]
 [connection signal="pressed" from="HUD/Construction/NewWorker" to="HUD/Construction/NewWorker" method="_on_NewWorker_pressed"]
+[connection signal="option_selected" from="HUD/Construction/Cancel" to="HUD/Construction" method="_on_Cancel_option_selected"]
+[connection signal="pressed" from="HUD/Construction/Cancel" to="HUD/Construction/Cancel" method="_on_Cancel_pressed"]
 [connection signal="option_selected" from="HUD/Construction/NewYard" to="HUD/Construction" method="_on_NewYard_option_selected"]
 [connection signal="pressed" from="HUD/Construction/NewYard" to="HUD/Construction/NewYard" method="_on_NewYard_pressed"]
 [connection signal="option_selected" from="HUD/Construction/NewHouse" to="HUD/Construction" method="_on_NewHouse_option_selected"]
@@ -356,3 +414,5 @@ text = "100m"
 [connection signal="button_up" from="HUD/NavigationPanel/ButtonRight" to="Camera2D" method="_on_ButtonRight_button_up"]
 [connection signal="pressed" from="HUD/NavigationPanel/ButtonZoomIn" to="Camera2D" method="_on_ButtonZoomIn_pressed"]
 [connection signal="pressed" from="HUD/NavigationPanel/ButtonZoomOut" to="Camera2D" method="_on_ButtonZoomOut_pressed"]
+[connection signal="value_changed" from="HUD/BuildingEdition/FactoryEdition/Salary" to="HUD/BuildingEdition" method="_on_Salary_value_changed"]
+[connection signal="pressed" from="HUD/BuildingEdition/FactoryEdition/Button" to="HUD/BuildingEdition" method="_on_Button_pressed"]

@@ -337,3 +337,7 @@ func _on_FactorySalaries_value_changed(value):
 	for node in self.get_children():
 		if node.is_in_group("factories"):
 			node.set_salary(value)
+			
+func on_sig_factory_selected(factory_node):
+	print("on_sig_factory_selected")
+	$HUD/BuildingEdition.new_selected_node(factory_node)

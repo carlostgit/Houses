@@ -79,13 +79,15 @@ func _on_NewFactory_pressed():
 
 func add_object_to_world(world_coord:Vector2) -> void:
 	var factory:Node2D = load("res://Factory.tscn").instance()
-	factory.set_name("Fabrica nueva")
+	#factory.set_name("Fabrica nueva")
 	_world_node.call_deferred("add_child", factory) #deferred pq _world está ocupado creando sus hijos
 	factory.add_to_group("factories")					
 	#var world_coord = _world_node.get_viewport_transform().affine_inverse() * event.position
 	factory.set_global_position(world_coord)
 	var salary:float = $NewFactoryWage.get_value()
 	factory.set_salary(salary)
+	
+#	factory.connect("sig_factory_selected", _world_node, "on_sig_factory_selected")
 
 #func set_new_building_mode(enabled_arg:bool):
 #	if enabled_arg:

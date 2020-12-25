@@ -162,4 +162,5 @@ func _on_RemoveBuilding_option_selected(option_node):
 func _on_RemovePerson_option_selected(option_node):
 	new_selected_option(option_node)
 
-
+func _on_Cancel_option_selected(option_node):
+	new_selected_option(option_node)

@@ -11,7 +11,7 @@ var _name:String = ""
 
 var _world:Node2D = null
 
-signal sig_factory_selected(node)
+signal sig_node_selected(node)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,7 +20,7 @@ func _ready():
 	if (_name==""):
 		_name = get_new_name()
 
-	self.connect("sig_factory_selected", _world, "on_sig_factory_selected")
+	self.connect("sig_node_selected", _world, "on_sig_node_selected")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -114,4 +114,4 @@ func next_state(cycle_arg:int) -> void:
 func _on_FactoryTexture_gui_input(event):
 	
 	if event is InputEventMouseButton:
-		emit_signal("sig_factory_selected",self)
+		emit_signal("sig_node_selected",self)

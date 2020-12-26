@@ -29,12 +29,22 @@ func new_selected_node(selected_node_arg:Node) -> void:
 			
 func hide_all_panels():
 	$FactoryEdition.hide()
+	$YardEdition.hide()
+	$HouseEdition.hide()
 	
 func show_panel_for_node(selected_node_arg:Node):
 	if selected_node_arg.is_in_group("factories"):
 		$FactoryEdition.show()
 		$FactoryEdition/Name.set_text(selected_node_arg.get_name())
 		$FactoryEdition/Salary.set_value(selected_node_arg.get_salary())
+	elif selected_node_arg.is_in_group("yards"):
+		$YardEdition.show()
+		$YardEdition/Name.set_text(selected_node_arg.get_name())
+		$YardEdition/LandCost.set_value(selected_node_arg.get_land_cost())
+	elif selected_node_arg.is_in_group("houses"):
+		$HouseEdition.show()
+		$HouseEdition/Name.set_text(selected_node_arg.get_name())
+		$HouseEdition/MinimumRent.set_value(selected_node_arg.get_minimum_rent())
 		
 
 #func _on_HSlider_value_changed(value):
@@ -53,3 +63,17 @@ func _on_Salary_value_changed(value):
 
 func _on_Button_pressed():
 	new_selected_node(null)
+
+
+func _on_LandCost_value_changed(value):
+	var param_value:float = value
+	if _selected_node != null:
+		if _selected_node.is_in_group("yards"):
+			_selected_node.set_land_cost(value)
+
+func _on_MinimumRent_value_changed(value):
+	var param_value:float = value
+	if _selected_node != null:
+		if _selected_node.is_in_group("houses"):
+			_selected_node.set_minimum_rent(value)
+

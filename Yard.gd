@@ -5,6 +5,8 @@ extends Node2D
 # var b = "text"
 var _land_cost:float = 2.0
 
+var _min_profit_rate:float = 0.20 #*100=percentage
+
 var _world:Node2D = null
 
 var _estimated_payable_rent:float = 0.0
@@ -15,6 +17,8 @@ var _last_estimated_payable_rents:Array
 var _house:Node2D = preload("res://House.tscn").instance()
 
 var _name:String = ""
+
+signal sig_node_selected(node)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,6 +32,8 @@ func _ready():
 	_house.hide()
 	_house.set_name(_name)	
 	_world.call_deferred("add_child", _house) #deferred pq _world está ocupado creando sus hijos
+
+	self.connect("sig_node_selected", _world, "on_sig_node_selected")
 
 func get_new_name():
 	
@@ -99,7 +105,7 @@ func get_house() -> Node2D:
 #func _process(delta):
 #	pass
 
-func get_min_rent() -> float:
+func get_building_cost() -> float:
 	var other_costs:float = 0.0
 	var total_cost:float = get_land_cost() + other_costs
 	return total_cost
@@ -108,9 +114,9 @@ func get_land_cost() -> float:
 	return _land_cost
 
 func update_labels() -> void:
-	var min_rent:float = self.get_min_rent()
-	var min_rent_rounded:float = stepify(min_rent, 0.01)
-	$MinRentLabel.set_text(str(min_rent_rounded)+"$")
+	var building_cost:float = self.get_building_cost()
+	var building_cost_rounded:float = stepify(building_cost, 0.01)
+	$BuildingCostLabel.set_text(str(building_cost_rounded)+"$")
 
 	var land_cost:float = self.get_land_cost()
 	var land_cost_rounded:float = stepify(land_cost, 0.01)
@@ -120,6 +126,7 @@ func update_labels() -> void:
 	var expected_rent_rounded:float = stepify(expected_rent, 0.01)
 	$ExpectedRentLabel.set_text(str(expected_rent_rounded)+"$")
 
+	$NameLabel.set_text(get_name())
 
 func calculate_estimated_payable_rent() -> float:
 #	assert(false) #tengo pendiente debugear este metodo
@@ -207,7 +214,9 @@ func _on_TimerUpdateLabel_timeout():
 	
 func _on_YardTexture_pressed():
 #	build_house()
-	pass
+	
+	emit_signal("sig_node_selected",self)
+
 	
 func _on_TimerBuildHouse_timeout():
 	#	self.calculate_estimated_payable_rent()
@@ -244,8 +253,8 @@ func next_state(cycle_arg:int) -> void:
 	
 	self.adjust_estimated_payable_rent()
 	_last_estimated_payable_rents.push_back(self.get_estimated_payable_rent())
-	var min_profit:float = 1.0
-	if (self.get_estimated_payable_rent() > min_profit + self.get_min_rent()):
+	var min_profit:float = self.get_building_cost()*_min_profit_rate
+	if (self.get_estimated_payable_rent() > min_profit + self.get_building_cost()):
 		if (self.get_estimated_payable_rent() > min_profit + get_recent_average_estimated_payable_rent()):
 			build_house()
 	

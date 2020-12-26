@@ -28,6 +28,8 @@ var _banned_workers_with_cycle:Dictionary = {} #banned_worker:Node2D - cycle_whe
 var _leaving_tenants_with_cycle:Array = [] #worker:Node2D
 var _min_cycles_before_leaving_again:int = 1 
 
+signal sig_node_selected(node)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_world = get_node("../../World")
@@ -36,6 +38,7 @@ func _ready():
 	if (_name==""):
 		_name = get_new_name()
 	
+	self.connect("sig_node_selected", _world, "on_sig_node_selected")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -114,6 +117,9 @@ func get_worker() -> Node2D:
 
 func set_minimum_rent(minimum_rent_arg:float) -> void:
 	_minimum_rent = minimum_rent_arg
+	
+func get_minimum_rent()->float:
+	return _minimum_rent
 
 func get_position_for_worker() -> Vector2:
 	var house_pos:Vector2 = self.get_position()
@@ -135,7 +141,11 @@ func update_labels() -> void:
 	var rent_rounded:float = stepify(rent, 0.01)
 	$RentLabel.set_text(str(rent_rounded)+"$")
 	$NameLabel.set_text(_name)
-
+	
+	var minimum_rent:float = self.get_minimum_rent()
+	var minimum_rent_rounded:float = stepify(minimum_rent, 0.01)
+	$MinimumRentLabel.set_text(str(minimum_rent_rounded)+"$")
+	
 func increase_rent() -> void:
 	if (get_worker()):
 		var old_rent:float = get_rent()
@@ -265,8 +275,9 @@ func _on_TimerUpdateLabel_timeout():
 	
 
 func _on_HouseTexture_pressed():
-	increase_rent()	
+#	increase_rent()	
 #	pass # Replace with function body.
+	emit_signal("sig_node_selected",self)
 
 func _on_TimerAct_timeout():
 #	update_rent()

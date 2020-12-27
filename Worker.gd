@@ -224,7 +224,11 @@ func find_better_place() -> void:
 	
 	elif house==_house and house!=null and factory!=null and factory!=_factory:
 		#cambio a una mejor empresa, pero en la misma casa
-		self.set_factory(factory)
+		#solo si la nueva combinación es 0.1 mejor que la actual
+		var new_discr_income = calculate_discretional_income_for_house_and_factory(house,factory)
+		var param_rent_increase_to_change_jobs = 0.1
+		if (new_discr_income - param_rent_increase_to_change_jobs > current_discret_income):
+			self.set_factory(factory)
 	
 
 func update_labels() -> void:

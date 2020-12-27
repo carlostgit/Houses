@@ -84,8 +84,11 @@ func add_object_to_world(world_coord:Vector2) -> void:
 	factory.add_to_group("factories")					
 	#var world_coord = _world_node.get_viewport_transform().affine_inverse() * event.position
 	factory.set_global_position(world_coord)
-	var salary:float = $NewFactoryWage.get_value()
+	#var salary:float = $NewFactoryWage.get_value()
+	var salary:float = $NewFactorySalary.get_value()
 	factory.set_salary(salary)
+	
+
 	
 #	factory.connect("sig_factory_selected", _world_node, "on_sig_factory_selected")
 

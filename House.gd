@@ -153,40 +153,48 @@ func increase_rent() -> void:
 		var old_rent:float = get_rent()
 		var step:float = 0.1
 		var new_rent:float = old_rent + step
-		var discretional_income:float = get_worker().calculate_discretional_income()
 		
-		if discretional_income > step:
+		if old_rent<get_minimum_rent():
 			set_rent(new_rent)
-			#Miro si con una subida de renta el inquilino se larga
-			var factory:Node2D = get_worker().get_factory()
-			var best_house_factory:Dictionary  = _world.find_best_house_factory_available(factory,get_worker())
-			assert(best_house_factory.has("house"))
-			var house:Node2D = best_house_factory.get("house")
-#			assert(best_house_factory.has("factory"))
-#			var factory:Node2D = best_house_factory.get("factory")
-			if self != house:
-				if get_worker().calculate_discretional_income_for_house_and_factory(house,factory) - 0.1 > get_worker().calculate_discretional_income_for_house_and_factory(self,factory):	
-					set_rent(old_rent) #No le subo la renta para que no se largue
+		else:
+			var discretional_income:float = get_worker().calculate_discretional_income()
+			
+			if discretional_income > step:
+				set_rent(new_rent)
+				#Miro si con una subida de renta el inquilino se larga
+				var factory:Node2D = get_worker().get_factory()
+				var best_house_factory:Dictionary  = _world.find_best_house_factory_available(factory,get_worker())
+				assert(best_house_factory.has("house"))
+				var house:Node2D = best_house_factory.get("house")
+	#			assert(best_house_factory.has("factory"))
+	#			var factory:Node2D = best_house_factory.get("factory")
+				if self != house:
+					if get_worker().calculate_discretional_income_for_house_and_factory(house,factory) - 0.1 > get_worker().calculate_discretional_income_for_house_and_factory(self,factory):	
+						set_rent(old_rent) #No le subo la renta para que no se largue
 
 
 func update_rent() -> void:
 #	subo renta mientras haya inquilino, y bajo cuando no lo haya
 	if self.get_worker():
-		var start = OS.get_ticks_usec()
+#		var start = OS.get_ticks_usec()
 		increase_rent()
-		var end = OS.get_ticks_usec()
-		var increase_rent_time = (end-start)/1000000.0
+#		var end = OS.get_ticks_usec()
+#		var increase_rent_time = (end-start)/1000000.0
 		#print("increase_rent_time: "+str(increase_rent_time))
 		
-		start = OS.get_ticks_usec()
+#		start = OS.get_ticks_usec()
 		negotiate_rent_discount()
-		end = OS.get_ticks_usec()
-		var negotiate_rent_discount_time = (end-start)/1000000.0
+#		end = OS.get_ticks_usec()
+#		var negotiate_rent_discount_time = (end-start)/1000000.0
 		#print("negotiate_rent_discount_time: "+str(negotiate_rent_discount_time))
 	else:
-		var new_rent = get_rent() - 0.1
-		if new_rent >= _minimum_rent:
-			set_rent(new_rent)
+		
+		if get_rent()<get_minimum_rent():
+			set_rent(get_minimum_rent())
+		else:
+			var new_rent = get_rent() - 0.1
+			if new_rent >= _minimum_rent:
+				set_rent(new_rent)
 
 
 func leaving_house(worker:Node2D)-> void:

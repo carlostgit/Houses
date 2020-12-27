@@ -158,7 +158,7 @@ func increase_rent() -> void:
 			set_rent(new_rent)
 		else:
 			var discretional_income:float = get_worker().calculate_discretional_income()
-			
+
 			if discretional_income > step:
 				set_rent(new_rent)
 				#Miro si con una subida de renta el inquilino se larga

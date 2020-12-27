@@ -146,6 +146,7 @@ func set_house(house_arg:Node2D) -> void:
 		_house.set_worker(self)
 	move_to_house_position()
 
+	
 
 func get_house() -> Node2D:
 	return _house
@@ -314,6 +315,11 @@ func can_be_removed():
 func next_state(cycle_arg:int) -> void:
 	update_labels()
 	find_better_place()	
+	
+	if self.calculate_discretional_income()<0:
+		self.set_house(null)
+		self.set_factory(null)
+	
 	if (_house):
 		move_to_house_position()
 		#Los que no tienen casa se ordenan en una cola en World.gd

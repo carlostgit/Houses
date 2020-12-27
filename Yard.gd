@@ -19,6 +19,7 @@ var _house:Node2D = preload("res://House.tscn").instance()
 var _name:String = ""
 
 signal sig_node_selected(node)
+signal sig_node_deleted(node)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,6 +35,10 @@ func _ready():
 	_world.call_deferred("add_child", _house) #deferred pq _world está ocupado creando sus hijos
 
 	self.connect("sig_node_selected", _world, "on_sig_node_selected")
+	self.connect("sig_node_deleted", _world, "on_sig_node_deleted")
+	#self.connect("tree_exited", _world, "on_sig_node_deleted3")
+
+#	probar estas conecsiones. comprobar si se está sacando el yard del tree al liberarlo
 
 func get_new_name():
 	
@@ -204,9 +209,15 @@ func adjust_estimated_payable_rent() -> float:
 	return estimated_payable_rent
 
 func build_house() -> void:
+
 	self._house.add_to_group("houses")
 	self._house.show()
+	
+#	emit_signal("sig_node_deleted",self)
+	
 	self.queue_free()
+	
+	
 
 func _on_TimerUpdateLabel_timeout():
 #	update_labels()
@@ -259,3 +270,8 @@ func next_state(cycle_arg:int) -> void:
 			build_house()
 	
 	update_labels()
+
+func _on_Yard_tree_exiting():
+	
+	emit_signal("sig_node_deleted",self)
+	

@@ -249,7 +249,7 @@ margin_bottom = 115.0
 min_value = 1.0
 max_value = 10.0
 value = 1.0
-ticks_on_borders = false
+ticks_on_borders = true
 
 [node name="Label2" type="Label" parent="HUD/Construction/FactorySalaries"]
 margin_left = -117.297
@@ -315,6 +315,7 @@ margin_bottom = 419.507
 script = ExtResource( 22 )
 
 [node name="FactoryEdition" type="Panel" parent="HUD/BuildingEdition"]
+editor/display_folded = true
 margin_left = -5.0
 margin_top = 4.0
 margin_right = 329.0
@@ -327,7 +328,7 @@ margin_right = 296.0
 margin_bottom = 77.0
 max_value = 10.0
 value = 1.0
-ticks_on_borders = false
+ticks_on_borders = true
 
 [node name="Label" type="Label" parent="HUD/BuildingEdition/FactoryEdition"]
 margin_left = 43.2907
@@ -351,6 +352,7 @@ margin_bottom = 151.971
 text = "Cancel"
 
 [node name="YardEdition" type="Panel" parent="HUD/BuildingEdition"]
+editor/display_folded = true
 margin_left = -5.0
 margin_top = 4.0
 margin_right = 329.0
@@ -364,7 +366,7 @@ margin_bottom = 77.0
 max_value = 10.0
 step = 0.1
 value = 2.0
-ticks_on_borders = false
+ticks_on_borders = true
 
 [node name="Label" type="Label" parent="HUD/BuildingEdition/YardEdition"]
 margin_left = 43.2907
@@ -400,7 +402,7 @@ margin_right = 296.0
 margin_bottom = 77.0
 max_value = 10.0
 step = 0.1
-ticks_on_borders = false
+ticks_on_borders = true
 
 [node name="Label" type="Label" parent="HUD/BuildingEdition/HouseEdition"]
 margin_left = 43.2907

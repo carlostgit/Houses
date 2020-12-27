@@ -38,5 +38,6 @@ shape = SubResource( 1 )
 margin_top = 60.0
 margin_right = 40.0
 margin_bottom = 74.0
+[connection signal="tree_exiting" from="." to="." method="_on_Factory_tree_exiting"]
 [connection signal="gui_input" from="FactoryTexture" to="." method="_on_FactoryTexture_gui_input"]
 [connection signal="timeout" from="TimerUpdateLabel" to="." method="_on_TimerUpdateLabel_timeout"]

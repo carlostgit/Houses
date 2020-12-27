@@ -58,6 +58,7 @@ margin_top = 60.0
 margin_right = 40.0
 margin_bottom = 74.0
 text = "NAME"
+[connection signal="tree_exiting" from="." to="." method="_on_Yard_tree_exiting"]
 [connection signal="pressed" from="YardTexture" to="." method="_on_YardTexture_pressed"]
 [connection signal="timeout" from="TimerUpdateLabel" to="." method="_on_TimerUpdateLabel_timeout"]
 [connection signal="timeout" from="TimerBuildHouse" to="." method="_on_TimerBuildHouse_timeout"]

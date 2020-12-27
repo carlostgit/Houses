@@ -341,4 +341,6 @@ func _on_FactorySalaries_value_changed(value):
 func on_sig_node_selected(node):
 #	print("on_sig_node_selected")
 	$HUD/BuildingEdition.new_selected_node(node)
-	
+
+func on_sig_node_deleted(node):
+	$HUD/BuildingEdition.node_deleted(node)

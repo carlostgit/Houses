@@ -63,13 +63,19 @@ func _on_Salary_value_changed(value):
 
 func _on_Button_pressed():
 	new_selected_node(null)
+	
+
 
 
 func _on_LandCost_value_changed(value):
-	var param_value:float = value
-	if _selected_node != null:
-		if _selected_node.is_in_group("yards"):
-			_selected_node.set_land_cost(value)
+	#chequeo que no se haya eliminado el Yard al transformase en casa
+	if is_instance_valid(_selected_node):		
+		var param_value:float = value
+		if _selected_node != null:
+			if _selected_node.is_in_group("yards"):
+				_selected_node.set_land_cost(value)
+	else:
+		new_selected_node(null)
 
 func _on_MinimumRent_value_changed(value):
 	var param_value:float = value
@@ -77,3 +83,7 @@ func _on_MinimumRent_value_changed(value):
 		if _selected_node.is_in_group("houses"):
 			_selected_node.set_minimum_rent(value)
 
+func node_deleted(node):
+	if _selected_node==node:
+		_selected_node = null
+		new_selected_node(null)

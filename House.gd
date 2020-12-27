@@ -29,6 +29,7 @@ var _leaving_tenants_with_cycle:Array = [] #worker:Node2D
 var _min_cycles_before_leaving_again:int = 1 
 
 signal sig_node_selected(node)
+signal sig_node_deleted(node)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,6 +40,7 @@ func _ready():
 		_name = get_new_name()
 	
 	self.connect("sig_node_selected", _world, "on_sig_node_selected")
+	self.connect("sig_node_deleted", _world, "on_sig_node_deleted")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -301,3 +303,6 @@ func next_state(cycle_arg:int) -> void:
 	ban_workers()
 	update_labels()
 	
+
+func _on_House_tree_exiting():
+	emit_signal("sig_node_deleted",self)

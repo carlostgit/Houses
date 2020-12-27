@@ -53,6 +53,7 @@ margin_top = 60.0
 margin_right = 30.0
 margin_bottom = 74.0
 text = "A"
+[connection signal="tree_exiting" from="." to="." method="_on_House_tree_exiting"]
 [connection signal="pressed" from="HouseTexture" to="." method="_on_HouseTexture_pressed"]
 [connection signal="timeout" from="TimerUpdateLabel" to="." method="_on_TimerUpdateLabel_timeout"]
 [connection signal="timeout" from="TimerAct" to="." method="_on_TimerAct_timeout"]

@@ -214,6 +214,39 @@ func get_commuting_expenses(house:Node2D, factory:Node2D) -> float:
 	else:
 		return 0.0
 
+func find_best_factory_available_for_house_and_worker(yard_arg:Node2D, worker_arg:Node2D) -> Dictionary:
+	var vacant_factories:Array = get_factories_with_vacant_jobs()
+	
+	var houses:Array = get_available_houses(worker_arg)
+	var best_disposable_income:float = 0.0
+	var best_house:Node2D = null
+	var best_factory:Node2D = null
+	var difference_with_second_best:float = 0.0
+	
+	var current_factory = worker_arg.get_factory()
+	
+	if (current_factory):
+		vacant_factories.append(current_factory)
+	var available_factories:Array = vacant_factories
+
+	var count_num_options:int = 0	
+
+	for factory in available_factories:
+		count_num_options += 1
+		var commuting_cost:float = get_commuting_expenses(yard_arg.get_house(),factory)
+		var rent:float = yard_arg.get_estimated_payable_rent()
+		var salary:float = factory.get_salary()
+		var disposable_income = salary-rent-commuting_cost
+		if (disposable_income > best_disposable_income):
+			difference_with_second_best = disposable_income - best_disposable_income
+			best_disposable_income = disposable_income
+			#best_house = house_arg
+			best_factory = factory
+
+
+	var ret_value:Dictionary = {"house": yard_arg.get_house(), "factory":best_factory, "disposable_income": best_disposable_income, "difference":difference_with_second_best, "num_options":count_num_options}
+	return ret_value
+
 
 func find_best_house_factory_available(current_factory_arg:Node2D, worker_arg:Node2D) -> Dictionary:
 	var vacant_factories:Array = get_factories_with_vacant_jobs()
@@ -248,7 +281,7 @@ func find_best_house_factory_available(current_factory_arg:Node2D, worker_arg:No
 				best_factory = factory
 
 
-	var ret_value:Dictionary = {"house": best_house,"factory":best_factory, "difference":difference_with_second_best, "num_options":count_num_options}
+	var ret_value:Dictionary = {"house": best_house,"factory":best_factory, "disposable_income": best_disposable_income, "difference":difference_with_second_best, "num_options":count_num_options}
 	return ret_value
 
 func find_best_house_factory_available_with_prospective_house(current_factory_arg:Node2D, worker_arg:Node2D, yard_arg:Node2D) -> Dictionary:
@@ -294,7 +327,7 @@ func find_best_house_factory_available_with_prospective_house(current_factory_ar
 				best_factory = factory
 
 	#var ret_value:Dictionary = {"house": best_house,"factory":best_factory}
-	var ret_value:Dictionary = {"house": best_house,"factory":best_factory, "difference":difference_with_second_best, "num_options":count_num_options}
+	var ret_value:Dictionary = {"house": best_house,"factory":best_factory, "disposable_income": best_disposable_income, "difference":difference_with_second_best, "num_options":count_num_options}
 	return ret_value
 		
 

@@ -16,6 +16,11 @@ var _commuting_lines:Array = []
 
 var _cycle:int = 0
 
+#
+var _best_house_factory:Dictionary
+
+var _best_factory_and_disposable_income_for_prospective_house:Dictionary
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_world = get_node("../../World")
@@ -197,15 +202,18 @@ func move_to_house_position() -> void:
 
 func find_better_place() -> void:
 	var current_discret_income:float = self.calculate_discretional_income()
-	assert(_world)
-	assert(_world.has_method("find_best_house_factory_available"))
+#	assert(_world)
+#	assert(_world.has_method("find_best_house_factory_available"))
 	var house:Node2D = null
 	var factory:Node2D = null
 	#_world.set_at_default_position(self)
-	var best_house_factory:Dictionary  = _world.find_best_house_factory_available(_factory, self)
-	assert(best_house_factory.has("house"))
+	
+#	var best_house_factory:Dictionary  = _world.find_best_house_factory_available(_factory, self)
+	#Cambio lo anterior por lo siguiente, para intentar mejorar el rendimiento:
+	var best_house_factory:Dictionary  = get_precalculated_best_house_factory()
+#	assert(best_house_factory.has("house"))
 	house = best_house_factory.get("house")
-	assert(best_house_factory.has("factory"))
+#	assert(best_house_factory.has("factory"))
 	factory = best_house_factory.get("factory")
 	#
 	if house!=_house and house!=null and factory!=null:
@@ -315,8 +323,42 @@ func clear_before_removing():
 	
 func can_be_removed():
 	return true
+
+func get_precalculated_best_house_factory()->Dictionary:	
+	return _best_house_factory
+
+func calculate_best_house_factory()->void:	
+	var best_house_factory:Dictionary = _world.find_best_house_factory_available(_factory, self)
+	_best_house_factory = best_house_factory
 	
+	
+
+#todo precalcular: var best_house_factory:Dictionary  = _world.find_best_house_factory_available_with_prospective_house(asking_worker_factory, asking_worker, self)
+func calculate_best_factory_available_with_prospective_house(prospective_house:Node)->void:
+	#todo llamar a func find_best_house_factory_available_with_prospective_house(current_factory_arg:Node2D, worker_arg:Node2D, yard_arg:Node2D) -> Dictionary:
+	#y guardar resultados
+	#var current_best_house_factory:Dictionary = get_precalculated_best_house_factory()
+	#var current_best_disposable_income:float = current_best_house_factory.get("disposable_income")
+	var best_factory_for_prospective_house:Dictionary = _world.find_best_factory_available_for_house_and_worker(prospective_house,self)
+	#var prosp_house_best_disposable_income:float = best_factory_for_prospective_house.get("disposable_income")
+	
+#	if prosp_house_best_disposable_income>current_best_disposable_income:
+	var best_factory = best_factory_for_prospective_house.get("factory")
+	var ret_value:Dictionary = {prospective_house: best_factory_for_prospective_house}
+	_best_factory_and_disposable_income_for_prospective_house = ret_value
+
+	
+func get_precalculated_best_factory_and_disposable_income_for_prospective_house(prospective_house:Node)->Dictionary:
+	return _best_factory_and_disposable_income_for_prospective_house.get(prospective_house)
+
+
 func next_state(cycle_arg:int) -> void:
+	
+	#Prueba de dividir los cálculos en etapas
+	#Precalculo cosas
+	calculate_best_house_factory()
+	#
+	
 	update_labels()
 	find_better_place()	
 	
@@ -327,3 +369,5 @@ func next_state(cycle_arg:int) -> void:
 	if (_house):
 		move_to_house_position()
 		#Los que no tienen casa se ordenan en una cola en World.gd
+		
+	

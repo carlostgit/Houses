@@ -18,6 +18,8 @@ var _house:Node2D = preload("res://House.tscn").instance()
 
 var _name:String = ""
 
+var _best_worker_for_yard:Dictionary
+
 signal sig_node_selected(node)
 signal sig_node_deleted(node)
 
@@ -259,10 +261,49 @@ func clear_before_removing():
 	
 func can_be_demolished():
 	return true
-	
+
+
+func calculate_best_candidate_to_move_to_prospective_house() -> Dictionary:
+	var best_worker:Node = null
+	var best_improvement = 0
+	for asking_worker in _world.get_workers():
+		var worker_yard_info:Dictionary = asking_worker.get_precalculated_best_factory_and_disposable_income_for_prospective_house(self)
+		var disposable_income_for_yard:float = worker_yard_info.get("disposable_income")
+		var current_disposable_income:float = asking_worker.calculate_discretional_income()
+		var improvement:float = disposable_income_for_yard - current_disposable_income
+		if best_worker == null or improvement>best_improvement:
+			best_worker = asking_worker
+			best_improvement = improvement
+			
+	#improvement es la mejora que tendría el worker si se moviera al yard
+	_best_worker_for_yard = {"worker":best_worker,"improvement":best_improvement}
+	return _best_worker_for_yard
+
+func get_precalculated_best_candidate_to_move_to_prospective_house() -> Dictionary:
+	return _best_worker_for_yard
+
+func adjust_estimated_payable_rent_using_precalculated_best_candidate_info() -> void:
+	var improvement:float = _best_worker_for_yard.get("improvement")
+	var estimated_payable_rent:float = self.get_estimated_payable_rent()
+	var step:float = 0.1
+	if improvement > 0:
+		self.set_estimated_payable_rent(estimated_payable_rent + step)
+	elif improvement < 0:
+		self.set_estimated_payable_rent(estimated_payable_rent - step)
+		
 func next_state(cycle_arg:int) -> void:
 	
-	self.adjust_estimated_payable_rent()
+	#precalculo cosas
+	for asking_worker in _world.get_workers():
+		asking_worker.calculate_best_factory_available_with_prospective_house(self)
+	calculate_best_candidate_to_move_to_prospective_house()
+	
+	#
+	
+	#self.adjust_estimated_payable_rent()
+	#Cambio lo anterior por lo siguiente, para intentar mejorar el rendimiento
+	self.adjust_estimated_payable_rent_using_precalculated_best_candidate_info()
+	
 	_last_estimated_payable_rents.push_back(self.get_estimated_payable_rent())
 	var min_profit:float = self.get_building_cost()*_min_profit_rate
 	if (self.get_estimated_payable_rent() > min_profit + self.get_building_cost()):

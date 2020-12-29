@@ -267,7 +267,7 @@ func calculate_best_candidate_to_move_to_prospective_house() -> Dictionary:
 	var best_worker:Node = null
 	var best_improvement = 0
 	for asking_worker in _world.get_workers():
-		var worker_yard_info:Dictionary = asking_worker.get_precalculated_best_factory_and_disposable_income_for_prospective_house(self)
+		var worker_yard_info:Dictionary = asking_worker.get_precalculated_worker_info_for_prospective_house(self)
 		var disposable_income_for_yard:float = worker_yard_info.get("disposable_income")
 		var current_disposable_income:float = asking_worker.calculate_discretional_income()
 		var improvement:float = disposable_income_for_yard - current_disposable_income
@@ -295,7 +295,7 @@ func next_state(cycle_arg:int) -> void:
 	
 	#precalculo cosas
 	for asking_worker in _world.get_workers():
-		asking_worker.calculate_best_factory_available_with_prospective_house(self)
+		asking_worker.calculate_worker_info_for_prospective_house(self)
 	calculate_best_candidate_to_move_to_prospective_house()
 	
 	#

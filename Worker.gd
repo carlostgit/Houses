@@ -334,7 +334,7 @@ func calculate_best_house_factory()->void:
 	
 
 #todo precalcular: var best_house_factory:Dictionary  = _world.find_best_house_factory_available_with_prospective_house(asking_worker_factory, asking_worker, self)
-func calculate_best_factory_available_with_prospective_house(prospective_house:Node)->void:
+func calculate_worker_info_for_prospective_house(prospective_house:Node)->void:
 	#todo llamar a func find_best_house_factory_available_with_prospective_house(current_factory_arg:Node2D, worker_arg:Node2D, yard_arg:Node2D) -> Dictionary:
 	#y guardar resultados
 	#var current_best_house_factory:Dictionary = get_precalculated_best_house_factory()
@@ -348,7 +348,7 @@ func calculate_best_factory_available_with_prospective_house(prospective_house:N
 	_best_factory_and_disposable_income_for_prospective_house = ret_value
 
 	
-func get_precalculated_best_factory_and_disposable_income_for_prospective_house(prospective_house:Node)->Dictionary:
+func get_precalculated_worker_info_for_prospective_house(prospective_house:Node)->Dictionary:
 	return _best_factory_and_disposable_income_for_prospective_house.get(prospective_house)
 
 

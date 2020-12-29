@@ -28,6 +28,8 @@ var _banned_workers_with_cycle:Dictionary = {} #banned_worker:Node2D - cycle_whe
 var _leaving_tenants_with_cycle:Array = [] #worker:Node2D
 var _min_cycles_before_leaving_again:int = 1 
 
+var _best_worker_for_house:Dictionary
+
 signal sig_node_selected(node)
 signal sig_node_deleted(node)
 
@@ -193,7 +195,7 @@ func update_rent() -> void:
 		#print("increase_rent_time: "+str(increase_rent_time))
 		
 #		start = OS.get_ticks_usec()
-		negotiate_rent_discount()
+#		negotiate_rent_discount()
 #		end = OS.get_ticks_usec()
 #		var negotiate_rent_discount_time = (end-start)/1000000.0
 		#print("negotiate_rent_discount_time: "+str(negotiate_rent_discount_time))
@@ -290,16 +292,60 @@ func ban_workers() -> void:
 #Sustituyo el método anterior por una versión que usa datos precalculados
 func negotiate_rent_discount() -> void:
 	if _worker:
-		var best_house_factory:Dictionary  = _worker.get_precalculated_best_house_factory()
-		var best_house:Node = best_house_factory.get("house")
-		if (best_house != self):
+#		var best_house_factory:Dictionary  = _worker.get_precalculated_best_house_factory()
+#		var best_house:Node = best_house_factory.get("house")
+#		if (best_house != self):
+		negotiate_discount_from_house(0.1)
 			#var difference:Node = best_house_factory.get("difference")
-			var discount_step:float = 0.1
-			var new_rent:float = get_rent() - discount_step
-			if new_rent < self._minimum_rent:
-				new_rent = self._minimum_rent
-			set_rent(new_rent)
+#			var discount_step:float = 0.1
+#			var new_rent:float = get_rent() - discount_step
+#			if new_rent < self._minimum_rent:
+#				new_rent = self._minimum_rent
+#			set_rent(new_rent)
 #
+
+func negotiate_discount_from_house(discount_to_ask_arg:float)->bool:
+	#lo preguntan los inquilinos, antes de mudarse
+	
+	if (get_rent() - discount_to_ask_arg < get_minimum_rent()):
+		return false
+	
+	if _worker:
+#		var best_house_factory:Dictionary  = _worker.get_precalculated_best_house_factory()
+#		var best_house:Node = best_house_factory.get("house")
+#		if (best_house != self):
+			
+		for asking_worker in _world.get_workers():
+			asking_worker.calculate_worker_info_for_house(self)
+		calculate_best_candidate_to_move_to_house_excluding_current()
+		
+		var improvement:float = _best_worker_for_house.get("improvement")
+		
+		var cost_of_changing = 0.1
+		if improvement <= -discount_to_ask_arg+cost_of_changing:
+			self.set_rent(get_rent() - discount_to_ask_arg)
+			return true
+	
+	return false
+
+func calculate_best_candidate_to_move_to_house_excluding_current() -> Dictionary:
+	var best_worker:Node = null
+	var best_improvement = 0
+	for asking_worker in _world.get_workers():
+		if asking_worker == _worker:
+			continue
+		var worker_yard_info:Dictionary = asking_worker.get_precalculated_worker_info_for_house(self)
+		var disposable_income_for_yard:float = worker_yard_info.get("disposable_income")
+		var current_disposable_income:float = asking_worker.calculate_discretional_income()
+		var improvement:float = disposable_income_for_yard - current_disposable_income
+		if best_worker == null or improvement>best_improvement:
+			best_worker = asking_worker
+			best_improvement = improvement
+			
+	#improvement es la mejora que tendría el worker si se moviera al yard
+	_best_worker_for_house = {"worker":best_worker,"improvement":best_improvement}
+	return _best_worker_for_house
+
 
 func _on_TimerUpdateLabel_timeout():
 	update_labels()

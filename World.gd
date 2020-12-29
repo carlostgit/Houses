@@ -87,7 +87,13 @@ func _process(delta):
 	for yard in _yards_array:
 		yard.next_state(_cycle)
 	var time_next_state_yards_finished = OS.get_ticks_usec()
-	for worker in _workers_array:
+#	for worker in _workers_array:
+#		worker.next_state(_cycle)
+	#Cambio lo anterior para dar prioridad en sus acciones a los que se han quedado sin casa
+	#Para evitar que otros workers que andan cambiando entre casa y casa, taponen a estos
+	for worker in _workers_without_house:
+		worker.next_state(_cycle)
+	for worker in _workers_with_house:
 		worker.next_state(_cycle)
 
 	
@@ -252,7 +258,7 @@ func get_commuting_expenses(house:Node2D, factory:Node2D) -> float:
 	else:
 		return 0.0
 
-func find_best_factory_available_for_house_and_worker(yard_arg:Node2D, worker_arg:Node2D) -> Dictionary:
+func find_best_factory_available_for_yard_and_worker(yard_arg:Node2D, worker_arg:Node2D) -> Dictionary:
 	var vacant_factories:Array = get_factories_with_vacant_jobs()
 	
 	var houses:Array = get_available_houses(worker_arg)
@@ -283,6 +289,39 @@ func find_best_factory_available_for_house_and_worker(yard_arg:Node2D, worker_ar
 
 
 	var ret_value:Dictionary = {"house": yard_arg.get_house(), "factory":best_factory, "disposable_income": best_disposable_income, "difference":difference_with_second_best, "num_options":count_num_options}
+	return ret_value
+
+func find_best_factory_available_for_house_and_worker(house_arg:Node2D, worker_arg:Node2D) -> Dictionary:
+	var vacant_factories:Array = get_factories_with_vacant_jobs()
+	
+	var houses:Array = get_available_houses(worker_arg)
+	var best_disposable_income:float = 0.0
+	var best_house:Node2D = null
+	var best_factory:Node2D = null
+	var difference_with_second_best:float = 0.0
+	
+	var current_factory = worker_arg.get_factory()
+	
+	if (current_factory):
+		vacant_factories.append(current_factory)
+	var available_factories:Array = vacant_factories
+
+	var count_num_options:int = 0	
+
+	for factory in available_factories:
+		count_num_options += 1
+		var commuting_cost:float = get_commuting_expenses(house_arg,factory)
+		var rent:float = house_arg.get_rent()
+		var salary:float = factory.get_salary()
+		var disposable_income = salary-rent-commuting_cost
+		if (disposable_income > best_disposable_income):
+			difference_with_second_best = disposable_income - best_disposable_income
+			best_disposable_income = disposable_income
+			#best_house = house_arg
+			best_factory = factory
+
+
+	var ret_value:Dictionary = {"house": house_arg, "factory":best_factory, "disposable_income": best_disposable_income, "difference":difference_with_second_best, "num_options":count_num_options}
 	return ret_value
 
 

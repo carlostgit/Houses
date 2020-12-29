@@ -20,6 +20,7 @@ var _cycle:int = 0
 var _best_house_factory:Dictionary
 
 var _best_factory_and_disposable_income_for_prospective_house:Dictionary
+var _best_factory_and_disposable_income_for_house:Dictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -220,15 +221,18 @@ func find_better_place() -> void:
 		var new_discr_income = calculate_discretional_income_for_house_and_factory(house,factory)
 		var param_rent_increase_to_evict = 0.1
 		if (new_discr_income - param_rent_increase_to_evict > current_discret_income):
-			var old_rent:float = house.get_rent()
-			var new_rent:float = old_rent + param_rent_increase_to_evict
-
-			if _house:
-				_house.leaving_house(self)
-				
-			self.set_house(house)
-			house.set_rent(new_rent)
-			self.set_factory(factory)
+			
+			var discount_to_ask = new_discr_income-current_discret_income
+			if _house== null or (_house!=null and false == _house.negotiate_discount_from_house(discount_to_ask)):
+				#var old_rent:float = house.get_rent()
+				#var new_rent:float = old_rent + param_rent_increase_to_evict
+	
+				if _house:
+					_house.leaving_house(self)
+					
+				self.set_house(house)
+				#house.set_rent(new_rent)
+				self.set_factory(factory)
 	
 	elif house==_house and house!=null and factory!=null and factory!=_factory:
 		#cambio a una mejor empresa, pero en la misma casa
@@ -339,7 +343,7 @@ func calculate_worker_info_for_prospective_house(prospective_house:Node)->void:
 	#y guardar resultados
 	#var current_best_house_factory:Dictionary = get_precalculated_best_house_factory()
 	#var current_best_disposable_income:float = current_best_house_factory.get("disposable_income")
-	var best_factory_for_prospective_house:Dictionary = _world.find_best_factory_available_for_house_and_worker(prospective_house,self)
+	var best_factory_for_prospective_house:Dictionary = _world.find_best_factory_available_for_yard_and_worker(prospective_house,self)
 	#var prosp_house_best_disposable_income:float = best_factory_for_prospective_house.get("disposable_income")
 	
 #	if prosp_house_best_disposable_income>current_best_disposable_income:
@@ -350,6 +354,22 @@ func calculate_worker_info_for_prospective_house(prospective_house:Node)->void:
 	
 func get_precalculated_worker_info_for_prospective_house(prospective_house:Node)->Dictionary:
 	return _best_factory_and_disposable_income_for_prospective_house.get(prospective_house)
+
+func calculate_worker_info_for_house(house_arg:Node)->void:
+	#todo llamar a func find_best_house_factory_available_with_prospective_house(current_factory_arg:Node2D, worker_arg:Node2D, yard_arg:Node2D) -> Dictionary:
+	#y guardar resultados
+	#var current_best_house_factory:Dictionary = get_precalculated_best_house_factory()
+	#var current_best_disposable_income:float = current_best_house_factory.get("disposable_income")
+	var best_factory_for_house:Dictionary = _world.find_best_factory_available_for_house_and_worker(house_arg,self)
+	#var prosp_house_best_disposable_income:float = best_factory_for_prospective_house.get("disposable_income")
+	
+#	if prosp_house_best_disposable_income>current_best_disposable_income:
+#	var best_factory = best_factory_for_house.get("factory")
+	var ret_value:Dictionary = {house_arg: best_factory_for_house}
+	_best_factory_and_disposable_income_for_house = ret_value
+
+func get_precalculated_worker_info_for_house(house_arg:Node)->Dictionary:
+	return _best_factory_and_disposable_income_for_house.get(house_arg)
 
 
 func next_state(cycle_arg:int) -> void:

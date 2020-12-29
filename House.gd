@@ -21,12 +21,12 @@ export var _param_max_discount_negotiation_steps:int = 3
 #Temporarily banned workers
 #Hay que penalizar temporalmente a los trabajadores que abandonen la casa
 #sin llevar mucho tiempo, para que no anden largándose y volviendo de forma intermitente
-var _ban_time:int = 1 #cycles
+var _ban_time:int = 30 #cycles
 var _banned_workers_with_cycle:Dictionary = {} #banned_worker:Node2D - cycle_when_banned:int
 
 #Se mirara que inquilinos han abandonado la casa los últimos 5 ciclos
 var _leaving_tenants_with_cycle:Array = [] #worker:Node2D
-var _min_cycles_before_leaving_again:int = 1 
+var _min_cycles_before_leaving_again:int = 20 
 
 var _best_worker_for_house:Dictionary
 
@@ -314,10 +314,9 @@ func negotiate_discount_from_house(discount_to_ask_arg:float)->bool:
 #		var best_house_factory:Dictionary  = _worker.get_precalculated_best_house_factory()
 #		var best_house:Node = best_house_factory.get("house")
 #		if (best_house != self):
-			
-		for asking_worker in _world.get_workers():
-			asking_worker.calculate_worker_info_for_house(self)
-		calculate_best_candidate_to_move_to_house_excluding_current()
+#		for asking_worker in _world.get_workers():
+#			asking_worker.calculate_worker_info_for_house(self)
+#		calculate_best_candidate_to_move_to_house_excluding_current()	
 		
 		var improvement:float = _best_worker_for_house.get("improvement")
 		
@@ -334,6 +333,10 @@ func calculate_best_candidate_to_move_to_house_excluding_current() -> Dictionary
 	for asking_worker in _world.get_workers():
 		if asking_worker == _worker:
 			continue
+		#Habria que excluir también los trabajadores banned
+		if is_worker_banned(asking_worker):
+			continue
+		
 		var worker_yard_info:Dictionary = asking_worker.get_precalculated_worker_info_for_house(self)
 		var disposable_income_for_yard:float = worker_yard_info.get("disposable_income")
 		var current_disposable_income:float = asking_worker.calculate_discretional_income()
@@ -373,7 +376,12 @@ func can_be_demolished():
 	return true
 	
 func next_state(cycle_arg:int) -> void:
-	_cycle += cycle_arg
+	_cycle = cycle_arg
+
+	for asking_worker in _world.get_workers():
+		asking_worker.calculate_worker_info_for_house(self)
+	calculate_best_candidate_to_move_to_house_excluding_current()
+		
 	update_rent()
 	ban_workers()
 	update_labels()

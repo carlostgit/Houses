@@ -122,7 +122,6 @@ margin_right = 507.0
 margin_bottom = 147.0
 max_value = 20.0
 value = 2.0
-ticks_on_borders = false
 
 [node name="Label" type="Label" parent="HUD/Construction/LandPrice"]
 margin_left = 4.34225

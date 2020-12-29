@@ -22,6 +22,7 @@ var _cycle:int = 0
 var _commuting_cost_per_100m:float = 0.005#per 100m
 #const COMMUTING_COST_PER_DISTANCE:float = 0.005
 
+#var _index_worker = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#pruebas:
@@ -93,9 +94,19 @@ func _process(delta):
 	#Para evitar que otros workers que andan cambiando entre casa y casa, taponen a estos
 	for worker in _workers_without_house:
 		worker.next_state(_cycle)
+	
+#	var count_worker_with_house:int = 0
+#	if _index_worker >= _workers_with_house.size():
+#		_index_worker = 0
 	for worker in _workers_with_house:
 		worker.next_state(_cycle)
-
+		#Pruebo a lamar al next_state de worker de uno en uno
+#		if count_worker_with_house==self._index_worker:
+#			worker.next_state(_cycle)
+#			self._index_worker +=1
+#			break
+#		count_worker_with_house += 1
+		#
 	
 	var time_next_state_finished = OS.get_ticks_usec()
 	var time_next_stating = time_next_state_finished - time_arrays_created

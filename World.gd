@@ -35,10 +35,21 @@ func _process(delta):
 	
 	_cycle += 1
 	
+	var time_start = OS.get_ticks_usec()
+
+#	var end = OS.get_ticks_usec()
+#	var increase_rent_time = (end-start)/1000000.0
+	#print("increase_rent_time: "+str(increase_rent_time))
+
+	
 	_workers_array.clear()
 	_houses_array.clear()	
 	_factories_array.clear()
 	_yards_array.clear()
+	
+	var time_arrays_cleared = OS.get_ticks_usec()
+	var time_clearing_arrays = time_arrays_cleared-time_start
+	
 	for node in self.get_children():
 		#print(node.get_name())
 		if (node.is_in_group("workers")):
@@ -64,16 +75,34 @@ func _process(delta):
 		if house.get_worker() == null:
 			_houses_without_worker.append(house)
 
+	var time_arrays_created = OS.get_ticks_usec()
+	var time_creating_arrays = time_arrays_created-time_arrays_cleared
+
 	for factory in _factories_array:
 		factory.next_state(_cycle)
+	var time_next_state_factories_finished = OS.get_ticks_usec()
 	for house in _houses_array:
 		house.next_state(_cycle)
+	var time_next_state_houses_finished = OS.get_ticks_usec()
 	for yard in _yards_array:
 		yard.next_state(_cycle)
+	var time_next_state_yards_finished = OS.get_ticks_usec()
 	for worker in _workers_array:
 		worker.next_state(_cycle)
 
+	
+	var time_next_state_finished = OS.get_ticks_usec()
+	var time_next_stating = time_next_state_finished - time_arrays_created
 
+	var time_next_stating_factories = time_next_state_factories_finished - time_arrays_created
+	var time_next_stating_houses = time_next_state_houses_finished - time_next_state_factories_finished
+	var time_next_stating_yards = time_next_state_yards_finished - time_next_state_houses_finished
+	var time_next_stating_workers = time_next_state_finished - time_next_state_yards_finished
+
+	print ("time_next_stating_factories: " + str(time_next_stating_factories))
+	print ("time_next_stating_houses: " + str(time_next_stating_houses))
+	print ("time_next_stating_yards: " + str(time_next_stating_yards))
+	print ("time_next_stating_workers: " + str(time_next_stating_workers))
 
 	var default_position_origin:Vector2 = Vector2(20,20)
 	var distance_between_workers:Vector2 = Vector2(0,100)
@@ -86,7 +115,16 @@ func _process(delta):
 	
 #	for worker_with_house in _workers_with_house:
 #		worker_with_house.move_to_house_position()
+	
+	var time_end = OS.get_ticks_usec()
+	var time_positioning_homeless = time_end - time_next_state_finished
 
+	var total_time = (time_end-time_start)/1000000.0
+	print("total_time: "+str(total_time))
+	print("time_clearing_arrays: "+str(time_clearing_arrays))
+	print("time_creating_arrays: "+str(time_creating_arrays))
+	print("time_next_stating: "+str(time_next_stating))
+	
 func get_houses() -> Array:
 	return _houses_array
 #	var return_array:Array = Array()
@@ -329,7 +367,7 @@ func find_best_house_factory_available_with_prospective_house(current_factory_ar
 	#var ret_value:Dictionary = {"house": best_house,"factory":best_factory}
 	var ret_value:Dictionary = {"house": best_house,"factory":best_factory, "disposable_income": best_disposable_income, "difference":difference_with_second_best, "num_options":count_num_options}
 	return ret_value
-		
+
 
 func _on_TimerShortHomeless_timeout():
 #	var default_position_origin:Vector2 = Vector2(20,20)
@@ -377,3 +415,5 @@ func on_sig_node_selected(node):
 
 func on_sig_node_deleted(node):
 	$HUD/BuildingEdition.node_deleted(node)
+
+

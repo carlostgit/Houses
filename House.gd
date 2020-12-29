@@ -160,18 +160,28 @@ func increase_rent() -> void:
 			var discretional_income:float = get_worker().calculate_discretional_income()
 
 			if discretional_income > step:
-				set_rent(new_rent)
-				#Miro si con una subida de renta el inquilino se larga
-				var factory:Node2D = get_worker().get_factory()
-				var best_house_factory:Dictionary  = _world.find_best_house_factory_available(factory,get_worker())
-				assert(best_house_factory.has("house"))
-				var house:Node2D = best_house_factory.get("house")
-	#			assert(best_house_factory.has("factory"))
-	#			var factory:Node2D = best_house_factory.get("factory")
-				if self != house:
-					if get_worker().calculate_discretional_income_for_house_and_factory(house,factory) - 0.1 > get_worker().calculate_discretional_income_for_house_and_factory(self,factory):	
-						set_rent(old_rent) #No le subo la renta para que no se largue
-
+				
+#				#Versión antigua
+#				set_rent(new_rent)
+#				#Miro si con una subida de renta el inquilino se larga
+#				var factory:Node2D = get_worker().get_factory()
+#				var best_house_factory:Dictionary  = _world.find_best_house_factory_available(factory,get_worker())
+#				assert(best_house_factory.has("house"))
+#				var house:Node2D = best_house_factory.get("house")
+#
+#				if self != house:
+#					if get_worker().calculate_discretional_income_for_house_and_factory(house,factory) - 0.1 > get_worker().calculate_discretional_income_for_house_and_factory(self,factory):	
+#						set_rent(old_rent) #No le subo la renta para que no se largue
+#				#Fin de Versión antigua
+				
+				#Cambio lo anterior por una versión en la que uso datos precalculados
+				var worker_best_option_precalc_info:Dictionary = get_worker().get_precalculated_best_house_factory()
+				var best_house:Node = worker_best_option_precalc_info.get("house")
+				if best_house == self:
+					var difference:float = worker_best_option_precalc_info.get("difference")
+					if difference > step:
+						set_rent(new_rent)
+				#
 
 func update_rent() -> void:
 #	subo renta mientras haya inquilino, y bajo cuando no lo haya
@@ -248,37 +258,48 @@ func ban_workers() -> void:
 		_banned_workers_with_cycle.erase(worker)
 
 
+#func negotiate_rent_discount() -> void:
+#	#solo cuando todavía se tiene inquilino
+#	if _worker:
+#		var old_rent:float = _rent
+#
+#		var best_house:Node2D = null
+#		var count:int = 0
+#		while best_house != self and _rent > self._minimum_rent:
+#			if count>_param_max_discount_negotiation_steps:
+#				break
+#			count += 1
+#			for asking_worker in _world.get_workers():
+#				var asking_worker_factory:Node2D = asking_worker.get_factory()
+#				var best_house_factory:Dictionary  = _world.find_best_house_factory_available(asking_worker_factory, asking_worker)
+#				best_house = best_house_factory.get("house") as Node2D
+#				if best_house and best_house == self:
+#					break
+#
+#			#Si no se encuentra ningún trabajador para el que esta sea la mejor opción
+#			#Entonces se acepta un descuento, hasta que esta casa sea la mejor opción para alguien
+#			if best_house != self:
+#				var discount_step:float = 0.1
+#
+#				var new_rent:float = get_rent() - discount_step
+#				if new_rent < self._minimum_rent:
+#					new_rent = self._minimum_rent
+#				set_rent(new_rent)
+		
+
+#Sustituyo el método anterior por una versión que usa datos precalculados
 func negotiate_rent_discount() -> void:
-	#solo cuando todavía se tiene inquilino
 	if _worker:
-		var old_rent:float = _rent
-		
-		var best_house:Node2D = null
-		var count:int = 0
-		while best_house != self and _rent > self._minimum_rent:
-			if count>_param_max_discount_negotiation_steps:
-				break
-			count += 1
-			for asking_worker in _world.get_workers():
-				var asking_worker_factory:Node2D = asking_worker.get_factory()
-				var best_house_factory:Dictionary  = _world.find_best_house_factory_available(asking_worker_factory, asking_worker)
-				best_house = best_house_factory.get("house") as Node2D
-				if best_house and best_house == self:
-					break
-			
-			#Si no se encuentra ningún trabajador para el que esta sea la mejor opción
-			#Entonces se acepta un descuento, hasta que esta casa sea la mejor opción para alguien
-			if best_house != self:
-				var discount_step:float = 0.1
-					
-				var new_rent:float = get_rent() - discount_step
-				if new_rent < self._minimum_rent:
-					new_rent = self._minimum_rent
-				set_rent(new_rent)
-		
-#		if (count>1):
-#			print ("count: "+str(count))
-		
+		var best_house_factory:Dictionary  = _worker.get_precalculated_best_house_factory()
+		var best_house:Node = best_house_factory.get("house")
+		if (best_house != self):
+			#var difference:Node = best_house_factory.get("difference")
+			var discount_step:float = 0.1
+			var new_rent:float = get_rent() - discount_step
+			if new_rent < self._minimum_rent:
+				new_rent = self._minimum_rent
+			set_rent(new_rent)
+#
 
 func _on_TimerUpdateLabel_timeout():
 	update_labels()

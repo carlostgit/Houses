@@ -286,9 +286,9 @@ func adjust_estimated_payable_rent_using_precalculated_best_candidate_info() -> 
 	var improvement:float = _best_worker_for_yard.get("improvement")
 	var estimated_payable_rent:float = self.get_estimated_payable_rent()
 	var step:float = 0.1
-	if improvement > 0:
+	if improvement >= 0 + step:
 		self.set_estimated_payable_rent(estimated_payable_rent + step)
-	elif improvement < 0:
+	elif improvement <= 0- step:
 		self.set_estimated_payable_rent(estimated_payable_rent - step)
 		
 func next_state(cycle_arg:int) -> void:

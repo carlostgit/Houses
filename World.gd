@@ -27,13 +27,20 @@ class NextStateInTurns:
 	func reset():
 		_node_index=0
 	func next_state(node_array_arg:Array, cycle_arg:int):
-		if (_node_index>=node_array_arg.size()):
-			_node_index=0
-		
-		node_array_arg[_node_index].next_state(cycle_arg)
-		_node_index += 1
+		if false==node_array_arg.empty():
+			if (_node_index>=node_array_arg.size()):
+				_node_index=0
+			
+			
+			node_array_arg[_node_index].next_state(cycle_arg)
+			_node_index += 1
 			
 var _house_next_stater:NextStateInTurns	
+var _worker_with_house_next_stater:NextStateInTurns	
+var _worker_homeless_next_stater:NextStateInTurns	
+var _factory_next_stater:NextStateInTurns
+var _yard_next_stater:NextStateInTurns
+
 	
 var _index_worker = 0
 var _index_house = 0
@@ -42,7 +49,10 @@ var _index_house = 0
 func _ready():
 	
 	_house_next_stater = NextStateInTurns.new()
-	
+	_worker_with_house_next_stater = NextStateInTurns.new()	
+	_worker_homeless_next_stater = NextStateInTurns.new()	
+	_factory_next_stater = NextStateInTurns.new()
+	_yard_next_stater = NextStateInTurns.new()	
 	
 	#pruebas:
 	#var house_instance:Node = house_resource.instance()
@@ -98,8 +108,9 @@ func _process(delta):
 	var time_arrays_created = OS.get_ticks_usec()
 	var time_creating_arrays = time_arrays_created-time_arrays_cleared
 
-	for factory in _factories_array:
-		factory.next_state(_cycle)
+	_factory_next_stater.next_state(_factories_array,_cycle)
+#	for factory in _factories_array:
+#		factory.next_state(_cycle)
 	var time_next_state_factories_finished = OS.get_ticks_usec()
 	
 	_house_next_stater.next_state(_houses_array,_cycle)
@@ -117,29 +128,34 @@ func _process(delta):
 #		#
 
 	var time_next_state_houses_finished = OS.get_ticks_usec()
-	for yard in _yards_array:
-		yard.next_state(_cycle)
+	
+	_yard_next_stater.next_state(_yards_array,_cycle)
+#	for yard in _yards_array:
+#		yard.next_state(_cycle)
 	var time_next_state_yards_finished = OS.get_ticks_usec()
 #	for worker in _workers_array:
 #		worker.next_state(_cycle)
 	#Cambio lo anterior para dar prioridad en sus acciones a los que se han quedado sin casa
 	#Para evitar que otros workers que andan cambiando entre casa y casa, taponen a estos
-	for worker in _workers_without_house:
-		worker.next_state(_cycle)
 	
-	var count_worker_with_house:int = 0
-	if _index_worker >= _workers_with_house.size():
-		_index_worker = 0
-	for worker in _workers_with_house:
+	_worker_homeless_next_stater.next_state(_workers_without_house,_cycle)
+#	for worker in _workers_without_house:
 #		worker.next_state(_cycle)
-		#Pruebo a lamar al next_state de worker de uno en uno
-		if count_worker_with_house==self._index_worker:
-			worker.next_state(_cycle)
-			self._index_worker +=1
-			break
-		count_worker_with_house += 1
-		#
-	
+#
+	_worker_with_house_next_stater.next_state(_workers_with_house,_cycle)
+#	var count_worker_with_house:int = 0
+#	if _index_worker >= _workers_with_house.size():
+#		_index_worker = 0
+#	for worker in _workers_with_house:
+##		worker.next_state(_cycle)
+#		#Pruebo a lamar al next_state de worker de uno en uno
+#		if count_worker_with_house==self._index_worker:
+#			worker.next_state(_cycle)
+#			self._index_worker +=1
+#			break
+#		count_worker_with_house += 1
+#		#
+#
 	var time_next_state_finished = OS.get_ticks_usec()
 	var time_next_stating = time_next_state_finished - time_arrays_created
 

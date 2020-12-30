@@ -34,7 +34,8 @@ signal sig_node_selected(node)
 signal sig_node_deleted(node)
 
 var _occupancy_array:Array = []
-var _param_occupancy_array_size = 20
+var _param_occupancy_array_size = 100
+var _occupancy_rate:float 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -156,7 +157,12 @@ func update_labels() -> void:
 func increase_rent() -> void:
 	if (get_worker()):
 		var old_rent:float = get_rent()
+		
+		
 		var step:float = 0.1
+		if self.get_occupancy_rate() < 0.9:
+			step=step/5
+		
 		var new_rent:float = old_rent + step
 		
 		if old_rent<get_minimum_rent():
@@ -198,7 +204,7 @@ func update_rent() -> void:
 		#print("increase_rent_time: "+str(increase_rent_time))
 		
 #		start = OS.get_ticks_usec()
-#		negotiate_rent_discount()
+#		negotiate_rent_discount() #Esto ahora se hace desde Worker, cada vez que se va a intentar cambiar de House
 #		end = OS.get_ticks_usec()
 #		var negotiate_rent_discount_time = (end-start)/1000000.0
 		#print("negotiate_rent_discount_time: "+str(negotiate_rent_discount_time))
@@ -207,9 +213,14 @@ func update_rent() -> void:
 		if get_rent()<get_minimum_rent():
 			set_rent(get_minimum_rent())
 		else:
-			var new_rent = get_rent() - 0.1
+			var step_down:float = 0.1
+			if self.get_occupancy_rate() < 0.9:
+				step_down=step_down*5
+			var new_rent = get_rent() - step_down
 			if new_rent >= _minimum_rent:
 				set_rent(new_rent)
+			else:
+				set_rent(_minimum_rent)
 
 
 func leaving_house(worker:Node2D)-> void:
@@ -308,6 +319,9 @@ func negotiate_rent_discount() -> void:
 #
 
 func get_occupancy_rate()->float:
+	return _occupancy_rate
+		
+func calculate_occupancy_rate()->void:
 	var occupancy_rate = 0.0
 	var oc_count:int = 0
 	for occupied in _occupancy_array:
@@ -316,10 +330,7 @@ func get_occupancy_rate()->float:
 	
 	if _occupancy_array.size()>0:
 		occupancy_rate =float(oc_count)/float(_occupancy_array.size())
-	
-	return occupancy_rate
-		
-	
+	_occupancy_rate = occupancy_rate
 
 func negotiate_discount_from_house(discount_to_ask_arg:float)->bool:
 	#lo preguntan los inquilinos, antes de mudarse
@@ -340,18 +351,15 @@ func negotiate_discount_from_house(discount_to_ask_arg:float)->bool:
 			#Si la ocupación es alta, se mira a ver si hay otros trabajadores interesados en la casa antes de aceptar el descuento
 			var improvement:float = _best_worker_for_house.get("improvement")
 			
-			var cost_of_changing = 0.1
+			var cost_of_changing = 0.2
 			if improvement <= -discount_to_ask_arg+cost_of_changing:
 				self.set_rent(get_rent() - discount_to_ask_arg)
 				return true
+			else:
+				return false
+		#Si la ocupación es baja, se aceptan más descuentos. S
 		else:
-			#Si la ocupación es baja, se aceptan más descuentos. S
-			#se aceptarán descuentos siempre que los ingresos netos no queden negativos
-			#Lo hago para eviar que haya inquilinos saltanto continuamente entre varias casa
-			var discretional_income:float = self._worker.calculate_discretional_income()
-			if discretional_income>=discount_to_ask_arg:
-				self.set_rent(get_rent() - discount_to_ask_arg)
-				return true
+			return true	
 	
 	return false
 
@@ -414,6 +422,7 @@ func next_state(cycle_arg:int) -> void:
 	update_rent()
 	ban_workers()
 	update_occupancy_array()
+	calculate_occupancy_rate()
 	update_labels()
 	
 func update_occupancy_array()->void:

@@ -28,7 +28,7 @@ var _banned_workers_with_cycle:Dictionary = {} #banned_worker:Node2D - cycle_whe
 var _leaving_tenants_with_cycle:Array = [] #worker:Node2D
 var _min_cycles_before_leaving_again:int = 1 
 
-var _best_worker_for_house:Dictionary
+var _best_external_worker_for_house:Dictionary
 
 signal sig_node_selected(node)
 signal sig_node_deleted(node)
@@ -101,7 +101,7 @@ func set_rent(rent_arg:float) -> void:
 	_rent = rent_arg
 	var rent_rounded:float = stepify(_rent, 0.01)
 	$RentLabel.set_text(str(rent_rounded)+"$")
-
+	
 	
 #func evict_worker() -> void:
 #	#No sé si debería llamar a algún método de _tenant
@@ -349,7 +349,7 @@ func negotiate_discount_from_house(discount_to_ask_arg:float)->bool:
 		var occupancy_rate:float = get_occupancy_rate()
 		if(occupancy_rate>0.98):
 			#Si la ocupación es alta, se mira a ver si hay otros trabajadores interesados en la casa antes de aceptar el descuento
-			var improvement:float = _best_worker_for_house.get("improvement")
+			var improvement:float = _best_external_worker_for_house.get("improvement")
 			
 			var cost_of_changing = 0.2
 			if improvement <= -discount_to_ask_arg+cost_of_changing:
@@ -382,8 +382,8 @@ func calculate_best_candidate_to_move_to_house_excluding_current() -> Dictionary
 			best_improvement = improvement
 			
 	#improvement es la mejora que tendría el worker si se moviera al yard
-	_best_worker_for_house = {"worker":best_worker,"improvement":best_improvement}
-	return _best_worker_for_house
+	_best_external_worker_for_house = {"worker":best_worker,"improvement":best_improvement}
+	return _best_external_worker_for_house
 
 
 func _on_TimerUpdateLabel_timeout():
@@ -410,20 +410,50 @@ func clear_before_removing():
 
 func can_be_demolished():
 	return true
-	
-func next_state(cycle_arg:int) -> void:
-	_cycle = cycle_arg
 
+func precalculate()->void:
 	for asking_worker in _world.get_workers():
 		asking_worker.calculate_worker_info_for_house(self)
 	calculate_best_candidate_to_move_to_house_excluding_current()
 	
+func next_state(cycle_arg:int) -> void:
 	
+	_cycle = cycle_arg
+
+	var time_start = OS.get_ticks_usec()
+	precalculate()	
+	
+	var time_precalculated = OS.get_ticks_usec()
+	var time_precalculating_house = time_precalculated - time_start
+
 	update_rent()
+	
+	var time_rent_updated = OS.get_ticks_usec()
+	var time_updating_rent_house =  time_rent_updated - time_precalculated
+				
 	ban_workers()
-	update_occupancy_array()
+
+	var time_workers_banned = OS.get_ticks_usec()	
+	var time_banning_house = time_workers_banned - time_rent_updated
+	
+	update_occupancy_array()	
 	calculate_occupancy_rate()
+	
+	var time_occup_rate_calculated = OS.get_ticks_usec()	
+	var time_calc_occup_house = time_occup_rate_calculated - time_workers_banned
+	
 	update_labels()
+	
+	var time_labels_updated = OS.get_ticks_usec()	
+	var time_updating_labels = time_labels_updated - time_occup_rate_calculated
+
+
+#	print("time_precalculating_house: "+str(time_precalculating_house))
+#	print("time_updating_rent_house: "+str(time_updating_rent_house))
+#	print("time_banning_house: "+str(time_banning_house))	
+#	print("time_calc_occup_house: "+str(time_calc_occup_house))	
+#	print("time_updating_labels: "+str(time_updating_labels))	
+	
 	
 func update_occupancy_array()->void:
 	

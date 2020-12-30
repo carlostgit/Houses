@@ -37,8 +37,6 @@ script = ExtResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-drag_margin_h_enabled = false
-drag_margin_v_enabled = false
 script = ExtResource( 2 )
 
 [node name="Worker" parent="." groups=[
@@ -107,7 +105,6 @@ transform = Transform2D( 0.9, 0, 0, 0.9, 0, 0 )
 script = ExtResource( 6 )
 
 [node name="Construction" type="Panel" parent="HUD"]
-editor/display_folded = true
 margin_left = 576.0
 margin_top = 411.0
 margin_right = 1106.0
@@ -318,7 +315,6 @@ text = "5"
 script = ExtResource( 27 )
 
 [node name="NavigationPanel" type="Panel" parent="HUD"]
-editor/display_folded = true
 margin_left = 680.0
 margin_top = 36.8907
 margin_right = 1018.0
@@ -367,7 +363,6 @@ margin_bottom = 41.0
 text = "Zoom out"
 
 [node name="BuildingEdition" type="Panel" parent="HUD"]
-editor/display_folded = true
 margin_left = 685.478
 margin_top = 211.398
 margin_right = 1018.48
@@ -375,7 +370,6 @@ margin_bottom = 390.398
 script = ExtResource( 28 )
 
 [node name="FactoryEdition" type="Panel" parent="HUD/BuildingEdition"]
-editor/display_folded = true
 margin_left = -5.0
 margin_top = 4.0
 margin_right = 329.0
@@ -412,7 +406,6 @@ margin_bottom = 151.971
 text = "Cancel"
 
 [node name="YardEdition" type="Panel" parent="HUD/BuildingEdition"]
-editor/display_folded = true
 margin_left = -5.0
 margin_top = 4.0
 margin_right = 329.0
@@ -450,7 +443,6 @@ margin_bottom = 151.971
 text = "Cancel"
 
 [node name="HouseEdition" type="Panel" parent="HUD/BuildingEdition"]
-editor/display_folded = true
 margin_left = -5.0
 margin_top = 4.0
 margin_right = 329.0

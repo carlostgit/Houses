@@ -22,7 +22,9 @@ var _cycle:int = 0
 var _commuting_cost_per_100m:float = 0.005#per 100m
 #const COMMUTING_COST_PER_DISTANCE:float = 0.005
 
-#var _index_worker = 0
+var _index_worker = 0
+var _index_house = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#pruebas:
@@ -82,8 +84,20 @@ func _process(delta):
 	for factory in _factories_array:
 		factory.next_state(_cycle)
 	var time_next_state_factories_finished = OS.get_ticks_usec()
+	
+	var count_house:int = 0
+	if _index_house >= _houses_array.size():
+		_index_house = 0
 	for house in _houses_array:
-		house.next_state(_cycle)
+#		house.next_state(_cycle)
+		#Pruebo a lamar al next_state de uno en uno
+		if count_house==self._index_house:
+			house.next_state(_cycle)
+			self._index_house +=1
+			break
+		count_house += 1
+		#
+
 	var time_next_state_houses_finished = OS.get_ticks_usec()
 	for yard in _yards_array:
 		yard.next_state(_cycle)
@@ -95,17 +109,17 @@ func _process(delta):
 	for worker in _workers_without_house:
 		worker.next_state(_cycle)
 	
-#	var count_worker_with_house:int = 0
-#	if _index_worker >= _workers_with_house.size():
-#		_index_worker = 0
+	var count_worker_with_house:int = 0
+	if _index_worker >= _workers_with_house.size():
+		_index_worker = 0
 	for worker in _workers_with_house:
-		worker.next_state(_cycle)
+#		worker.next_state(_cycle)
 		#Pruebo a lamar al next_state de worker de uno en uno
-#		if count_worker_with_house==self._index_worker:
-#			worker.next_state(_cycle)
-#			self._index_worker +=1
-#			break
-#		count_worker_with_house += 1
+		if count_worker_with_house==self._index_worker:
+			worker.next_state(_cycle)
+			self._index_worker +=1
+			break
+		count_worker_with_house += 1
 		#
 	
 	var time_next_state_finished = OS.get_ticks_usec()
@@ -141,6 +155,7 @@ func _process(delta):
 	print("time_clearing_arrays: "+str(time_clearing_arrays))
 	print("time_creating_arrays: "+str(time_creating_arrays))
 	print("time_next_stating: "+str(time_next_stating))
+	print("self.get_child_count(): "+str(self.get_child_count()))
 	
 func get_houses() -> Array:
 	return _houses_array

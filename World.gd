@@ -22,11 +22,28 @@ var _cycle:int = 0
 var _commuting_cost_per_100m:float = 0.005#per 100m
 #const COMMUTING_COST_PER_DISTANCE:float = 0.005
 
+class NextStateInTurns:
+	var _node_index:int = 0
+	func reset():
+		_node_index=0
+	func next_state(node_array_arg:Array, cycle_arg:int):
+		if (_node_index>=node_array_arg.size()):
+			_node_index=0
+		
+		node_array_arg[_node_index].next_state(cycle_arg)
+		_node_index += 1
+			
+var _house_next_stater:NextStateInTurns	
+	
 var _index_worker = 0
 var _index_house = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	_house_next_stater = NextStateInTurns.new()
+	
+	
 	#pruebas:
 	#var house_instance:Node = house_resource.instance()
 	#self.add_child(house_instance)
@@ -85,18 +102,19 @@ func _process(delta):
 		factory.next_state(_cycle)
 	var time_next_state_factories_finished = OS.get_ticks_usec()
 	
-	var count_house:int = 0
-	if _index_house >= _houses_array.size():
-		_index_house = 0
-	for house in _houses_array:
-#		house.next_state(_cycle)
-		#Pruebo a lamar al next_state de uno en uno
-		if count_house==self._index_house:
-			house.next_state(_cycle)
-			self._index_house +=1
-			break
-		count_house += 1
-		#
+	_house_next_stater.next_state(_houses_array,_cycle)
+#	var count_house:int = 0
+#	if _index_house >= _houses_array.size():
+#		_index_house = 0
+#	for house in _houses_array:
+##		house.next_state(_cycle)
+#		#Pruebo a lamar al next_state de uno en uno
+#		if count_house==self._index_house:
+#			house.next_state(_cycle)
+#			self._index_house +=1
+#			break
+#		count_house += 1
+#		#
 
 	var time_next_state_houses_finished = OS.get_ticks_usec()
 	for yard in _yards_array:

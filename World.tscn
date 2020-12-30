@@ -111,13 +111,16 @@ margin_right = 1106.0
 margin_bottom = 658.0
 mouse_filter = 1
 script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="LandPrice" type="HSlider" parent="HUD/Construction"]
 margin_left = 277.0
 margin_top = 123.0
 margin_right = 507.0
 margin_bottom = 147.0
-max_value = 20.0
+max_value = 10.0
 value = 2.0
 
 [node name="Label" type="Label" parent="HUD/Construction/LandPrice"]
@@ -141,6 +144,7 @@ margin_left = 285.0
 margin_top = 161.0
 margin_right = 501.0
 margin_bottom = 177.0
+max_value = 10.0
 ticks_on_borders = true
 
 [node name="Label" type="Label" parent="HUD/Construction/MinimumRent"]
@@ -230,7 +234,7 @@ margin_left = 267.0
 margin_top = -17.2536
 margin_right = 493.0
 margin_bottom = -1.25361
-max_value = 20.0
+max_value = 10.0
 value = 2.0
 ticks_on_borders = true
 

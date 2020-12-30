@@ -164,10 +164,10 @@ func _process(delta):
 	var time_next_stating_yards = time_next_state_yards_finished - time_next_state_houses_finished
 	var time_next_stating_workers = time_next_state_finished - time_next_state_yards_finished
 
-	print ("time_next_stating_factories: " + str(time_next_stating_factories))
-	print ("time_next_stating_houses: " + str(time_next_stating_houses))
-	print ("time_next_stating_yards: " + str(time_next_stating_yards))
-	print ("time_next_stating_workers: " + str(time_next_stating_workers))
+#	print ("time_next_stating_factories: " + str(time_next_stating_factories))
+#	print ("time_next_stating_houses: " + str(time_next_stating_houses))
+#	print ("time_next_stating_yards: " + str(time_next_stating_yards))
+#	print ("time_next_stating_workers: " + str(time_next_stating_workers))
 
 	var default_position_origin:Vector2 = Vector2(20,20)
 	var distance_between_workers:Vector2 = Vector2(0,100)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://Camera2D.gd" type="Script" id=2]
@@ -29,6 +29,7 @@
 [ext_resource path="res://Salary.gd" type="Script" id=27]
 [ext_resource path="res://BuildingEdition.gd" type="Script" id=28]
 [ext_resource path="res://Yard.tscn" type="PackedScene" id=29]
+[ext_resource path="res://MaximumRent.gd" type="Script" id=30]
 
 [node name="World" type="Node2D" groups=[
 "world",
@@ -106,9 +107,9 @@ script = ExtResource( 6 )
 
 [node name="Construction" type="Panel" parent="HUD"]
 margin_left = 576.0
-margin_top = 411.0
+margin_top = 392.0
 margin_right = 1106.0
-margin_bottom = 658.0
+margin_bottom = 655.0
 mouse_filter = 1
 script = ExtResource( 7 )
 __meta__ = {
@@ -163,11 +164,36 @@ margin_bottom = -4.6598
 text = "0"
 script = ExtResource( 9 )
 
+[node name="MaximumRent" type="HSlider" parent="HUD/Construction"]
+margin_left = 282.902
+margin_top = 193.511
+margin_right = 498.902
+margin_bottom = 209.511
+max_value = 10.0
+value = 10.0
+ticks_on_borders = true
+
+[node name="Label" type="Label" parent="HUD/Construction/MaximumRent"]
+margin_left = -2.04399
+margin_top = -21.2807
+margin_right = 93.9562
+margin_bottom = 2.71933
+text = "Maximum rent:"
+valign = 1
+
+[node name="MaximumRent" type="Label" parent="HUD/Construction/MaximumRent"]
+margin_left = 102.256
+margin_top = -18.6598
+margin_right = 142.256
+margin_bottom = -4.6598
+text = "0"
+script = ExtResource( 30 )
+
 [node name="CommutingCost" type="HSlider" parent="HUD/Construction"]
 margin_left = 282.0
-margin_top = 198.0
+margin_top = 230.511
 margin_right = 505.0
-margin_bottom = 222.0
+margin_bottom = 254.511
 max_value = 5.0
 step = 0.1
 value = 0.5
@@ -323,6 +349,9 @@ margin_left = 680.0
 margin_top = 36.8907
 margin_right = 1018.0
 margin_bottom = 203.891
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ButtonDown" type="Button" parent="HUD/NavigationPanel"]
 margin_left = 142.999
@@ -368,9 +397,9 @@ text = "Zoom out"
 
 [node name="BuildingEdition" type="Panel" parent="HUD"]
 margin_left = 685.478
-margin_top = 211.398
+margin_top = 207.203
 margin_right = 1018.48
-margin_bottom = 390.398
+margin_bottom = 386.203
 script = ExtResource( 28 )
 
 [node name="FactoryEdition" type="Panel" parent="HUD/BuildingEdition"]
@@ -562,6 +591,8 @@ text = "100m"
 [connection signal="value_changed" from="HUD/Construction/LandPrice" to="HUD/Construction/LandPrice/PriceLabel" method="_on_LandPrice_value_changed"]
 [connection signal="value_changed" from="HUD/Construction/MinimumRent" to="." method="_on_MinimumRent_value_changed"]
 [connection signal="value_changed" from="HUD/Construction/MinimumRent" to="HUD/Construction/MinimumRent/MinimumRent" method="_on_MinimumRent_value_changed"]
+[connection signal="value_changed" from="HUD/Construction/MaximumRent" to="." method="_on_MaximumRent_value_changed"]
+[connection signal="value_changed" from="HUD/Construction/MaximumRent" to="HUD/Construction/MaximumRent/MaximumRent" method="_on_MaximumRent_value_changed"]
 [connection signal="value_changed" from="HUD/Construction/CommutingCost" to="." method="_on_CommutingCost_value_changed"]
 [connection signal="value_changed" from="HUD/Construction/CommutingCost" to="HUD/Construction/CommutingCost/CommutingCostLabel" method="_on_CommutingCost_value_changed"]
 [connection signal="option_selected" from="HUD/Construction/RemovePerson" to="HUD/Construction" method="_on_RemovePerson_option_selected"]

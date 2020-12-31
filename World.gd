@@ -518,3 +518,10 @@ func on_sig_node_deleted(node):
 	$HUD/BuildingEdition.node_deleted(node)
 
 
+
+
+func _on_MaximumRent_value_changed(value):
+	var param_value:float = value
+	for node in self.get_children():
+		if node.is_in_group("houses"):
+			node.set_maximum_rent(value)

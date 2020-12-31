@@ -256,8 +256,10 @@ func get_workers_without_house() -> Array:
 func get_available_houses(worker_arg) -> Array:
 	var houses:Array = []
 	for house in _houses_without_worker:
-		if false == house.is_worker_banned(worker_arg):
+		if false == house.is_worker_banned(worker_arg) and house.is_available():
 			houses.push_back(house)
+		
+			
 	if worker_arg:
 		if worker_arg.get_house():
 			houses.append(worker_arg.get_house())

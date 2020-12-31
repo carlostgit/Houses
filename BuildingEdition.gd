@@ -87,3 +87,11 @@ func node_deleted(node):
 	if _selected_node==node:
 		_selected_node = null
 		new_selected_node(null)
+
+
+func _on_MaximumRent_value_changed(value):
+	var param_value:float = value
+	if _selected_node != null:
+		if _selected_node.is_in_group("houses"):
+			_selected_node.set_maximum_rent(value)
+

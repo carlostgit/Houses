@@ -9,6 +9,8 @@ var _worker:Node2D = null
 
 var _minimum_rent:float = 0.0
 
+var _maximum_rent:float = 10
+
 var _world:Node2D = null
 
 var _cycle:int = 0
@@ -21,7 +23,7 @@ export var _param_max_discount_negotiation_steps:int = 3
 #Temporarily banned workers
 #Hay que penalizar temporalmente a los trabajadores que abandonen la casa
 #sin llevar mucho tiempo, para que no anden largándose y volviendo de forma intermitente
-var _ban_time:int = 10 #cycles
+var _ban_time:int = 5 #cycles
 var _banned_workers_with_cycle:Dictionary = {} #banned_worker:Node2D - cycle_when_banned:int
 
 #Se mirara que inquilinos han abandonado la casa los últimos 5 ciclos
@@ -129,6 +131,14 @@ func set_minimum_rent(minimum_rent_arg:float) -> void:
 func get_minimum_rent()->float:
 	return _minimum_rent
 
+
+func set_maximum_rent(maximum_rent_arg:float) -> void:
+	_maximum_rent = maximum_rent_arg
+	
+func get_maximum_rent()->float:
+	return _maximum_rent
+
+
 func get_position_for_worker() -> Vector2:
 	var house_pos:Vector2 = self.get_position()
 	var worker_separation:Vector2 = Vector2(-40,0)
@@ -153,11 +163,25 @@ func update_labels() -> void:
 	var minimum_rent:float = self.get_minimum_rent()
 	var minimum_rent_rounded:float = stepify(minimum_rent, 0.01)
 	$MinimumRentLabel.set_text(str(minimum_rent_rounded)+"$")
+
 	
+	var maximum_rent:float = self.get_maximum_rent()
+	var maximum_rent_rounded:float = stepify(maximum_rent, 0.01)
+	$MaximumRentLabel.set_text(str(maximum_rent_rounded)+"$")
+
+
+func is_available()->bool:
+	if get_minimum_rent()>get_maximum_rent():
+		return false
+	else:
+		return true
+
 func increase_rent() -> void:
 	if (get_worker()):
-		var old_rent:float = get_rent()
 		
+		var old_rent:float = get_rent()	
+		if old_rent==get_maximum_rent():
+			return
 		
 		var step:float = 0.1
 		if self.get_occupancy_rate() < 0.9:
@@ -165,9 +189,13 @@ func increase_rent() -> void:
 		
 		var new_rent:float = old_rent + step
 		
+		if new_rent>get_maximum_rent():
+			new_rent = get_maximum_rent()
+		
 		if old_rent<get_minimum_rent():
 			set_rent(new_rent)
 		else:
+			
 			var discretional_income:float = get_worker().calculate_discretional_income()
 
 			if discretional_income > step:
@@ -213,8 +241,8 @@ func update_rent() -> void:
 		if get_rent()<get_minimum_rent():
 			set_rent(get_minimum_rent())
 		else:
-			var step_down:float = 0.1
-			if self.get_occupancy_rate() < 0.9:
+			var step_down:float = 0.2
+			if self.get_occupancy_rate() < 0.95:
 				step_down=step_down*5
 			var new_rent = get_rent() - step_down
 			if new_rent >= _minimum_rent:
@@ -421,6 +449,14 @@ func next_state(cycle_arg:int) -> void:
 	_cycle = cycle_arg
 
 	var time_start = OS.get_ticks_usec()
+	
+	if false==is_available():
+		if _worker:
+			_worker.set_factory(null)
+		if _worker:
+			_worker.set_house(null)
+		return
+	
 	precalculate()	
 	
 	var time_precalculated = OS.get_ticks_usec()

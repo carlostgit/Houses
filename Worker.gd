@@ -274,10 +274,22 @@ func update_labels() -> void:
 		commuting_line.set_width(1.0)
 		commuting_line.set_default_color(Color(200.0/255.0,200.0/255.0,255.0/255.0))
 		
-		var house_width:float = _house.get_house_width()
-		var house_width_vect:Vector2 = Vector2(house_width,0)
-		commuting_line.add_point(_house.get_position() + house_width_vect)
-		commuting_line.add_point(_factory.get_position())
+#		var house_width:float = _house.get_house_width()
+#		var house_height:float = _house.get_house_height()
+#		var house_width_vect:Vector2 = Vector2(house_width,0)
+#		var house_height_vect:Vector2 = Vector2(0,house_height)
+#		var house_half_width_vect:Vector2 = house_width_vect/2
+#		var house_half_height_vect:Vector2 = house_height_vect/2
+#
+		var house_half_width_vect:Vector2 = Vector2(_house.get_house_width(),0)/2.0
+		var house_half_height_vect:Vector2 = Vector2(0,_house.get_house_height())/2.0
+		
+		var factory_half_width_vect:Vector2 = Vector2(_factory.get_factory_width(),0)/2.0
+		var factory_half_height_vect:Vector2 = Vector2(0,_factory.get_factory_height())/2.0
+		
+		
+		commuting_line.add_point(_house.get_position() + house_half_width_vect+house_half_height_vect)
+		commuting_line.add_point(_factory.get_position() + factory_half_width_vect+factory_half_height_vect)
 		_commuting_lines.append(commuting_line)
 		if _world:
 			_world.add_child(commuting_line)

@@ -122,3 +122,11 @@ func _on_FactoryTexture_gui_input(event):
 
 func _on_Factory_tree_exiting():
 	emit_signal("sig_node_deleted",self)
+
+
+func get_factory_width() -> int:
+	return $FactoryTexture.get_texture().get_width()
+
+
+func get_factory_height() -> int:
+	return $FactoryTexture.get_texture().get_height()

@@ -42,10 +42,13 @@ margin_left = 57.0
 margin_top = -24.8493
 margin_right = 84.0
 margin_bottom = -4.84928
-custom_colors/font_color = Color( 0.498039, 1, 0.392157, 1 )
+custom_colors/font_color = Color( 0.980392, 1, 0.392157, 1 )
 text = "0$"
 align = 2
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TimerUpdateLabel" type="Timer" parent="."]
 wait_time = 0.1

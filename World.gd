@@ -185,11 +185,11 @@ func _process(delta):
 	var time_positioning_homeless = time_end - time_next_state_finished
 
 	var total_time = (time_end-time_start)/1000000.0
-	print("total_time: "+str(total_time))
-	print("time_clearing_arrays: "+str(time_clearing_arrays))
-	print("time_creating_arrays: "+str(time_creating_arrays))
-	print("time_next_stating: "+str(time_next_stating))
-	print("self.get_child_count(): "+str(self.get_child_count()))
+#	print("total_time: "+str(total_time))
+#	print("time_clearing_arrays: "+str(time_clearing_arrays))
+#	print("time_creating_arrays: "+str(time_creating_arrays))
+#	print("time_next_stating: "+str(time_next_stating))
+#	print("self.get_child_count(): "+str(self.get_child_count()))
 	
 func get_houses() -> Array:
 	return _houses_array

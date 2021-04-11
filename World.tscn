@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://Camera2D.gd" type="Script" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://BuildingEdition.gd" type="Script" id=28]
 [ext_resource path="res://Yard.tscn" type="PackedScene" id=29]
 [ext_resource path="res://MaximumRent.gd" type="Script" id=30]
+[ext_resource path="res://france_flag.png" type="Texture" id=31]
 
 [node name="World" type="Node2D" groups=[
 "world",
@@ -57,39 +58,251 @@ _name = "b"
 position = Vector2( 60, 230 )
 _name = "c"
 
-[node name="House" parent="." groups=[
-"houses",
-] instance=ExtResource( 4 )]
-position = Vector2( 157, 70 )
+[node name="Worker8" parent="." groups=[
+"workers",
+] instance=ExtResource( 3 )]
+position = Vector2( 60, 300 )
+_name = "c"
+
+[node name="Worker4" parent="." groups=[
+"workers",
+] instance=ExtResource( 3 )]
+position = Vector2( 60, 590 )
+_name = "c"
+_country = ""
+
+[node name="Worker5" parent="." groups=[
+"workers",
+] instance=ExtResource( 3 )]
+position = Vector2( 60, 650 )
+_name = "c"
+_country = ""
+
+[node name="Worker6" parent="." groups=[
+"workers",
+] instance=ExtResource( 3 )]
+position = Vector2( 60, 720 )
+_name = "c"
+_country = ""
+
+[node name="Worker7" parent="." groups=[
+"workers",
+] instance=ExtResource( 3 )]
+position = Vector2( 60, 780 )
+_name = "c"
+_country = ""
 
 [node name="House3" parent="." groups=[
 "houses",
 ] instance=ExtResource( 4 )]
-position = Vector2( 157, 150 )
+position = Vector2( 1836.24, 261.39 )
 
-[node name="Factory" parent="." groups=[
-"factories",
-] instance=ExtResource( 5 )]
-position = Vector2( 270, 70 )
-_salary = 8.0
+[node name="House7" parent="." groups=[
+"houses",
+] instance=ExtResource( 4 )]
+position = Vector2( 1840, 340 )
+
+[node name="House9" parent="." groups=[
+"houses",
+] instance=ExtResource( 4 )]
+position = Vector2( 1840, 420 )
+
+[node name="House10" parent="." groups=[
+"houses",
+] instance=ExtResource( 4 )]
+position = Vector2( 1840, 500 )
+
+[node name="House6" parent="." groups=[
+"houses",
+] instance=ExtResource( 4 )]
+position = Vector2( 160, 260 )
+_country = ""
+
+[node name="House8" parent="." groups=[
+"houses",
+] instance=ExtResource( 4 )]
+position = Vector2( 160, 340 )
+_country = ""
+
+[node name="House13" parent="." groups=[
+"houses",
+] instance=ExtResource( 4 )]
+position = Vector2( 160, 420 )
+_country = ""
+
+[node name="House14" parent="." groups=[
+"houses",
+] instance=ExtResource( 4 )]
+position = Vector2( 160, 500 )
+_country = ""
 
 [node name="Factory3" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
-position = Vector2( 270, 150 )
-_salary = 4.0
+position = Vector2( 1280, 260 )
+_salary = 5.0
 
 [node name="Factory10" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
-position = Vector2( 390, 150 )
-_salary = 6.0
+position = Vector2( 1280, 100 )
+_salary = 5.0
+
+[node name="Factory13" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 1280, 420 )
+_salary = 5.0
+
+[node name="Factory21" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 1280, 580 )
+_salary = 5.0
 
 [node name="Factory4" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
-position = Vector2( 270, 240 )
+position = Vector2( 1730, 100 )
 _salary = 4.0
+
+[node name="Factory17" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 1730, 180 )
+_salary = 4.0
+
+[node name="Factory5" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 1730, 260 )
+_salary = 4.0
+
+[node name="Factory18" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 1730, 340 )
+_salary = 4.0
+
+[node name="Factory23" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 1730, 420 )
+_salary = 4.0
+
+[node name="Factory24" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 1730, 500 )
+_salary = 4.0
+
+[node name="Factory25" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 1730, 580 )
+_salary = 4.0
+
+[node name="Factory26" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 1730, 660 )
+_salary = 2.0
+
+[node name="Factory6" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 930, 100 )
+_salary = 4.0
+
+[node name="Factory7" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 933, 180 )
+_salary = 4.0
+
+[node name="Factory8" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 933, 260 )
+_salary = 4.0
+
+[node name="Factory15" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 933, 340 )
+_salary = 4.0
+
+[node name="Factory16" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 933, 420 )
+_salary = 4.0
+
+[node name="Factory31" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 933, 500 )
+_salary = 4.0
+
+[node name="Factory32" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 933, 580 )
+_salary = 4.0
+
+[node name="Factory33" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 933, 660 )
+_salary = 4.0
+
+[node name="Factory9" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 260, 100 )
+_salary = 1.0
+
+[node name="Factory11" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 260, 180 )
+_salary = 1.0
+
+[node name="Factory12" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 260, 260 )
+_salary = 1.0
+
+[node name="Factory19" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 260, 340 )
+_salary = 1.0
+
+[node name="Factory27" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 260, 420 )
+_salary = 1.0
+
+[node name="Factory28" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 260, 500 )
+_salary = 1.0
+
+[node name="Factory29" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 260, 580 )
+_salary = 1.0
+
+[node name="Factory30" parent="." groups=[
+"factories",
+] instance=ExtResource( 5 )]
+position = Vector2( 260, 660 )
+_salary = 1.0
 
 [node name="TimerShortHomeless" type="Timer" parent="."]
 autostart = true
@@ -208,12 +421,15 @@ text = "Commuting cost (100m):"
 valign = 1
 
 [node name="CommutingCostLabel" type="Label" parent="HUD/Construction/CommutingCost"]
-margin_left = 172.0
+margin_left = 142.0
 margin_top = -18.0
-margin_right = 212.0
+margin_right = 182.0
 margin_bottom = -4.0
 text = "0.5"
 script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="RemovePerson" type="TextureButton" parent="HUD/Construction"]
 margin_left = 184.065
@@ -238,6 +454,9 @@ margin_right = 139.732
 margin_bottom = 130.893
 texture_normal = ExtResource( 15 )
 script = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Cancel" type="TextureButton" parent="HUD/Construction"]
 margin_left = 99.7324
@@ -278,6 +497,9 @@ margin_right = 175.097
 margin_bottom = -0.181451
 text = "2"
 script = ExtResource( 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="NewHouse" type="TextureButton" parent="HUD/Construction"]
 margin_left = 100.117
@@ -294,6 +516,9 @@ margin_right = 64.0
 margin_bottom = 64.0
 texture_normal = ExtResource( 24 )
 script = ExtResource( 25 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="NewFactorySalary" type="HSlider" parent="HUD/Construction/NewFactory"]
 margin_left = 272.0
@@ -318,6 +543,9 @@ margin_right = 189.297
 margin_bottom = -1.01443
 text = "5"
 script = ExtResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="FactorySalaries" type="HSlider" parent="HUD/Construction"]
 margin_left = 279.0
@@ -343,6 +571,20 @@ margin_right = 151.212
 margin_bottom = -4.65981
 text = "5"
 script = ExtResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBoxFrench" type="CheckBox" parent="HUD/Construction"]
+margin_left = 182.195
+margin_top = 156.902
+margin_right = 249.195
+margin_bottom = 207.902
+icon = ExtResource( 31 )
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="NavigationPanel" type="Panel" parent="HUD"]
 margin_left = 680.0
@@ -552,17 +794,105 @@ text = "Cancel"
 [node name="Yard" parent="." groups=[
 "yards",
 ] instance=ExtResource( 29 )]
-position = Vector2( 390, 240 )
+position = Vector2( 1180, 180 )
+_land_cost = 2.1
 
 [node name="Yard2" parent="." groups=[
 "yards",
 ] instance=ExtResource( 29 )]
-position = Vector2( 390, 70 )
+position = Vector2( 1180, 100 )
 
 [node name="Yard3" parent="." groups=[
 "yards",
 ] instance=ExtResource( 29 )]
-position = Vector2( 157, 240 )
+position = Vector2( 1180, 260 )
+_land_cost = 2.2
+
+[node name="Yard7" parent="." groups=[
+"yards",
+] instance=ExtResource( 29 )]
+position = Vector2( 1180, 340 )
+_land_cost = 2.3
+
+[node name="Yard8" parent="." groups=[
+"yards",
+] instance=ExtResource( 29 )]
+position = Vector2( 1180, 420 )
+_land_cost = 2.4
+
+[node name="Yard9" parent="." groups=[
+"yards",
+] instance=ExtResource( 29 )]
+position = Vector2( 1180, 580 )
+_land_cost = 2.6
+
+[node name="Yard13" parent="." groups=[
+"yards",
+] instance=ExtResource( 29 )]
+position = Vector2( 1180, 660 )
+_land_cost = 2.7
+
+[node name="Yard10" parent="." groups=[
+"yards",
+] instance=ExtResource( 29 )]
+position = Vector2( 1180, 500 )
+_land_cost = 2.5
+
+[node name="Yard4" parent="." groups=[
+"yards",
+] instance=ExtResource( 29 )]
+position = Vector2( 1040, 250 )
+_land_cost = 3.0
+_country = ""
+
+[node name="Yard11" parent="." groups=[
+"yards",
+] instance=ExtResource( 29 )]
+position = Vector2( 1040, 340 )
+_land_cost = 3.1
+_country = ""
+
+[node name="Yard12" parent="." groups=[
+"yards",
+] instance=ExtResource( 29 )]
+position = Vector2( 1040, 420 )
+_land_cost = 3.2
+_country = ""
+
+[node name="Yard14" parent="." groups=[
+"yards",
+] instance=ExtResource( 29 )]
+position = Vector2( 1040, 500 )
+_land_cost = 3.3
+_country = ""
+
+[node name="Yard15" parent="." groups=[
+"yards",
+] instance=ExtResource( 29 )]
+position = Vector2( 1040, 580 )
+_land_cost = 3.4
+_country = ""
+
+[node name="Yard16" parent="." groups=[
+"yards",
+] instance=ExtResource( 29 )]
+position = Vector2( 1040, 660 )
+_land_cost = 3.5
+_country = ""
+
+[node name="Yard5" parent="." groups=[
+"yards",
+] instance=ExtResource( 29 )]
+position = Vector2( 1040, 180 )
+_land_cost = 2.9
+_country = ""
+
+[node name="Yard6" parent="." groups=[
+"yards",
+] instance=ExtResource( 29 )]
+position = Vector2( 1040, 100 )
+_land_cost = 2.8
+_country = ""
 
 [node name="Scale" type="Node2D" parent="."]
 position = Vector2( 0, -40 )

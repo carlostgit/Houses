@@ -83,6 +83,12 @@ func add_object_to_world(world_coord:Vector2) -> void:
 	#var world_coord = _world_node.get_viewport_transform().affine_inverse() * event.position
 	house.set_global_position(world_coord)
 
+	if get_node("../CheckBoxFrench").is_pressed():
+		house.set_country("France")
+	else:
+		house.set_country("Pisquiao")
+
+
 #func set_new_building_mode(enabled_arg:bool):
 #	if enabled_arg:
 #		_move_image = true

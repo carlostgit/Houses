@@ -87,8 +87,11 @@ func add_object_to_world(world_coord:Vector2) -> void:
 
 	var land_cost:float = $NewYardLandCost.get_value()
 	yard.set_land_cost(land_cost)
-
-
+		
+	if get_node("../CheckBoxFrench").is_pressed():
+		yard.set_country("France")
+	else:
+		yard.set_country("Pisquiao")
 
 #func set_new_building_mode(enabled_arg:bool):
 #	if enabled_arg:

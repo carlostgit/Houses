@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Yard.gd" type="Script" id=1]
 [ext_resource path="res://yard.png" type="Texture" id=2]
+[ext_resource path="res://france_flag.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 30, 30 )
@@ -58,6 +59,11 @@ margin_top = 60.0
 margin_right = 40.0
 margin_bottom = 74.0
 text = "NAME"
+
+[node name="france_flag" type="Sprite" parent="."]
+position = Vector2( 51.5007, 6.00022 )
+scale = Vector2( 2.66667, 2.75 )
+texture = ExtResource( 3 )
 [connection signal="tree_exiting" from="." to="." method="_on_Yard_tree_exiting"]
 [connection signal="pressed" from="YardTexture" to="." method="_on_YardTexture_pressed"]
 [connection signal="timeout" from="TimerUpdateLabel" to="." method="_on_TimerUpdateLabel_timeout"]

@@ -3,7 +3,7 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-var _land_cost:float = 2.0
+export var _land_cost:float = 2.0
 
 var _min_profit_rate:float = 0.20 #*100=percentage
 
@@ -17,6 +17,8 @@ var _last_estimated_payable_rents:Array
 var _house:Node2D = preload("res://House.tscn").instance()
 
 var _name:String = ""
+
+export var _country:String = "France"
 
 var _best_worker_for_yard:Dictionary
 
@@ -36,11 +38,30 @@ func _ready():
 	_house.set_name(_name)	
 	_world.call_deferred("add_child", _house) #deferred pq _world está ocupado creando sus hijos
 
+
+	_house.set_country(_country)
+	if _country == "France":
+		$france_flag.show()
+	else:
+		$france_flag.hide()
+
+
 	self.connect("sig_node_selected", _world, "on_sig_node_selected")
 	self.connect("sig_node_deleted", _world, "on_sig_node_deleted")
 	#self.connect("tree_exited", _world, "on_sig_node_deleted3")
 
 #	probar estas conecsiones. comprobar si se está sacando el yard del tree al liberarlo
+
+func set_country(country_arg:String):
+	_country = country_arg
+	_house.set_country(country_arg)
+	if _country == "France":
+		$france_flag.show()
+	else:
+		$france_flag.hide()
+
+func get_country()->String:
+	return _country
 
 func get_new_name():
 	

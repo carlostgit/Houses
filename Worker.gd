@@ -8,6 +8,8 @@ class_name CWorker
 
 export var _name:String = "a"
 
+export var _country:String = "France"
+
 var _house:Node2D = null
 var _factory:Node2D = null
 var _world:Node2D = null
@@ -40,12 +42,37 @@ func _ready():
 		
 	$NameLabel.set_text(_name)
 	
+	if (_country == "France"):
+		var img = Image.new()
+		var itex = ImageTexture.new()
+		img.load("slacker_french.png")
+		itex.create_from_image(img)
+		$WorkerTexture.set_normal_texture(itex)
+	
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func set_country(country_arg:String):
+	_country = country_arg
+	if (_country == "France"):
+		var img = Image.new()
+		var itex = ImageTexture.new()
+		img.load("slacker_french.png")
+		itex.create_from_image(img)
+		$WorkerTexture.set_normal_texture(itex)
+	else:
+		var img = Image.new()
+		var itex = ImageTexture.new()
+		img.load("slacker.png")
+		itex.create_from_image(img)
+		$WorkerTexture.set_normal_texture(itex)
+
+func get_country()->String:
+	return _country
 
 func get_new_name():
 	
@@ -123,9 +150,13 @@ func calculate_discretional_income_for_house_and_factory(house:Node2D, factory:N
 	
 	#var commuting_expenses:float = CWorld2.s_get_commuting_expenses(house, factory)
 	var commuting_expenses:float = 0.0
+	var border_extra_cost:float = 0.0
 	if _world:
 		commuting_expenses = _world.get_commuting_expenses(house, factory)
-	var discretional_income = income - rent_expenses - commuting_expenses
+		if house and (self.get_country()!=house.get_country()):
+			border_extra_cost = _world.get_border_extra_cost()
+		
+	var discretional_income = income - rent_expenses - commuting_expenses - border_extra_cost
 	return discretional_income
 
 #static func s_calculate_discretional_income(house:Node2D, factory:Node2D) -> float:

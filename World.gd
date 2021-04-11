@@ -20,6 +20,7 @@ var _yards_array:Array = Array()
 var _cycle:int = 0
 
 var _commuting_cost_per_100m:float = 0.005#per 100m
+var _border_extra_cost:float = 1
 #const COMMUTING_COST_PER_DISTANCE:float = 0.005
 
 class NextStateInTurns:
@@ -191,6 +192,9 @@ func _process(delta):
 #	print("time_next_stating: "+str(time_next_stating))
 #	print("self.get_child_count(): "+str(self.get_child_count()))
 	
+func get_border_extra_cost()->float:
+	return _border_extra_cost
+	
 func get_houses() -> Array:
 	return _houses_array
 #	var return_array:Array = Array()
@@ -342,7 +346,10 @@ func find_best_factory_available_for_yard_and_worker(yard_arg:Node2D, worker_arg
 		var commuting_cost:float = get_commuting_expenses(yard_arg.get_house(),factory)
 		var rent:float = yard_arg.get_estimated_payable_rent()
 		var salary:float = factory.get_salary()
-		var disposable_income = salary-rent-commuting_cost
+		var extra_costs:float = 0.0
+		if worker_arg.get_country()!=yard_arg.get_country():
+			extra_costs += _border_extra_cost
+		var disposable_income = salary-rent-commuting_cost-extra_costs
 		if (disposable_income > best_disposable_income):
 			difference_with_second_best = disposable_income - best_disposable_income
 			best_disposable_income = disposable_income
@@ -375,7 +382,10 @@ func find_best_factory_available_for_house_and_worker(house_arg:Node2D, worker_a
 		var commuting_cost:float = get_commuting_expenses(house_arg,factory)
 		var rent:float = house_arg.get_rent()
 		var salary:float = factory.get_salary()
-		var disposable_income = salary-rent-commuting_cost
+		var extra_costs:float = 0.0
+		if worker_arg.get_country()!=house_arg.get_country():
+			extra_costs += _border_extra_cost
+		var disposable_income = salary-rent-commuting_cost-extra_costs
 		if (disposable_income > best_disposable_income):
 			difference_with_second_best = disposable_income - best_disposable_income
 			best_disposable_income = disposable_income
@@ -412,6 +422,9 @@ func find_best_house_factory_available(current_factory_arg:Node2D, worker_arg:No
 			var commuting_cost:float = self.get_commuting_expenses(house,factory)
 			var rent:float = house.get_rent()
 			var salary:float = factory.get_salary()
+			var extra_costs:float = 0.0
+			if worker_arg.get_country()!=house.get_country():
+				extra_costs += _border_extra_cost
 			var disposable_income = salary-rent-commuting_cost
 			if (disposable_income > best_disposable_income):
 				difference_with_second_best = disposable_income - best_disposable_income
@@ -458,6 +471,9 @@ func find_best_house_factory_available_with_prospective_house(current_factory_ar
 			var commuting_cost:float = self.get_commuting_expenses(house,factory)
 #			var rent:float = house.get_rent()
 			var salary:float = factory.get_salary()
+			var extra_costs:float = 0.0
+			if worker_arg.get_country()!=house.get_country():
+				extra_costs += _border_extra_cost
 			var disposable_income = salary-rent-commuting_cost
 			if (disposable_income > best_disposable_income):
 				difference_with_second_best = disposable_income - best_disposable_income

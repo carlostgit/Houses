@@ -25,3 +25,8 @@ func _on_NewWorker_pressed():
 	#var world_coord = _world_node.get_viewport_transform().affine_inverse() * event.position
 	#factory.set_global_position(world_coord)
 
+	if get_node("../CheckBoxFrench").is_pressed():
+		worker.set_country("France")
+	else:
+		worker.set_country("Pisquiao")
+

@@ -19,6 +19,8 @@ export var _name:String = ""
 
 export var _param_max_discount_negotiation_steps:int = 3
 
+export var _country:String = "France"
+
 #TODO
 #Temporarily banned workers
 #Hay que penalizar temporalmente a los trabajadores que abandonen la casa
@@ -46,13 +48,29 @@ func _ready():
 	
 	if (_name==""):
 		_name = get_new_name()
-	
+		
+	if _country == "France":
+		$france_flag.show()
+	else:
+		$france_flag.hide()
+			
 	self.connect("sig_node_selected", _world, "on_sig_node_selected")
 	self.connect("sig_node_deleted", _world, "on_sig_node_deleted")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func set_country(country_arg:String):
+	_country = country_arg
+	
+	if country_arg == "France":
+		$france_flag.show()
+	else:
+		$france_flag.hide()
+	
+func get_country()->String:
+	return _country
 
 func get_new_name():
 	

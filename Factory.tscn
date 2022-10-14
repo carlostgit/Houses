@@ -23,6 +23,9 @@ custom_colors/font_color = Color( 0, 1, 0, 1 )
 text = "0$"
 align = 2
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TimerUpdateLabel" type="Timer" parent="."]
 autostart = true

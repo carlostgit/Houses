@@ -29,6 +29,9 @@ hint_tooltip = "Discretional income"
 text = "0$"
 align = 2
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="IncomeLabel" type="Label" parent="."]
 margin_left = -50.0

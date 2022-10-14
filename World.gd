@@ -20,7 +20,7 @@ var _yards_array:Array = Array()
 var _cycle:int = 0
 
 var _commuting_cost_per_100m:float = 0.005#per 100m
-var _border_extra_cost:float = 1
+var _border_extra_cost:float = 0
 #const COMMUTING_COST_PER_DISTANCE:float = 0.005
 
 class NextStateInTurns:

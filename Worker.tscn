@@ -14,9 +14,13 @@ script = ExtResource( 1 )
 margin_right = 32.0
 margin_bottom = 32.0
 hint_tooltip = "Worker"
+shortcut_in_tooltip = false
 action_mode = 0
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 2 )
+texture_hover = ExtResource( 2 )
+texture_disabled = ExtResource( 2 )
+texture_focused = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

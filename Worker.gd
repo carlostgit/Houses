@@ -41,13 +41,16 @@ func _ready():
 	
 		
 	$NameLabel.set_text(_name)
-	
-	if (_country == "France"):
-		var img = Image.new()
-		var itex = ImageTexture.new()
-		img.load("slacker_french.png")
-		itex.create_from_image(img)
-		$WorkerTexture.set_normal_texture(itex)
+
+#	El siguiente código funciona en local
+#	pero no funciona cuando se exporta a HTML5.
+#	En HTML5 deja de verse la textura	
+#	if (_country == "France"):
+#		var img = Image.new()
+#		var itex = ImageTexture.new()
+#		img.load("slacker_french.png")
+#		itex.create_from_image(img)
+#		$WorkerTexture.set_normal_texture(itex)
 	
 	pass # Replace with function body.
 
@@ -58,18 +61,21 @@ func _ready():
 
 func set_country(country_arg:String):
 	_country = country_arg
-	if (_country == "France"):
-		var img = Image.new()
-		var itex = ImageTexture.new()
-		img.load("slacker_french.png")
-		itex.create_from_image(img)
-		$WorkerTexture.set_normal_texture(itex)
-	else:
-		var img = Image.new()
-		var itex = ImageTexture.new()
-		img.load("slacker.png")
-		itex.create_from_image(img)
-		$WorkerTexture.set_normal_texture(itex)
+#	El siguiente código funciona en local
+#	pero no funciona cuando se exporta a HTML5.
+#	En HTML5 deja de verse la textura
+#	if (_country == "France"):
+#		var img = Image.new()
+#		var itex = ImageTexture.new()
+#		img.load("slacker_french.png")
+#		itex.create_from_image(img)
+#		$WorkerTexture.set_normal_texture(itex)
+#	else:
+#		var img = Image.new()
+#		var itex = ImageTexture.new()
+#		img.load("slacker.png")
+#		itex.create_from_image(img)
+#		$WorkerTexture.set_normal_texture(itex)
 
 func get_country()->String:
 	return _country

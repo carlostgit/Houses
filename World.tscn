@@ -140,103 +140,103 @@ _country = ""
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 1280, 260 )
-_salary = 5.0
+_salary = 4.6
 
 [node name="Factory10" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 1280, 100 )
-_salary = 5.0
+_salary = 4.5
 
 [node name="Factory13" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 1280, 420 )
-_salary = 5.0
+_salary = 4.7
 
 [node name="Factory21" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 1280, 580 )
-_salary = 5.0
+_salary = 4.8
 
 [node name="Factory4" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 1730, 100 )
-_salary = 4.0
+_salary = 2.0
 
 [node name="Factory17" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 1730, 180 )
-_salary = 4.0
+_salary = 2.1
 
 [node name="Factory5" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 1730, 260 )
-_salary = 4.0
+_salary = 2.2
 
 [node name="Factory18" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 1730, 340 )
-_salary = 4.0
+_salary = 2.3
 
 [node name="Factory23" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 1730, 420 )
-_salary = 4.0
+_salary = 2.4
 
 [node name="Factory24" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 1730, 500 )
-_salary = 4.0
+_salary = 2.5
 
 [node name="Factory25" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 1730, 580 )
-_salary = 4.0
+_salary = 2.6
 
 [node name="Factory26" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 1730, 660 )
-_salary = 2.0
+_salary = 2.7
 
 [node name="Factory6" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 930, 100 )
-_salary = 4.0
+_salary = 3.5
 
 [node name="Factory7" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 933, 180 )
-_salary = 4.0
+_salary = 3.6
 
 [node name="Factory8" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 933, 260 )
-_salary = 4.0
+_salary = 3.7
 
 [node name="Factory15" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 933, 340 )
-_salary = 4.0
+_salary = 3.8
 
 [node name="Factory16" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 933, 420 )
-_salary = 4.0
+_salary = 3.9
 
 [node name="Factory31" parent="." groups=[
 "factories",
@@ -248,13 +248,13 @@ _salary = 4.0
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 933, 580 )
-_salary = 4.0
+_salary = 4.1
 
 [node name="Factory33" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 933, 660 )
-_salary = 4.0
+_salary = 4.2
 
 [node name="Factory9" parent="." groups=[
 "factories",
@@ -266,43 +266,43 @@ _salary = 1.0
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 260, 180 )
-_salary = 1.0
+_salary = 1.1
 
 [node name="Factory12" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 260, 260 )
-_salary = 1.0
+_salary = 1.2
 
 [node name="Factory19" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 260, 340 )
-_salary = 1.0
+_salary = 1.3
 
 [node name="Factory27" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 260, 420 )
-_salary = 1.0
+_salary = 1.4
 
 [node name="Factory28" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 260, 500 )
-_salary = 1.0
+_salary = 1.5
 
 [node name="Factory29" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 260, 580 )
-_salary = 1.0
+_salary = 1.6
 
 [node name="Factory30" parent="." groups=[
 "factories",
 ] instance=ExtResource( 5 )]
 position = Vector2( 260, 660 )
-_salary = 1.0
+_salary = 1.7
 
 [node name="TimerShortHomeless" type="Timer" parent="."]
 autostart = true
@@ -738,6 +738,9 @@ margin_left = -5.0
 margin_top = 4.0
 margin_right = 329.0
 margin_bottom = 169.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="MinimumRent" type="HSlider" parent="HUD/BuildingEdition/HouseEdition"]
 margin_left = 37.9512
@@ -842,56 +845,56 @@ _land_cost = 2.5
 "yards",
 ] instance=ExtResource( 29 )]
 position = Vector2( 1040, 250 )
-_land_cost = 3.0
+_land_cost = 2.4
 _country = ""
 
 [node name="Yard11" parent="." groups=[
 "yards",
 ] instance=ExtResource( 29 )]
 position = Vector2( 1040, 340 )
-_land_cost = 3.1
+_land_cost = 2.5
 _country = ""
 
 [node name="Yard12" parent="." groups=[
 "yards",
 ] instance=ExtResource( 29 )]
 position = Vector2( 1040, 420 )
-_land_cost = 3.2
+_land_cost = 2.6
 _country = ""
 
 [node name="Yard14" parent="." groups=[
 "yards",
 ] instance=ExtResource( 29 )]
 position = Vector2( 1040, 500 )
-_land_cost = 3.3
+_land_cost = 2.7
 _country = ""
 
 [node name="Yard15" parent="." groups=[
 "yards",
 ] instance=ExtResource( 29 )]
 position = Vector2( 1040, 580 )
-_land_cost = 3.4
+_land_cost = 2.8
 _country = ""
 
 [node name="Yard16" parent="." groups=[
 "yards",
 ] instance=ExtResource( 29 )]
 position = Vector2( 1040, 660 )
-_land_cost = 3.5
+_land_cost = 2.9
 _country = ""
 
 [node name="Yard5" parent="." groups=[
 "yards",
 ] instance=ExtResource( 29 )]
 position = Vector2( 1040, 180 )
-_land_cost = 2.9
+_land_cost = 2.3
 _country = ""
 
 [node name="Yard6" parent="." groups=[
 "yards",
 ] instance=ExtResource( 29 )]
 position = Vector2( 1040, 100 )
-_land_cost = 2.8
+_land_cost = 2.2
 _country = ""
 
 [node name="Scale" type="Node2D" parent="."]
@@ -917,14 +920,14 @@ margin_right = 70.0
 margin_bottom = -6.0
 text = "100m"
 [connection signal="timeout" from="TimerShortHomeless" to="." method="_on_TimerShortHomeless_timeout"]
-[connection signal="value_changed" from="HUD/Construction/LandPrice" to="." method="_on_LandPrice_value_changed"]
 [connection signal="value_changed" from="HUD/Construction/LandPrice" to="HUD/Construction/LandPrice/PriceLabel" method="_on_LandPrice_value_changed"]
-[connection signal="value_changed" from="HUD/Construction/MinimumRent" to="." method="_on_MinimumRent_value_changed"]
+[connection signal="value_changed" from="HUD/Construction/LandPrice" to="." method="_on_LandPrice_value_changed"]
 [connection signal="value_changed" from="HUD/Construction/MinimumRent" to="HUD/Construction/MinimumRent/MinimumRent" method="_on_MinimumRent_value_changed"]
-[connection signal="value_changed" from="HUD/Construction/MaximumRent" to="." method="_on_MaximumRent_value_changed"]
+[connection signal="value_changed" from="HUD/Construction/MinimumRent" to="." method="_on_MinimumRent_value_changed"]
 [connection signal="value_changed" from="HUD/Construction/MaximumRent" to="HUD/Construction/MaximumRent/MaximumRent" method="_on_MaximumRent_value_changed"]
-[connection signal="value_changed" from="HUD/Construction/CommutingCost" to="." method="_on_CommutingCost_value_changed"]
+[connection signal="value_changed" from="HUD/Construction/MaximumRent" to="." method="_on_MaximumRent_value_changed"]
 [connection signal="value_changed" from="HUD/Construction/CommutingCost" to="HUD/Construction/CommutingCost/CommutingCostLabel" method="_on_CommutingCost_value_changed"]
+[connection signal="value_changed" from="HUD/Construction/CommutingCost" to="." method="_on_CommutingCost_value_changed"]
 [connection signal="option_selected" from="HUD/Construction/RemovePerson" to="HUD/Construction" method="_on_RemovePerson_option_selected"]
 [connection signal="pressed" from="HUD/Construction/RemovePerson" to="HUD/Construction/RemovePerson" method="_on_RemovePerson_pressed"]
 [connection signal="option_selected" from="HUD/Construction/RemoveBuilding" to="HUD/Construction" method="_on_RemoveBuilding_option_selected"]
@@ -940,8 +943,8 @@ text = "100m"
 [connection signal="option_selected" from="HUD/Construction/NewFactory" to="HUD/Construction" method="_on_NewFactory_option_selected"]
 [connection signal="pressed" from="HUD/Construction/NewFactory" to="HUD/Construction/NewFactory" method="_on_NewFactory_pressed"]
 [connection signal="value_changed" from="HUD/Construction/NewFactory/NewFactorySalary" to="HUD/Construction/NewFactory/NewFactorySalary/SalaryLabel" method="_on_NewFactorySalary_value_changed"]
-[connection signal="value_changed" from="HUD/Construction/FactorySalaries" to="." method="_on_FactorySalaries_value_changed"]
 [connection signal="value_changed" from="HUD/Construction/FactorySalaries" to="HUD/Construction/FactorySalaries/Salary" method="_on_FactorySalaries_value_changed"]
+[connection signal="value_changed" from="HUD/Construction/FactorySalaries" to="." method="_on_FactorySalaries_value_changed"]
 [connection signal="button_down" from="HUD/NavigationPanel/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_down"]
 [connection signal="button_up" from="HUD/NavigationPanel/ButtonDown" to="Camera2D" method="_on_ButtonDown_button_up"]
 [connection signal="button_down" from="HUD/NavigationPanel/ButtonUp" to="Camera2D" method="_on_ButtonUp_button_down"]

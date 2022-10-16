@@ -28,16 +28,46 @@ _global_script_class_icons={
 
 config/name="Houses"
 run/main_scene="res://World.tscn"
+run/disable_stdout=true
+run/disable_stderr=true
 config/icon="res://icon.png"
 
-[debug]
+[display]
 
-settings/stdout/print_fps=true
-settings/stdout/verbose_stdout=true
+window/stretch/mode="viewport"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[logging]
+
+file_logging/enable_file_logging.pc=false
+
+[physics]
+
+common/physics_fps=30
 
 [rendering]
 
 quality/driver/driver_name="GLES2"
+quality/intended_usage/framebuffer_allocation=1
+quality/intended_usage/framebuffer_allocation.mobile=1
+vram_compression/import_s3tc=false
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
+quality/directional_shadow/size.mobile=1024
+quality/shadow_atlas/size.mobile=1024
+quality/shadows/filter_mode=0
+quality/reflections/texture_array_reflections=false
+quality/reflections/high_quality_ggx=false
+quality/reflections/irradiance_max_size=32
+quality/shading/force_vertex_shading=true
+quality/shading/force_lambert_over_burley=true
+quality/shading/force_blinn_over_ggx=true
+quality/filters/use_nearest_mipmap_filter=true
+gles2/compatibility/disable_half_float=true
+quality/reflections/atlas_size=1024
+quality/depth/hdr=false
 environment/default_environment="res://default_env.tres"
+quality/dynamic_fonts/use_oversampling=false

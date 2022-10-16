@@ -115,9 +115,9 @@ transform = Transform2D( 0.9, 0, 0, 0.9, 0, 0 )
 script = ExtResource( 6 )
 
 [node name="Construction" type="Panel" parent="HUD"]
-margin_left = 577.778
+margin_left = 588.889
 margin_top = 388.889
-margin_right = 1107.78
+margin_right = 1118.89
 margin_bottom = 651.889
 mouse_filter = 1
 script = ExtResource( 7 )
@@ -386,10 +386,10 @@ __meta__ = {
 }
 
 [node name="NavigationPanel" type="Panel" parent="HUD"]
-margin_left = 680.0
-margin_top = 36.8907
-margin_right = 1018.0
-margin_bottom = 203.891
+margin_left = 777.778
+margin_top = 22.2222
+margin_right = 1115.78
+margin_bottom = 189.223
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -437,10 +437,10 @@ margin_bottom = 41.0
 text = "Zoom out"
 
 [node name="BuildingEdition" type="Panel" parent="HUD"]
-margin_left = 685.478
-margin_top = 207.203
-margin_right = 1018.48
-margin_bottom = 386.203
+margin_left = 777.778
+margin_top = 200.0
+margin_right = 1110.78
+margin_bottom = 379.0
 script = ExtResource( 28 )
 
 [node name="FactoryEdition" type="Panel" parent="HUD/BuildingEdition"]
@@ -534,10 +534,10 @@ margin_bottom = 151.971
 text = "Cancel"
 
 [node name="HouseEdition" type="Panel" parent="HUD/BuildingEdition"]
-margin_left = -5.0
-margin_top = 4.0
-margin_right = 329.0
-margin_bottom = 169.0
+margin_left = 0.000118732
+margin_top = -0.000227451
+margin_right = 334.0
+margin_bottom = 165.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
